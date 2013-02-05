@@ -1,0 +1,932 @@
+
+
+<html>
+	<head>	
+		
+		<title>Translation Party</title>	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		
+		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+		<script type="text/javascript" >
+			var DB_PARTY = true;
+
+			google.load("language", "1");
+			google.load("jquery", "1.3.2");
+			google.load("jqueryui", "1.7.2");
+			
+			var eqFinder = function(){
+				var mainEl, i, id, mode, lastInput, string, input, hasRecent, resultsEl, recentEl, recentBoxEl, linksEl, permalinkEl, newPartyEl, recentPartiesEl, shareThisEl, buyEl, buyPreviewEl, inLang, outLang, aQueueCursor, aQueue, lang;
+				var lock = false; //are we in the middle of a translation? let's not mess up a good thing.
+				var RECENTQTY = 6;
+				var zazzleLink = "http://www.zazzle.com/api/create/at-238688782176150146?rf=238688782176150146&ax=DesignBlast&cg=196002874342803025&ds=true&continueUrl=http%3A%2F%2Fwww.zazzle.com%2Ftranslationparty&rut=Go%20back%20to%20translationparty's%20gallery&fwd=ProductPage&url=translationparty.com&phrase=";				
+var shirtLink = "http://rlv.zcache.com/womens_ringer_t_shirt-p235841371849760312oi8b_400.jpg?t_phrase=";
+			
+	
+				var successStrings = {
+					'uppercase' : [
+						"But it's not nice to shout in Japanese, either."
+					],
+					'lowercase' : [
+						"But would it kill you to capitalize properly?",
+					],
+					'dirty' : [
+						"Shame on you, by the way.",
+						"With language like that, you're a real goodwill ambassador!"
+					],
+					'twitter' : [
+						"This is better than Twitter, admit it."
+					],
+					'meme' : [
+						"You're sure are up on your Internet jokes!",
+						"That Internet joke is funny in any language!"
+					],
+					'tp' : [
+						"Translation Party was made by Will Carlough and Richard Boenigk. <br />Send us an email at <a href='mailto:translationparty@gmail.com'>translationparty@gmail.com</a>"
+					],
+					'really' : [
+						"If you're thinking that this is equilibrium because it repeated a set of __NUM__, you're mistaken."
+					],
+ 					'multipurpose' : [
+						"This is a real translation party!",
+						"You should move to Japan!",
+						"You've done this before, haven't you.",
+						"Okay, I get it, you like Translation Party.",
+						"That's deep, man.",
+						"Come on, you can do better than that.",
+						"That didn't even make that much sense in English.",
+                                                "You've heard about <a href='http://questionparty.com'>Question Party</a> right?",
+						"Translation Party is hiring, you know."
+					] 
+				};
+				successStrings.lowercase = successStrings.lowercase.concat(successStrings.multipurpose); //lowercase is too common
+				
+				//append message of failure to find equilibrium
+				var giveUp= function(){
+					var setQty = 8;
+					var endingSet = $(resultsEl).find('.trn:gt('+(i-setQty-1)+')');
+					var checkPoints = [3,4,5,6,7];
+					var oscillatingSet = 0;
+					for(cp=0; cp<checkPoints.length; cp++){
+						if( $(endingSet[setQty-1]).find('.trn-phrase').text() == $(endingSet[checkPoints[cp]-1]).find('.trn-phrase').text() ){
+							oscillatingSet = checkPoints[cp];
+							break;
+						}
+					}
+					
+					if(oscillatingSet > 0){
+			  			$(resultsEl).append("<div class='trn-error'><strong>It is doubtful that this phrase will ever reach equilibrium.</strong><br /> <small>Yes, I know it repeated a set of "+oscillatingSet+". That's not equilibrium.</small></div>");
+					}
+					else{
+						$(resultsEl).append("<div class='trn-error'>It is doubtful that this phrase will ever reach equilibrium.</div>");
+					}
+					$(permalinkEl).attr('href', '#'+id);
+					$(linksEl).show();
+					lock = false;
+			  		return;
+				}	
+				
+				//append message of equilibruim		
+				var declareEq= function(){
+					if(DB_PARTY){
+						$.getJSON( 'ajax', {'op':'update', 'count':i, 'id':id}, function(data){
+							if(data.status == 'ok'){
+								//recorded
+							}
+							else{
+								//?
+							}
+						});
+					}
+					var eqFound = $("<div class='trn-success'><strong>Equilibrium found!</strong> <br /><small>"+getSnark()+"</small></div>").css({'display':'none'});
+					$(resultsEl).append(eqFound);
+					addToQueue(function(){
+						$(eqFound).show("drop", {"direction":"up"}, 300, function(){
+							$(resultsEl).find("#"+(i-1)+",#"+(i-2)+",#"+(i-3)).css({'color':'green'});
+							$(permalinkEl).attr('href', '#'+id);
+							//$(buyEl).attr({'href' : zazzleLink+encodeURIComponent(html_entity_decode(string))});
+							//$(buyPreviewEl).find('img').attr({'src' : shirtLink+encodeURIComponent(html_entity_decode(string))});
+							$(linksEl).show();	
+							doQueue();
+							lock = false;
+						});
+					});
+			  		return;
+				}
+
+				var html_entity_decode = function(str) {
+					var ta=document.createElement("textarea");
+					ta.innerHTML=str.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+					return ta.value;
+				}
+
+				var getSnark = function(){
+					var snarks, rand;
+					if(input.match(/(fuck|shit|ass|tit|bitch|screw|dick|pussy|nuts|balls)/i)){
+						//dirty
+						snarks = successStrings.dirty;
+					}
+					else if(input.match(/(twitter|tweet)/i)){
+						//twitter
+						snarks = successStrings.twitter;
+					}
+					else if(input.match(/(all your base|i can ha[sz]+|never gonna)/i)){
+						//internet memes
+						snarks = successStrings.meme;
+					}
+					else if(input.match(/(translation|party|who made|who built|\bwill\b|carlough|rick|richard|boenigk)/i)){
+						//translation party related
+						snarks = successStrings.tp;
+					}
+					else if(input.match(/^[A-Z\s.\?\!]+$/)){
+						//all uppercase
+						snarks = successStrings.uppercase;
+					}
+					else if(input.match(/^[a-z\s.\?]+$/)){
+						//all lowercase
+						snarks = successStrings.lowercase;
+					}
+					else{
+						snarks = successStrings.multipurpose;
+					}
+					rand = Math.floor(Math.random()*(snarks.length));
+					return snarks[rand];
+				}
+
+				//function queue, usually animation related
+				var addToQueue = function(aFn){
+					aQueue.push(aFn);
+					if(aQueue.length-1 == aQueueCursor){
+						doQueue();
+					}
+				}
+				
+				//do next thing in the queue, or clear it out
+				var doQueue = function(){
+					if(aQueueCursor < aQueue.length){
+						aQueue[aQueueCursor].call();
+						aQueueCursor++;
+					}
+					else{
+						aQueue = [];
+						aQueueCursor = 0;
+					}
+				}
+				
+				//append next translated result
+				var appendResult= function(phrase){
+					var newTrnHtml 	= 	"<div id='" + i + "' class='trn "+outLang+"'>\
+											<div class='explain'>";
+					switch(i){
+						case 0:
+							newTrnHtml 	+= 	"let's go!";
+							break;
+						case 1:
+							newTrnHtml 	+= 	"into Japanese";
+							break;
+						default:
+							newTrnHtml 	+= 	(mode) ? "back into English" : "back into Japanese";
+							break;
+					}
+					newTrnHtml  += 	"</div><span class='trn-phrase'>"+phrase+"</span></div>";
+					
+					var newTrn = $(newTrnHtml).css({'display':'none'});
+					$(resultsEl).append(newTrn);
+					addToQueue(function(){
+						$(newTrn).show("drop", {"direction":"up"}, 300, function(){
+							doQueue();
+						});
+					});	
+				}
+				
+						  
+				//deal with response google trn remote call
+				var handleTranslationResponse= function(result){
+					if (!result.error) {
+						if (!mode) {
+							lastInput = string;
+						} 
+						string = result.Translations[0].TranslatedText;
+						appendResult(string);
+						mode = !mode;
+						i++;	      		  	
+						if(lastInput == string){
+							declareEq();
+						}
+						else{
+							if (i >50) {
+								giveUp();
+							}
+							else{
+								translate();
+							}
+						}
+					} 
+				}
+				
+				//get a new translation   
+				var translate= function(){
+					if (mode) {
+						inLang = lang;
+						outLang = 'en';
+					} else {
+						inLang = 'en';
+						outLang = lang;			  		
+					}
+					//google.language.translate(string, inLang, outLang, handleTranslationResponse);
+					$.ajax({
+						url: 'http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslations', 
+						data: {
+							'appId' : 'F2926FC35C3732CEC3E9C92913745F9C28912821',
+							'text'  : string,
+							'from'  : inLang,
+							'to'    : outLang,
+							'maxTranslations' : 1,
+						},
+						dataType: 'jsonp',
+						jsonp : 'oncomplete',
+						success: handleTranslationResponse
+					});
+				}
+
+				//set url hash with id of current phrase
+				var setHash = function(id){
+					window.location.hash = encodeURIComponent(id);
+				}
+
+				//check url hash for id (would be nice to ping this with an interval)
+				var checkHash = function(){
+					var hash = decodeURIComponent(window.location.hash.substr(1));
+					if(hash.length > 0){
+						var requestedId = parseInt(hash);
+						if(!lock){
+							lock = true;
+
+							//google tracking
+							pageTracker._trackPageview("/translate/hashparty");
+							getById(requestedId);
+						}
+					}
+				}
+
+				var getById = function(requestedId){
+					if(DB_PARTY){
+						$.getJSON( 'ajax', {'id':requestedId, 'op':'getById'}, function(data){
+							if(data.status == 'ok'){
+								id = requestedId;
+								setPhrase(data.phrase);
+								setupNewTranslation();
+								translate();
+							}
+							else{
+								lock = false;
+							}
+						});
+					}
+				}
+
+				//let's get some recent phrases as samples
+				var updateRecent = function(successFn){
+					if(DB_PARTY){
+						$.getJSON( 'ajax', {'qty':RECENTQTY, 'op':'getRecent'}, function(data){
+							if(data.status == 'ok'){
+								var recentHtml = "<ul id='recentPhrases'>";
+								for(p in data.phrases){
+									recentHtml += "<li><a href='JAVASCRIPT:void(0)' id='recentPhase_"+data.phrases[p].id+"'>"+data.phrases[p].phrase+"</a>  <span class='count'>("+data.phrases[p].count+" steps)</span></li>";
+								}	
+								recentHtml += "</ul>";
+								$(recentEl).html(recentHtml);
+								$('#recentPhrases a').click(function(){
+									if(!lock){
+										lock = true;
+										
+										//google tracking
+										pageTracker._trackPageview("/translate/crashparty");
+										
+										var requestedId = this.id.split('_')[1];
+										resetPosition(function(){
+											$(recentBoxEl).hide();
+											$(resultsEl).hide();
+											setHash(requestedId)
+											getById(requestedId);
+										});
+									}
+								});
+								hasRecent = true;
+								successFn.call(this);
+							}
+							else{
+								hasRecent = false;
+							}
+						});
+					}
+				}
+				
+				//populate phrase input form
+				var setPhrase = function(phrase){
+					$(mainEl).find("#text").val(phrase);
+				}	
+				
+				//get the value of the phrase input form
+				var getPhrase = function(){
+					return $(inputEl).val();
+				}	
+
+				var resetParty = function(){
+					//reset
+					i=0;
+					mode=true;
+					lastInput='';
+					inLang='';
+					outLang='';
+					aQueueCursor = 0;
+					aQueue = [];
+
+					$(recentBoxEl).hide();
+					$(linksEl).hide();
+					//$(buyEl).show();
+				}
+
+				//holy shit, you win
+				var freakOut = function(){
+					var freakOutEl = $('\
+						<div id="freakOut">\
+							<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/RJTbhRp7MyU&hl=fr&fs=1&autoplay=1"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/RJTbhRp7MyU&hl=fr&fs=1&autoplay=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>\
+							<p>\
+							You just had the <br />\
+							<span id="partyPartyParty" style="font-size: 1.25em">'+id+'th Translation Party!</span>\
+							</p>\
+							<p style="font-size: .75em">\
+								Send us an email at <a href="mailto: translationparty@gmail.com">translationparty@gmail.com</a> and say hi!\
+ 							</p>\
+							<p style="font-size: .75em">All set? <a href="JAVASCRIPT: void(0)" id="freakOutEnd">Keep partying!</a></p>\
+						</div>\
+					');
+					
+					$("body").animate({
+						'backgroundColor' : '#000000'
+					}, 1000);
+					$(mainEl).animate({
+						'opacity' : '0'
+					}, 1000, function(){
+						$(freakOutEl).appendTo("body");
+						$(freakOutEl).css({marginTop: '-'+$(freakOutEl).height()/2+'px'});
+						$(freakOutEl).animate({
+							'top' : '50%',
+							'opacity' : '1'
+						}, 1500, 'easeOutElastic', function(){
+							var partyEl = $(freakOutEl).find("#partyPartyParty");
+							var partyCursor = 0;
+							var partyColors = ['blue', 'red', 'yellow', 'white', 'green', 'orange'];
+							setInterval(function(){
+								$(partyEl).css({'color':partyColors[partyCursor]});
+								partyCursor = (partyCursor >= partyColors.length) ? 0 : partyCursor+1;
+							}, 75);
+						});
+						
+						// return to regularly scheduled programming
+						$(freakOutEl).find("#freakOutEnd").click(function(){
+							$(freakOutEl).animate({
+								'top' : '150%',
+								'opacity' : '0'
+							}, 1000, 'easeInQuart', function(){
+								$(freakOutEl).remove();
+								$("body").animate({
+									'backgroundColor' : '#EDEDF4'
+								}, 1000);
+								$(mainEl).animate({
+									'opacity' : '1'
+								}, 1000);
+							});
+						});
+					});
+				}
+
+				//reseting values for new ride
+				var setupNewTranslation = function(){
+					resetParty();
+					$(resultsEl).html("").show();
+					
+					//set inital value
+					input = getPhrase();
+					string = input;
+					return true;
+				}
+	
+				var resetPosition = function(callbackFn){
+					$.scrollTo(0, 500, {onAfter:callbackFn});
+				}
+				
+				//init
+				this.init = function(el){
+					lang = getQueryVariable("lang") || 'ja' ;
+					
+					mainEl = el;
+					var formHtml =  '\
+								<div id="formBox">\
+									 <div id="form">\
+									 <h2>Start with an English phrase:</h2>\
+									 <form action="JAVASCRIPT:void(0);">\
+										<input id="text"/>\
+										<input type="submit" name="submit" id="submitButton" value="find equilibrium">\
+									</form>\
+									</div>\
+									<div id="results"></div>\
+									</div>\
+									<div id="links">\
+											<div class="linksBody">\
+												<div id="branding"><small>powered by bing</small></div>\
+												<a id="permalink" href="">Link to this party</a> | \
+												<a id="newParty" href="JAVASCRIPT: void(0);">Keep partying!</a> | \
+												<a id="recentParties" href="JAVASCRIPT: void(0)">Crash other parties</a> |\
+												<span id="shareThisWrap"></span>\
+											</div>\
+									</div>\
+									<div id="recentBox">\
+									<div id="recent"></div>\
+									</div>\
+									';
+					$(mainEl).html(formHtml);
+					resultsEl = $(mainEl).find("#results");
+					inputEl = $(mainEl).find("#text");
+					recentBoxEl = $(mainEl).find("#recentBox");
+					recentEl = $(mainEl).find("#recent");
+					linksEl = $(mainEl).find("#links");
+					permalinkEl = $(mainEl).find("#permalink");
+					newPartyEl = $(mainEl).find("#newParty");
+					recentPartiesEl = $(mainEl).find("#recentParties");
+				//	buyEl = $(mainEl).find("#buy");
+				//	buyPreviewEl = $(mainEl).find("#buyPreview");
+					shareThisEl = $(mainEl).find("#shareThisWrap");
+					
+					//shareThis
+					$(shareThisEl).append($("#shareThis"));
+					
+					$(mainEl).find("form").submit(function(){
+						if(getPhrase() == ''){
+							return false;
+						}
+						if(!lock){
+							lock = true;
+
+							//google tracking
+							pageTracker._trackPageview("/translate/newparty");
+							
+							setupNewTranslation();
+							
+							//freakout test
+							if(input == 'testFreakOut'){
+								id = 1000000000;
+								freakOut();
+								return false;
+							}
+
+								
+							if(DB_PARTY){
+								$.getJSON( 'ajax', {'phrase':input, 'op':'insert'}, function(data){
+									if(data.status == 'ok'){
+										id = data.id;
+										setHash(data.id);
+										translate();
+										
+										if(id == 1000000){
+											freakOut();
+										}
+									}
+									else{
+										lock = false;
+									}
+								});
+							}
+							else{
+								translate();
+							}
+						}
+					});
+					$(newPartyEl).click(function(){
+						setPhrase('');
+						$(inputEl).get(0).focus();	
+						resetParty();
+						resetPosition(function(){
+							$(resultsEl).hide();
+						});
+					});
+
+					$(recentPartiesEl).click(function(){
+						updateRecent(function(){
+							if(hasRecent){
+								$.scrollTo(linksEl, 500);
+								//$(buyEl).slideUp("fast");
+								$(recentBoxEl).slideDown("fast");
+							}	
+						});
+					});
+					
+					/*
+					$(buyEl).mouseenter(function(){
+						var buyPos = $(buyEl).position();
+						$(buyPreviewEl).css({top: (buyPos.top-$(buyPreviewEl).height()/2)+'px', left: (buyPos.left+$(buyEl).width()+10)+'px'})
+						$(buyPreviewEl).fadeIn('fast');	
+					});
+					$(buyEl).mouseleave(function(){
+						$(buyPreviewEl).fadeOut('fast');	
+					});
+					$(buyEl).click(function(){
+						pageTracker._trackPageview("/translate/ownthisparty");
+					});
+					*/
+					checkHash();
+					//updateRecent();
+				}
+			}
+
+			function getQueryVariable(variable) { 
+			  var query = window.location.search.substring(1); 
+			  var vars = query.split("&"); 
+			  for (var i=0;i<vars.length;i++) { 
+			    var pair = vars[i].split("="); 
+			    if (pair[0] == variable) { 
+			      return pair[1]; 
+			    } 
+			  }  
+			  return null;
+			}
+
+			//google's ondomready (includes loading of all google.load scripts)
+			google.setOnLoadCallback(function(){
+				/**
+				 * jQuery.ScrollTo - Easy element scrolling using jQuery.
+				 * Copyright (c) 2007-2009 Ariel Flesler - aflesler(at)gmail(dot)com | http://flesler.blogspot.com
+				 * Dual licensed under MIT and GPL.
+				 * Date: 5/25/2009
+				 * @author Ariel Flesler
+				 * @version 1.4.2
+				 *
+				 * http://flesler.blogspot.com/2007/10/jqueryscrollto.html
+				 */
+				;(function(d){var k=d.scrollTo=function(a,i,e){d(window).scrollTo(a,i,e)};k.defaults={axis:'xy',duration:parseFloat(d.fn.jquery)>=1.3?0:1};k.window=function(a){return d(window)._scrollable()};d.fn._scrollable=function(){return this.map(function(){var a=this,i=!a.nodeName||d.inArray(a.nodeName.toLowerCase(),['iframe','#document','html','body'])!=-1;if(!i)return a;var e=(a.contentWindow||a).document||a.ownerDocument||a;return d.browser.safari||e.compatMode=='BackCompat'?e.body:e.documentElement})};d.fn.scrollTo=function(n,j,b){if(typeof j=='object'){b=j;j=0}if(typeof b=='function')b={onAfter:b};if(n=='max')n=9e9;b=d.extend({},k.defaults,b);j=j||b.speed||b.duration;b.queue=b.queue&&b.axis.length>1;if(b.queue)j/=2;b.offset=p(b.offset);b.over=p(b.over);return this._scrollable().each(function(){var q=this,r=d(q),f=n,s,g={},u=r.is('html,body');switch(typeof f){case'number':case'string':if(/^([+-]=)?\d+(\.\d+)?(px|%)?$/.test(f)){f=p(f);break}f=d(f,this);case'object':if(f.is||f.style)s=(f=d(f)).offset()}d.each(b.axis.split(''),function(a,i){var e=i=='x'?'Left':'Top',h=e.toLowerCase(),c='scroll'+e,l=q[c],m=k.max(q,i);if(s){g[c]=s[h]+(u?0:l-r.offset()[h]);if(b.margin){g[c]-=parseInt(f.css('margin'+e))||0;g[c]-=parseInt(f.css('border'+e+'Width'))||0}g[c]+=b.offset[h]||0;if(b.over[h])g[c]+=f[i=='x'?'width':'height']()*b.over[h]}else{var o=f[h];g[c]=o.slice&&o.slice(-1)=='%'?parseFloat(o)/100*m:o}if(/^\d+$/.test(g[c]))g[c]=g[c]<=0?0:Math.min(g[c],m);if(!a&&b.queue){if(l!=g[c])t(b.onAfterFirst);delete g[c]}});t(b.onAfter);function t(a){r.animate(g,j,b.easing,a&&function(){a.call(this,n,b)})}}).end()};k.max=function(a,i){var e=i=='x'?'Width':'Height',h='scroll'+e;if(!d(a).is('html,body'))return a[h]-d(a)[e.toLowerCase()]();var c='client'+e,l=a.ownerDocument.documentElement,m=a.ownerDocument.body;return Math.max(l[h],m[h])-Math.min(l[c],m[c])};function p(a){return typeof a=='object'?a:{top:a,left:a}}})(jQuery);
+				
+			
+				//lets go!
+				$('#eqFinder').each(function(){
+					var thisEqFinder = new eqFinder();
+					thisEqFinder.init(this);
+				});
+				
+			});	
+		</script>
+		<style type="text/css">
+		html, body{
+			padding: 0;
+			margin: 0;
+		}
+
+		
+		/* Lucida Hybrid http://www.brownbatterystudios.com/sixthings/2007/03/14/lucida-hybrid-the-grande-alternative/ */
+		body {
+			font-family: "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+			line-height: 135%;
+		}
+
+		strong, em, b, i {
+			font-family: "Lucida Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+		}
+
+		body{
+			_text-align: center;
+			background: #EDEDF4;
+			font-size: 150%;
+			color: #444;
+			padding-bottom: 800px; /* prevent seeing jumpinesss */
+		}
+
+		h1, h2, h3, h4{
+			font-family: 'Trebuchet MS', Helvetica, sans-serif;
+			margin: 0;
+		}
+		
+		h1{
+			display: none;
+		}
+
+		h1 span{
+			display: none;
+		}
+
+		h2{
+			margin-bottom: .5em;
+		}
+	
+
+		#freakOut{
+			color: limegreen;
+			position: absolute;
+			opacity: 0;
+			width: 500px;
+			left: 50%;
+			margin: 0 0 0 -250px;
+			text-align: center;
+		}
+		
+		#main{
+			_text-align: left;
+			width: 800px;
+			margin: 50px auto;
+			position: relative;
+		}
+
+		#recentBox,
+		#formBox{
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		}
+	
+		#formBox{
+			background: white;
+			border: 1px solid #fff;
+			margin-bottom: .75em;
+		}
+	
+		#recentBox{
+			background: #fff;
+			display: none; //start hidden
+		}
+	
+		#form{
+			padding: 1em;
+		}
+		
+		form{
+			margin: 0;
+		}
+		
+		#results{
+			display: none;
+			border-top: 2px solid #ddd;
+		}
+	
+		p{margin: 0 0 .5em;}
+	
+		#links{
+			display: none;
+			padding: 0 1em;
+			margin-bottom: 1em;
+		}
+		#links .linksBody{
+			font-size: .65em;
+			margin-bottom: 1.75em;
+		}
+		#links #yellowBar{
+			font-size: .5em;
+			color: #666;
+		}
+	
+
+		#buy{
+			background: url(tshirt.png) top left no-repeat;
+			display: block;
+			padding: 10px 0 0 60px;
+			height: 45px;
+			float: left;
+			margin-top: .25em;
+		}
+		#buy span{display: block;}
+		#buy span#buy_head{}
+		#buy span#buy_1{
+			font-size: .9em;
+		}
+		
+		#buyPreview{
+			position: absolute;
+			display: none;
+			border: 2px solid #333;
+		}
+
+		input#text{
+			font-size: 1em;
+			width: 100%;
+			margin: 0 0 .5em;
+		}
+
+
+		
+		button::-moz-focus-inner,
+    input::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+		
+		#submitButton {
+		  font-size: .85em;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      cursor: pointer;
+      position: relative;
+      padding: .5em .66em;
+      text-align: center;
+      display: -moz-inline-box;
+      -moz-box-orient: vertical;
+      display: inline-block;
+      vertical-align: middle;
+      *vertical-align: auto;
+      -moz-background-clip: padding;
+      -webkit-background-clip: padding;
+      -o-background-clip: padding-box;
+      -ms-background-clip: padding-box;
+      -khtml-background-clip: padding-box;
+      background-clip: padding-box;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -o-border-radius: 4px;
+      -ms-border-radius: 4px;
+      -khtml-border-radius: 4px;
+      border-radius: 4px;
+      -moz-transition-property: all;
+      -webkit-transition-property: all;
+      -o-transition-property: all;
+      transition-property: all;
+      -moz-transition-duration: 0.2s;
+      -webkit-transition-duration: 0.2s;
+      -o-transition-duration: 0.2s;
+      transition-duration: 0.2s;
+      text-decoration: none;
+      white-space: normal;
+      -moz-box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.4);
+      -webkit-box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.4);
+      -o-box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.4);
+      box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.4);
+      color: #fff!important;
+      border: 1px solid #666;
+      border-color: rgba(20, 20, 20, 0.15);
+      background: #3e74de;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #3e74de), color-stop(100%, #245ed0));
+      background-image: -webkit-linear-gradient(top, #3e74de, #245ed0);
+      background-image: -moz-linear-gradient(top, #3e74de, #245ed0);
+      background-image: -o-linear-gradient(top, #3e74de, #245ed0);
+      background-image: -ms-linear-gradient(top, #3e74de, #245ed0);
+      background-image: linear-gradient(top, #3e74de, #245ed0);
+      text-shadow: -1px -1px 0 #225ac7;
+    }
+
+    #submitButton:hover {
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5484e2), color-stop(100%, #316bdc));
+      background-image: -webkit-linear-gradient(top, #5484e2, #316bdc);
+      background-image: -moz-linear-gradient(top, #5484e2, #316bdc);
+      background-image: -o-linear-gradient(top, #5484e2, #316bdc);
+      background-image: -ms-linear-gradient(top, #5484e2, #316bdc);
+      background-image: linear-gradient(top, #5484e2, #316bdc);
+      text-decoration: none;
+      text-shadow: -1px -1px 0 #316bdc;
+    }
+
+    #submitButton:active {
+      background: #245ed0;
+      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #245ed0), color-stop(100%, #2054ba));
+      background-image: -webkit-linear-gradient(top, #245ed0, #2054ba);
+      background-image: -moz-linear-gradient(top, #245ed0, #2054ba);
+      background-image: -o-linear-gradient(top, #245ed0, #2054ba);
+      background-image: -ms-linear-gradient(top, #245ed0, #2054ba);
+      background-image: linear-gradient(top, #245ed0, #2054ba);
+      -moz-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, 0.25);
+      -webkit-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, 0.25);
+      -o-box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, 0.25);
+      box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, 0.25);
+      text-shadow: -1px -1px 0 #1f52b6;
+    }
+		
+	
+		a{
+			color: royalblue;
+		}
+		
+		a:link, a:visited{
+			text-decoration: none;
+		}
+		
+		a:hover{
+			text-decoration: underline;
+		}
+		
+		.trn{
+			background: white;
+			border-bottom: 1px dotted #ddd;
+			padding: .5em 1em;
+		}
+
+		.trn-error,
+		.trn-success{
+			padding: 1em;
+			color: #fff;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		}
+
+		.trn-error a.permalink,
+		.trn-success a.permalink{
+			display: block;
+			float: right;
+			margin-top: 1.2em;
+			color: #fff;
+		}
+
+		.trn-error a.permalink,
+		.trn-success a.permalink,
+		.trn-success small{
+			font-size: .65em;
+		}
+
+		.trn-success{
+			background: forestgreen;
+		}
+		
+		.trn-success a{
+			text-decoration: underline;
+			color: #fff;
+		}
+		
+		.trn-error{
+			background: red;
+		}
+
+
+
+		.trn .explain{
+			color: #777;
+			font-size: .4em;
+			float: right;
+			width: 100px;
+			padding: .25em 0 0 3em;
+			text-align: right;
+		}
+				
+		
+		ul#recentPhrases,
+		ul#recentPhrases li{
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		
+		ul#recentPhrases li{
+			border-bottom: 1px dotted #ddd;
+			padding: 1.5em 1.5em;
+			font-size: .65em;
+    	line-height: 135%;
+		}
+		ul#recentPhrases li a{
+			color: royalblue;
+	
+		}
+		
+		ul#recentPhrases li span.count{
+			font-weight: bold;
+		}
+		
+		#eqFoundArrow{
+			background: url('eqfound.png') top left no-repeat;
+			width: 172px;
+			height: 92px;
+			position: absolute;
+			top: 10px;
+			right: 1em;
+			display: none;
+		}
+		
+		#branding{
+			float: right;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div id="mainBody">
+				<h1><span>Translation Party</span></h1>
+				<div id="eqFinder">
+					<noscript>
+						<p>Please enable Javascript to experience equilibrium.</p>
+					</noscript>
+				</div>
+			</div>
+		</div>
+
+
+		<span id="shareThis">
+			<!-- AddThis Button BEGIN -->
+			<a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4a7b938b3233fc79" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0; vertical-align: middle;"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js?pub=xa-4a7b938b3233fc79"></script>
+			<!-- AddThis Button END -->
+		</span>
+		
+		<script type="text/javascript">
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		
+		<script type="text/javascript">
+		try {
+		var pageTracker = _gat._getTracker("UA-93356-4");
+		pageTracker._trackPageview();
+		} catch(err) {}</script>
+		</script>
+		
+	</body>
+</html>
