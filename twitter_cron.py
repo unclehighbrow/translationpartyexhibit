@@ -9,6 +9,8 @@ class TwitterCronHandler(webapp2.RequestHandler):
 	def get(self):
 		template_values = {}
 		search_term = self.request.get('q')
+		if not search_term:
+			search_term = '#mminyc'
 		results = urlfetch.fetch('http://search.twitter.com/search.json?q=' + search_term)
 		mentions = json.loads(results.content)
 		template_values['mentions'] = mentions['results']
