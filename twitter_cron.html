@@ -1,0 +1,7 @@
+<ul>
+	{% for mention in mentions %}
+		<li>
+			<img src="{{ mention.profile_image_url }}">{{ mention.from_user }}: {{ mention.text }}
+		</li>
+	{% endfor %}
+</ul>
