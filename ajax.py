@@ -21,7 +21,7 @@ class AjaxHandler(webapp2.RequestHandler):
 		elif op == 'getById':
 			ret['phrase'] = Party.get_by_id(int(party_id)).phrase
 		elif op == 'getRecent':
-			parties = db.GqlQuery("SELECT * FROM Party ORDER BY ctime DESC LIMIT 6")
+			parties = db.GqlQuery("SELECT * FROM Party ORDER BY order, count DESC LIMIT 10")
 			ret['phrases'] = [party_to_dict(party) for party in parties]
 		else:
 			ret['status'] = 'error'
@@ -42,5 +42,8 @@ def party_to_dict(party):
 
 class Party(db.Model):
 	phrase = db.StringProperty(required=True, indexed=True)
-	count = db.IntegerProperty(required=False, indexed=False)
+	count = db.IntegerProperty(required=False, indexed=True)
+	order = db.IntegerProperty(required=False, indexed=True)
+	source = db.StringProperty(required=False, indexed=True)
+	external_id = db.StringProperty(required=False, indexed=True)
 	ctime = db.DateTimeProperty(auto_now_add=True, indexed=True)

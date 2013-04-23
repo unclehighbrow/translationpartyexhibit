@@ -3,16 +3,28 @@
 import webapp2
 from google.appengine.ext.webapp import template
 from google.appengine.api import urlfetch
+from ajax import *
+import logging
 import json
+import string
+import re
 
 class TwitterCronHandler(webapp2.RequestHandler):
 	def get(self):
 		template_values = {}
 		search_term = self.request.get('q')
 		if not search_term:
-			search_term = '%23mminyc'
-		results = urlfetch.fetch('http://search.twitter.com/search.json?q=' + search_term)
+			search_term = 'beiber'
+		results = urlfetch.fetch('http://search.twitter.com/search.json?q=%23' + search_term)
 		mentions = json.loads(results.content)
+		for mention in mentions['results']:
+			twitter_id = mention['id_str']
+			old_party = Party.all(keys_only=True).filter('external_id', twitter_id).get()
+			if old_party is None:
+				text = string.replace(mention['text'], '#' + search_term, '')
+				text = re.sub(r'\@\w+|\#\w+|https?://\S+', '', text)
+				party = Party(phrase=text, source='twitter', order=0, external_id=twitter_id)
+				party.put()
 		template_values['mentions'] = mentions['results']
 		return self.response.out.write(template.render('twitter_cron.html', template_values))
 

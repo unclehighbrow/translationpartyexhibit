@@ -1,4 +1,4 @@
 cron:
-- description: twitter_cron
-  url: /twitter_cron
-  schedule: every 24 hours
+#- description: twitter_cron
+#  url: /twitter_cron
+#  schedule: every 24 hours

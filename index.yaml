@@ -15,3 +15,9 @@ indexes:
   - name: ctime
     direction: desc
   - name: phrase
+
+- kind: Party
+  properties:
+  - name: order
+  - name: count
+    direction: desc
