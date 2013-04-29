@@ -304,7 +304,7 @@
 						jsonp : 'oncomplete',
 						success: function(data){
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
-                self.party_queue.push.apply(self.party_queue, data.phrases);
+                self.add_to_queue(data.phrases);
               }
             }});
         },
@@ -316,17 +316,19 @@
             {t: 'fuck you, you fucking fuck', 'partier': {'name': '@sallysmith'} },
             {t: "I'm here at the museum of the moving image", 'partier': {'name': 'Someone from Boise, ID'} }
           ];
-          this.party_queue.push.apply(this.party_queue, attract_mode_phrases);
+          self.add_to_queue(attract_mode_phrases);
         },
         
         add_to_queue: function(newparties){
-          console.log('update queue'+this.party_queue.length);
+          this.party_queue.push.apply(this.party_queue, newparties);
           $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );
+          console.log('update queue'+this.party_queue.length);
         },
         
         shift_party_from_queue: function(){
           var p = this.party_queue.shift();
           $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );
+          return p;
         },
         
         consider_next_party: function(){
@@ -346,8 +348,7 @@
               self.consider_next_party();
             }, BETWEEN_PARTIES_TIME);
           };
-          p.get_this_party_started(  );
-          this.update_queue_list();
+          p.get_this_party_started( this.shift_party_from_queue() );
         },
         clean_up_phrases: function(on_complete){
           var self = this;
@@ -364,7 +365,7 @@
 						jsonp : 'oncomplete',
 						success: function(data){
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
-                self.party_queue.push.apply(self.party_queue, data.phrases);
+                self.add_to_queue(data.phrases);
               }
               self.consider_next_party();
             }});

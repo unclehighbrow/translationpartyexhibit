@@ -22,7 +22,11 @@ class AjaxHandler(webapp2.RequestHandler):
 		elif op == 'getById':
 			ret['phrase'] = Party.get_by_id(int(party_id)).phrase
 		elif op == 'getRecent':
-			parties = db.GqlQuery("SELECT * FROM Party ORDER BY order, count DESC LIMIT 10")
+			parties = db.GqlQuery("SELECT * FROM Party ORDER BY order DESC LIMIT 10")
+			ret['phrases'] = [party_to_dict(party) for party in parties]
+		elif op == 'getNewerThanId':
+			# this doesn't actually do it 
+			parties = db.GqlQuery("SELECT * FROM Party ORDER BY order DESC LIMIT 10")
 			ret['phrases'] = [party_to_dict(party) for party in parties]
 		else:
 			ret['status'] = 'error'
