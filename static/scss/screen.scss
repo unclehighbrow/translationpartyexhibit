@@ -1,0 +1,202 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+// sitewide partials
+@import "compass/utilities";
+@import "compass/css3";
+@import "partials/lib/variables";
+@import "partials/lib/mixins";
+@import "partials/lib/normalize";
+@import "partials/lib/grid";
+@import "partials/lib/forms";
+@import "partials/lib/buttons";
+
+// base screen
+@include fsq-font-face('NexaBold', '/static/fonts/Nexa_Bold', 'webfontZ6etP9ZY');
+@include fsq-font-face('NexaLight', '/static/fonts/Nexa_Light', 'webfontZ6etP9ZY');
+
+
+html { margin: 0; padding: 0; width: 100%; height: 100%; } 
+
+body {
+	font-size: $basefont;
+	line-height: 1.35; 
+	font-family: $body_font_family;
+	@include background( $noise, $page );
+	height: 100%;
+	color: $text_color;
+}
+
+// root blocks
+#{$block_levels}, .block_like {
+	display: block;
+	margin: 0 0 $margin; 
+	padding: 0; 
+	img{
+		margin-bottom: 0;
+		@include inline-block;
+	}
+}
+
+h1, h2, h3, h4, h5, h6{
+	@include headline;
+	line-height: 1.1em;
+	&.has_subhead{
+		margin-bottom: 4px!important;
+	}
+}
+
+h1{
+	font-size: $headline_size_h1;
+	letter-spacing: -0.02em;
+	color: $h_color;
+	margin-bottom: $margin/3;
+}
+h2{
+	font-size: $headline_size_h2;
+	letter-spacing: -0.02em;
+}
+
+h3{
+	font-size: $headline_size_h3;
+}
+
+h4{
+	font-size: $headline_size_h4;	
+}
+h5{
+	font-size: $headline_size_h5;	
+}
+h6{
+	font-size: $headline_size_h6;	
+}
+
+// list blocks
+// LIs should handle vertical spacing
+ol, ul{
+	margin: 0 0 0 $spacing;
+	padding: 0; 
+	&.simple{
+		margin-left: 0;
+		list-style: none;
+	}
+	&.p_like{
+		// each li is like a newline in a <p>, almost
+		margin-left: 0;
+		list-style: none;
+		margin-bottom: $margin;
+		li{
+			margin-bottom: 4px;
+		}
+	}
+}
+
+// non-root, non-list blocks
+li, dl, nav ul{
+	margin: 0;
+	padding: 0;
+}
+
+dt{
+	@include demi_headline;
+	font-size: $headline_size_h4;
+}
+
+a{
+	&:visited,
+	&:link{
+		text-decoration: none;
+		color: $link_color;
+		line-height: inherit;
+	  	font-weight: inherit;
+	}
+	&:hover{
+		text-decoration: underline;
+		color: $link_color;
+	}
+}
+
+
+/*
+ * buttons
+ */
+input[type="submit"], input.button, .button, .replacementButton,
+a.button:link, a.button:hover, a.button:visited, a.button:active{
+	@include button($button_background);
+	&.secondary{
+		@include button_color($light_1, true);
+		color: $dark_2;
+	}
+	&.fb{
+		@include button_color(#3B5998);
+	}
+	&.wide{
+		display: block;
+	}
+	&.big{
+		font-size: 22px;
+	}
+}
+
+p{
+	input[type="submit"], input.button, .button, .replacementButton,
+	a.button:link, a.button:hover, a.button:visited, a.button:active{
+		margin: 0 4px;
+	}
+}
+
+
+/*
+ * lists
+ */
+.reset_list{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.card{
+	background: $white;
+	color: $dark_1;
+	margin-bottom: $spacing;
+	@include border-radius(1px);
+}
+
+
+/*
+ * modifiers
+ */
+.muted{
+	color: $light_4;
+}
+.half{
+	opacity: .4;
+}
+.small{
+	font-size: $basefont_small;
+}
+
+
+.inline{
+	display: inline;
+}
+
+.readable{
+	max-width: $readable;
+}
+
+.prose{
+	max-width: $readable;
+	min-height: 8em;
+}
+
+
+.doc_content{
+	padding: $spacing $spacing ($spacing - $margin);
+}
+
+
+// page specific partials for organization
+@import "partials/game";

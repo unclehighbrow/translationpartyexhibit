@@ -1,0 +1,451 @@
+/* Forms.scss
+ * Base styles for various input types, form layouts, and states
+ * ------------------------------------------------------------- */
+
+
+// FORM STYLES
+// -----------
+
+fieldset, form{
+	margin: 0;
+	padding: 0;
+}
+
+// Groups of fields with labels on top (legends)
+fieldset {
+  margin-bottom: $margin;
+  padding-top: $margin;
+  legend {
+    display: block;
+    padding-left: 150px;
+    font-size: $basefont * 1.5;
+    line-height: 1;
+    color: $h_color;
+    *padding: 0 0 5px 145px; /* IE6-7 */
+    *line-height: 1.5; /* IE6-7 */
+  }
+}
+
+
+/*** BEGIN MY STUFF ***/ 
+
+#error_explanation, #errorExplanation{
+	margin-bottom: $spacing;
+	h2{
+		margin-bottom: 0;
+	}
+}
+
+form{
+	// because of rails forms habit of inserting extra fields this is going to assemble from the bottom
+	// border-bottom, margin-bottom, etc
+	// assumption is that you'll always end in .buttons
+	// if not, you'll have to manually kill the bottom margin
+	// if this is a serious problem, consider last-child
+	
+	.input{
+		width: 100%;
+		display: table;
+		border-bottom: 1px solid $light_3;
+		margin: 0 0 $margin ;
+
+		&.field_with_errors{
+			//background: transparentize($link_color, .8);
+			//border-color: $page;
+			@include border-radius(3px);
+			.error{
+				font-size: 13px;
+				display: inline-block;
+				background: $link_color;
+				color: #fff;
+				margin-left: $spacing/2;
+				padding: 0 4px;
+				@include border-radius(3px);
+			}
+		}
+		
+		&.multi{
+			@include clearfix;
+			.controls, label{
+				float: left;
+			}
+		}
+		
+		&.hidden{
+			display: none;
+		}
+		
+		&.clean{
+			padding-top: 0;
+			border: none;
+		}
+		
+		label{
+			padding-right: $spacing/2;
+			display: table-cell;
+			float: none;
+			padding-top: 2px;
+			width: 130px;
+			text-align: right;
+			vertical-align: top;
+			margin-bottom: 3px;
+			abbr{
+				border: 0;
+				opacity: .5;
+			}
+		}
+	
+		.controls{
+			display: table-cell;
+			vertical-align: top;
+			label{
+				display: inline;
+			}
+		}
+
+	}
+
+	.no_label{
+		padding: $margin 0 $margin (130px + $spacing/2);
+	}
+	.buttons{
+		padding: 0 0 0 (130px + $spacing/2);
+	}
+
+	
+		
+}
+
+.stacked {
+	.input{
+		position: relative;
+		border: 0;
+		padding: 0;
+		margin: 0;
+		//margin: 0 -1*$spacing/4 1px;
+		//padding: $spacing/2 $spacing/4;
+		
+		input, textarea, select, .text_area_copy {
+			max-width: none;
+		}
+		
+		label{
+			display: block;
+			padding: 0;
+			width: auto;
+			text-align: left;
+		}
+
+		.controls{
+			display: block;
+		}
+
+	  .error {
+	   	position: absolute;
+		top: 0;
+		right: 0;
+	  }
+	  .actions {
+		margin: 0;
+	  }
+	}
+	.no_label,
+	.buttons{
+		padding: 0;
+	}
+
+	.controls{
+		label{
+			display: inline;
+		}
+	}
+
+}
+/*** END MY STUFF ***/ 
+
+
+
+
+
+// Checkboxs and radio buttons
+input[type=checkbox],
+input[type=radio] {
+  cursor: pointer;
+}
+
+// Inputs, Textareas, Selects
+input, textarea, select, .text_area_copy, .picked_value {
+  @include box-sizing(border-box);
+  display: inline-block;
+  width: 100%;
+  //max-width: $readable;	
+  padding: 6px;
+  height: auto;
+  font-family: $body_font_family;
+  font-size: $basefont;
+  line-height: $baseline;
+  color: $text;
+  border: 1px solid #ccc;
+  @include border-radius(3px);
+  margin-bottom: $margin;
+}
+
+.text_area_copy{
+	min-height: 5em;
+	padding-bottom: 1.15em; /* A bit more than one additional line of text. */ 
+    visibility: hidden;
+	margin-bottom: 0;
+}
+
+.text_area_wrap{
+	margin-bottom: $margin;
+}
+
+.picked_value{
+	@include button(#f9f9f9, true);
+	color: $text;
+	text-align: left;
+	&.stayActive{
+		font-style: italic;
+	}
+}
+
+// remove padding from select
+select {
+  padding: initial;
+}
+
+// mini reset for non-html5 file types 
+input[type=checkbox],
+input[type=radio] {
+  width: auto;
+  height: auto;
+  padding: 0;
+  //margin: 3px 0;
+  //*margin-top: 0; /* IE6-7 */
+  line-height: normal;
+  border: none;
+}
+
+input[type=file] {
+  background-color: $white;
+  padding: initial;
+  border: initial;
+  line-height: initial;
+  @include box-shadow(none);
+}
+
+input[type=button],
+input[type=reset],
+input[type=submit] {
+  width: auto;
+  height: auto;
+}
+
+select,
+input[type=file] {
+  height: $baseline * 1.5; // In IE7, the height of the select element cannot be changed by height, only font-size
+  *height: auto; // Reset for IE7
+  line-height: $baseline * 1.5;
+  *margin-top: 4px; /* For IE7, add top margin to align select with labels */
+}
+
+// Make multiple select elements height not fixed
+select[multiple] {
+  height: inherit;
+  background-color: $white; // Fixes Chromium bug of unreadable items
+}
+
+textarea {
+  height: auto;
+}
+
+
+// Placeholder text gets special styles; can't be bundled together though for some reason
+:-moz-placeholder {
+  color: $light_3;
+}
+::-webkit-input-placeholder {
+  color: $light_3;
+}
+
+// Focus states
+input,
+textarea {
+  $transition: border linear .2s, box-shadow linear .2s;
+  @include transition($transition);
+  @include box-shadow(inset 0 1px 3px rgba(0,0,0,.1));
+}
+input:focus,
+textarea:focus {
+  outline: 0;
+  border-color: rgba(82,168,236,.8);
+  $shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px rgba(82,168,236,.6);
+  @include box-shadow($shadow);
+}
+input[type=file]:focus,
+input[type=checkbox]:focus,
+select:focus {
+  @include box-shadow(none); // override for file inputs
+  outline: 1px dotted #666; // Select elements don't get box-shadow styles, so instead we do outline
+}
+
+
+
+
+// Disabled and read-only inputs
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  background-color: #f5f5f5;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+
+// Actions (the buttons)
+.actions {
+  background: #f5f5f5;
+  margin-top: $baseline;
+  margin-bottom: $baseline;
+  padding: ($baseline - 1) 20px $baseline 150px;
+  border-top: 1px solid #ddd;
+  @include border-radius(0 0 3px 3px);
+  .secondary-action {
+    float: right;
+    a {
+      line-height: 30px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Help Text
+.help-inline,
+.help-block {
+  font-size: $basefont;
+  line-height: $baseline;
+  color: $dark_3;
+}
+.help-inline {
+  padding-left: 5px;
+  *position: relative; /* IE6-7 */
+  *top: -5px; /* IE6-7 */
+}
+
+// Big blocks of help text
+.help-block {
+  display: block;
+  max-width: 600px;
+}
+
+// Inline Fields (input fields that appear as inline objects
+.inline-inputs {
+  color: $text_color;
+  span {
+    padding: 0 2px 0 1px;
+  }
+}
+
+// Allow us to put symbols and text within the input field for a cleaner look
+.input-prepend,
+.input-append {
+  input {
+    @include border-radius(0 3px 3px 0);
+  }
+  .add-on {
+    position: relative;
+    background: $light_1;
+    border: 1px solid $light_3;
+    z-index: 2;
+    float: left;
+    display: block;
+    width: auto;
+    min-width: 16px;
+    height: 18px;
+    padding: 4px 4px 4px 5px;
+    margin-right: -1px;
+    font-weight: normal;
+    line-height: 18px;
+    color: $dark_3;
+    text-align: center;
+    text-shadow: 0 1px 0 $white;
+    @include border-radius(3px 0 0 3px);
+  }
+  .active {
+    background: lighten($highlight_color, 30);
+    border-color: $highlight_color;
+  }
+}
+.input-prepend {
+  .add-on {
+    *margin-top: 1px; /* IE6-7 */
+  }
+}
+.input-append {
+  input {
+    float: left;
+    @include border-radius(3px 0 0 3px);
+  }
+  .add-on {
+    @include border-radius(0 3px 3px 0);
+    margin-right: 0;
+    margin-left: -1px;
+  }
+}
+
+// Stacked options for forms (radio buttons or checkboxes)
+.inputs-list {
+  margin: 0 0 5px;
+  width: 100%;
+  li {
+    display: block;
+    padding: 0;
+    width: 100%;
+  }
+  label {
+    display: block;
+    float: none;
+    width: auto;
+    padding: 0;
+    margin-left: 20px;
+    line-height: $baseline;
+    text-align: left;
+    white-space: normal;
+    strong {
+      color: $h_color;
+    }
+    small {
+      font-size: $basefont - 2;
+      font-weight: normal;
+    }
+  }
+  .inputs-list {
+    margin-left: 25px;
+    margin-bottom: 10px;
+    padding-top: 0;
+  }
+  &:first-child {
+    padding-top: 6px;
+  }
+  li + li {
+    padding-top: 2px;
+  }
+  input[type=radio],
+  input[type=checkbox] {
+    margin-bottom: 0;
+    margin-left: -20px;
+    float: left;
+  }
+}
+
+// Stacked forms
+
+
+
+
+

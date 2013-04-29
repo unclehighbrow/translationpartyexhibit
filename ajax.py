@@ -26,7 +26,7 @@ class AjaxHandler(webapp2.RequestHandler):
 		else:
 			ret['status'] = 'error'
 		
-		
+		#/ajax?op=getRecent
 		return self.response.out.write(json.dumps(ret))
 
 app = webapp2.WSGIApplication([
@@ -35,9 +35,10 @@ app = webapp2.WSGIApplication([
 
 def party_to_dict(party):
 	ret = {}
-	ret['phrase'] = party.phrase
+	ret['t'] = party.phrase
 	ret['id'] = party.key().id()
 	ret['count'] = party.count
+	ret['partier'] = {'name': 'JOE WEBSITE'}
 	return ret
 
 class Party(db.Model):

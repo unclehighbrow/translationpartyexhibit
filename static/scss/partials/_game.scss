@@ -1,0 +1,88 @@
+@include keyframes(swing){
+	
+}
+
+#outer{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: black;
+	padding: 4px;
+	@include box-sizing(border-box);
+}
+
+#info_panel{
+	background: #333;
+}
+
+$card_spacing: 4px;
+$language_width: 100px;
+#party{
+	height: 100%;
+	@include perspective(800);
+	.card{
+		-webkit-column-break-inside: avoid;
+		margin-bottom: $card_spacing;
+		@include clr;
+		@include transition(transform .3s $bez);
+	    @include backface-visibility(hidden);
+	    @include transform-style(preserve-3d);
+		@include transform-origin(0 0 0);
+		@include rotateX(0deg);
+		@include opacity(1);		
+		.translation{
+			//margin-right: $language_width;
+		}
+		.language{
+			width: $language_width;
+			float: right;
+			text-align: right;
+			display: none;
+		}
+		&.up{
+			@include rotateX(-90deg);
+			@include opacity(0);
+		}
+	}
+}
+
+.columns{
+	@include column-gap($card_spacing * 4);
+	@for $i from 2 through 5{
+		&.has_#{$i}{
+			@include column-count($i);
+		}
+	}
+	
+	&.fill_auto{
+		@include experimental(column-fill, auto);
+	}
+}
+
+
+.success, .abject_failure{
+	$dash_h: 30px;
+	&:before{
+		content: '';
+		display: block;
+		height: $dash_h;
+		border-left: 4px dotted #ccc;
+		width: 2px;
+		position: absolute;
+		top: -($dash_h);
+		left: 50%;
+		margin-left: -2px;
+	}
+	margin-top: $dash_h;
+} 
+
+.success{
+	background: green;
+	color: #fff;
+}
+.abject_failure{
+	background: red;
+	color: #fff;
+}

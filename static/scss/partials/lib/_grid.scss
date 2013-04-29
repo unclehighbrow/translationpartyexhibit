@@ -1,0 +1,146 @@
+.line{ 
+	display: table; 
+	width: 100%;
+}
+.unit{	
+	display: table-cell;
+	vertical-align: top;
+	min-width: 250px;
+	
+	&.gutter_right{
+		padding-right: $spacing * 1.5;
+	}
+	&.gutter_left{
+		padding-left: $spacing * 1.5;
+	}
+	
+	&.border_right{
+		border-right: 1px solid $light_2;
+	}
+	&.border_left{
+		border-left: 1px solid $light_2;
+	}
+	
+	&.size1of5{width: 20%;}
+	&.size2of5{width: 40%;}
+	&.size3of5{width: 60%;}
+	&.size4of5{width: 80%;}
+	
+	&.size1of4{width: 25%;}
+	&.size2of4{width: 50%;}
+	&.size3of4{width: 75%;}
+	
+	&.size1of3{width: 33.3333%;}
+	&.size2of3{width: 66.6666%;}
+	&.size1of2{width: 50%;}
+
+}
+
+@include respond-to(small){
+	.narrow_collapse, .narrow_collapse_reverse{
+		display: block;
+		.unit{
+			display: block;
+			width: auto;
+			border: none;
+		}
+	}
+	
+	/* nice if you can get it */
+	.narrow_collapse_reverse{
+		@include display-box;
+		@include box-orient(vertical);
+		@include box-direction(reverse);
+	} 
+
+}
+
+
+.minmax{
+	display: table;
+	width: 100%;
+	.min, .max{
+		vertical-align: top;
+	}
+	.min{
+		display: table-cell;
+		width: 1%;
+	}
+	.max{
+		display: table-cell;
+		width: auto;
+	}
+}
+
+
+.figureset{
+	@include side_by;
+}
+.figureset_right{
+	@include side_by('right');	
+}
+
+
+/*
+<!-- SCALABLE GRID -->
+<ul class="divided_list sgrid sgrid_5 sgrid_3_at_medium sgrid_1_at_small firsts_no_border firsts_no_padding">
+	<li class="sgrid_unit">blah<!-- leave off ending tag. yeah, i know -->
+	<li class="sgrid_unit">blah
+	<li class="sgrid_unit">blah
+	<li class="sgrid_unit">blah
+</ul>
+*/
+
+.sgrid{
+	display: block;
+	list-style: none;
+	.sgrid_unit{
+		@include inline-block;
+		width: 25%;
+	}
+	&.sgrid_5 .sgrid_unit{ width: 20%; }
+	&.sgrid_4 .sgrid_unit{ width: 25%; }
+	&.sgrid_3 .sgrid_unit{ width: 33.33%; }
+	&.sgrid_2 .sgrid_unit{ width: 50%; }
+	
+	@include respond-to(medium){
+		&.sgrid_4_at_medium .sgrid_unit{ width: 25%; }
+		&.sgrid_3_at_medium .sgrid_unit{ width: 33.33%; }
+		&.sgrid_2_at_medium .sgrid_unit{ width: 50%; }
+		&.sgrid_1_at_medium .sgrid_unit{ width: 100%; }
+	}
+	
+	@include respond-to(small){
+		&.sgrid_4_at_small .sgrid_unit{ width: 25%; }
+		&.sgrid_3_at_small .sgrid_unit{ width: 33.33%; }
+		&.sgrid_2_at_small .sgrid_unit{ width: 50%; }
+		&.sgrid_1_at_small .sgrid_unit{ width: 100%; }
+	}	
+}
+
+// helpers for firsts where where the qty in first row is dynamic
+@mixin firsts_no($start, $end, $suffix:''){
+	@for $i from $start through $end{
+		&.sgrid_#{$i + $suffix} .sgrid_unit:nth-child(-n+#{$i}) { @content }
+	}
+}
+
+.firsts_no_border{
+	@include firsts_no(2, 5){ border-top: none; }
+	@include respond-to(small){
+		@include firsts_no(1, 4, '_at_small'){ border-top: none; }
+	}
+	@include respond-to(medium){
+		@include firsts_no(1, 4, '_at_medium'){ border-top: none; }
+	}
+}
+
+.firsts_no_padding{
+	@include firsts_no(2, 5){ padding-top: none; }
+	@include respond-to(small){
+		@include firsts_no(1, 4, '_at_small'){ padding-top: none; }
+	}
+	@include respond-to(medium){
+		@include firsts_no(1, 4, '_at_medium'){ padding-top: none; }
+	}
+}

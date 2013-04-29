@@ -1,0 +1,303 @@
+// functions
+@function color_brightness_AERT($color){
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    
+    @return (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+}
+
+
+// mixins
+@mixin fsq-font-face($name, $file-base, $weight: 'normal'){
+	@font-face {
+		font-weight: $weight;
+	    font-family: '#{$name}';
+	    src: url('#{$file-base}.eot');
+	    src: url('#{$file-base}.eot?iefix') format('eot'),
+	         url('#{$file-base}.woff') format('woff'),
+	         url('#{$file-base}.ttf') format('truetype');
+	}
+}
+
+
+$punch_height: 5px;
+@mixin punch_button_color($color, $is_light: false){
+	&, &:link, &:visited{
+    	background: $color;
+		@include background(  linear-gradient(top, $color, darken($color, 10%) ) );
+		@include box-shadow(0px $punch_height 0px 0px darken($color, 25%), 0px -1px 0px 0px darken($color, 4%) inset);	
+
+	}
+	&:hover{
+	    background: lighten($color, 4%);
+		@include background(  linear-gradient(top, lighten($color, 4%), darken($color, 6%) ) );
+
+	}
+	&:active, &.stayActive {
+		@include box-shadow( 0px 2px 0px 0px darken($color, 25%), 0px -1px 0px 0px darken($color, 4%) inset );
+		@include transform( translateY(3px) );
+	}
+}
+
+@mixin punch_button($color: $button_background, $is_light: false){
+	@include punch_button_color($color, $is_light);
+	@if $is_light == true {
+		text-shadow: 1px 1px 0 #fff;
+	}
+	@else {
+		text-shadow: -1px -1px 0 rgba(0,0,0,.35);
+	}
+    display: inline-block;
+	@include border-radius(5px);
+    padding: .85em .75em;
+    text-align: center;
+ 	font-family: $headline_font_family;
+	margin-bottom: $margin + $punch_height;
+	font-weight: bold;
+	line-height: 1em;
+	border: none;
+	@include transition(none);
+	@include experimental(user-select, none, -moz, -webkit, not -o, not -ms, -khtml, official);
+	&, &:link, &:visited, &:hover, &:active, &.stayActive{
+		color: #ffffff;
+		text-decoration: none;
+	}
+	@include respond-to(small){
+		display: block;
+	}
+}
+
+
+@mixin button_color($color: $button_background, $islight: false){
+	$darkerColor: darken($color, 10%);
+	background: $color;
+	@include background(  linear-gradient(top, $color, $darkerColor) );
+	@if $islight == true {
+		text-shadow: 1px 1px 0 #fff;
+		@include box-shadow(#fff 1px 1px 0 0 inset);				
+	}
+	@else {
+		text-shadow: -1px -1px 0 rgba(0,0,0,.35);
+		@include box-shadow(rgba(255,255,255,0.2) 1px 1px 0 0 inset);		
+	}
+	
+	&:hover {
+		@include background(  linear-gradient(top, lighten($color, 5%), lighten($darkerColor, 5%) ) );
+		text-decoration: none;
+	}
+	
+	&:active, &.stayActive {
+		background: $darkerColor;
+		@include background(  linear-gradient(top, $darkerColor, darken($darkerColor, 5%) ) );
+		@include box-shadow(rgba(0,0,0,0.25) 1px 1px 1px 0 inset);
+	}
+}
+
+
+@mixin button($color: $button_background, $islight: false){
+	@include box-sizing(border-box);
+	cursor: pointer;
+	font-family: 'leaguegothic';
+	position: relative;
+	padding: .35em .5em;
+	margin-bottom: $margin;
+	text-align: center;
+	display: inline-block;
+	@include background-clip(padding-box);
+	@include border-radius(4px);
+	text-decoration: none;
+	color: #fff;
+	border: 1px solid #666;
+	border-color: rgba(0,0,0,0.2);
+	@include button_color($color, $islight);
+	text-transform: uppercase;
+	@include experimental(user-select, none, -moz, -webkit, not -o, not -ms, -khtml, official); // text highlighting
+}
+
+
+@mixin solid{
+	background: $white;
+	@include box-shadow(0 0 0 1px rgba(0,0,0,.15) );
+	@include border-radius(4px);
+}
+
+@mixin headline{
+	font-family: $headline_font_family;
+	color: $h_color;
+	//text-transform: uppercase;
+}
+
+@mixin demi_headline{
+	font-family: $demiheadline_font_family;
+	font-weight: bold;
+	color: $dark_1;
+}
+
+@mixin normal_text{
+	font-size: $basefont;
+	line-height: $baseline; 
+	font-family: $body_font_family;
+}
+
+@mixin inset_text{
+	text-shadow: white 0px 1px 0px;
+	//text-shadow: rgba(0,0,0,0.5) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.5) 0 1px, rgba(0,0,0,0.3) -1px -2px;
+}
+
+@mixin status{
+	text-transform: lowercase;
+	font-variant: small-caps;
+}
+
+@mixin main($padding: 0px){
+	//width: $pagewidth - 2*$padding;
+	max-width: $pagewidth - 2*$padding;
+	margin-left: auto;
+	margin-right: auto;
+	@include clr;	
+}
+
+@mixin clr{
+	&:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; overflow: hidden; }
+	display: inline-block;
+	display: block; 
+}
+
+@mixin nonlink($base: $text, $hover: $link){
+	color: $base;
+	&:hover{
+		color: $link;		
+	}
+}
+
+@mixin hidetext{
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+@mixin triangle($direction: 'n', $color: black, $size: 6px){
+	@if $direction == 'n'{
+		border-left: $size solid transparent;
+	    border-right: $size solid transparent;
+	    border-bottom: $size solid $color;
+	}
+	@else if $direction == 'e'{
+		border-top: $size solid transparent;
+	    border-bottom: $size solid transparent;
+	    border-left: $size solid $color;
+	} 
+	@else if $direction == 's'{
+		border-left: $size solid transparent;
+	    border-right: $size solid transparent;
+	    border-top: $size solid $color;
+	}
+	@else if $direction == 'w'{
+		border-top: $size solid transparent;
+	    border-bottom: $size solid transparent;
+	    border-right: $size solid $color;
+	}
+}
+
+
+@mixin circle($size: 6px, $color: black){
+	width: $size;
+	height: $size;
+	@include border-radius($size/2);
+	background-color: $color;
+}
+
+@mixin dummy{
+	content: '';
+	display: block;
+}
+
+@mixin absolute_center($height, $width: $height, $offset_top: 0, $offset_left: 0){
+	width: $width;
+	height: $height;
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: (-1*$height/2)+$offset_top 0 0 (-1*$width/2)+$offset_left;
+}
+
+
+@mixin flippable( $perspective: 1000px ){
+	@include perspective( 1000px );
+	.faces{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		@include transform-style(preserve-3d);
+		@include transform3d( rotateY(0) );
+		@include transition( transform .4s $bez );
+		
+		.front, .back{
+			@include backface-visibility(hidden);
+			display: block;
+			position: absolute;
+			width: 100%;
+		}
+		.back{
+			@include transform3d( rotateY( 180deg ) );
+		}
+	}	
+	&.flip .faces{
+		@include transform3d( rotateY( 180deg ) );
+	}
+}
+
+
+
+@mixin side_by($side: 'left'){
+	display: table;
+	width: 100%;
+	> div{
+		display: table-cell;
+		vertical-align: top;
+		@if $side == 'left'{
+			&:first-child{
+				width: 1%;
+				white-space: nowrap;
+				padding-right: 10px;
+			}
+		}
+		@else{
+			&:last-child{
+				width: 1%;
+				white-space: nowrap;
+				padding-left: 10px;
+			}
+		}
+	}
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+
+$break-small: 500px;
+$break-large: 800px;
+@mixin respond-to($media) {
+  @if $media == small {
+    @media all and (max-width: $break-small) { @content; }
+  }
+  @else if $media == medium {
+    @media all and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+  }
+}
