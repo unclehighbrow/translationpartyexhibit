@@ -6,6 +6,7 @@ from google.appengine.ext import db
 	
 class AjaxHandler(webapp2.RequestHandler):
 	def get(self):
+		
 		op = self.request.get('op')
 		party_id = self.request.get('id')
 		ret = {}
