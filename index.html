@@ -298,7 +298,7 @@
         fetch_new_parties: function(){
           var self = this;
           $.ajax({
-            url: 'http://localhost:8080/ajax', 
+            url: '/ajax', 
             data: {'op': 'getRecent'},
             dataType: 'json',
 						jsonp : 'oncomplete',
