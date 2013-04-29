@@ -186,7 +186,7 @@
         	  if(this.phrase_queue.length > this.last_displayed_phrase){
         	    var phrase = this.phrase_queue[this.last_displayed_phrase];
         	    if(this.last_displayed_phrase == 0){
-        	      // first phrase
+        	      // first phrase, show partier info
           	    var $t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang, partier: this.partier}) ).appendTo('#party');        	              	      
         	    }
         	    else{
@@ -298,13 +298,12 @@
         fetch_new_parties: function(){
           var self = this;
           $.ajax({
-            url: '/ajax', 
-            data: {'op': 'getRecent'},
+            url: 'ajax', 
+            data: {'op': 'getNewerThanId', 'id': this.high_water_id},
             dataType: 'json',
 						jsonp : 'oncomplete',
 						success: function(data){
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
-                console.log('woo');
                 self.party_queue.push.apply(self.party_queue, data.phrases);
               }
             }});
@@ -320,8 +319,13 @@
           this.party_queue.push.apply(this.party_queue, attract_mode_phrases);
         },
         
-        update_queue_list: function(){
+        add_to_queue: function(newparties){
           console.log('update queue'+this.party_queue.length);
+          $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );
+        },
+        
+        shift_party_from_queue: function(){
+          var p = this.party_queue.shift();
           $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );
         },
         
@@ -342,19 +346,34 @@
               self.consider_next_party();
             }, BETWEEN_PARTIES_TIME);
           };
-          p.get_this_party_started( this.party_queue.shift() );
+          p.get_this_party_started(  );
           this.update_queue_list();
         },
         clean_up_phrases: function(on_complete){
           var self = this;
           $('#party').empty();
           on_complete.call(self);          
+        },
+        
+        init: function(){
+          var self = this;
+          $.ajax({
+            url: 'ajax', 
+            data: {'op': 'getRecent'},
+            dataType: 'json',
+						jsonp : 'oncomplete',
+						success: function(data){
+              if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
+                self.party_queue.push.apply(self.party_queue, data.phrases);
+              }
+              self.consider_next_party();
+            }});
         }
         
       }
       
       var ph = new Party_host();
-      ph.consider_next_party();
+      ph.init();
       
     </script>
     
