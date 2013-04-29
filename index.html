@@ -321,14 +321,17 @@
         
         add_to_queue: function(newparties){
           this.party_queue.push.apply(this.party_queue, newparties);
-          $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );
-          console.log('update queue'+this.party_queue.length);
+          this.update_queue_display();
         },
         
         shift_party_from_queue: function(){
           var p = this.party_queue.shift();
-          $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );
+          this.update_queue_display();
           return p;
+        },
+        
+        update_queue_display: function(){
+          $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );          
         },
         
         consider_next_party: function(){
@@ -340,6 +343,7 @@
           this.clean_up_phrases(this.host_next_party);
           console.log('phrases in queue: '+this.party_queue.length);
         },
+        
         host_next_party: function(){
           var p = new Party();
           var self = this;
@@ -350,6 +354,7 @@
           };
           p.get_this_party_started( this.shift_party_from_queue() );
         },
+        
         clean_up_phrases: function(on_complete){
           var self = this;
           $('#party').empty();
