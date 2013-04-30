@@ -43,7 +43,7 @@ def party_to_dict(party):
 	ret['t'] = party.phrase
 	ret['id'] = party.key().id()
 	ret['count'] = party.count
-	ret['partier'] = {'name': 'JOE WEBSITE'}
+	ret['partier'] = {'name': "Joe Website"}
 	return ret
 
 class Party(db.Model):

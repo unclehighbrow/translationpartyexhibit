@@ -148,8 +148,15 @@
             var phrase = this.phrase_queue[this.phrase_queue.length - 1];
             var outLang = (phrase.lang == 'en') ? 'ja' : 'en';
             var self = this;
+            
             var translation_success = function(result){
+              console.dir(result);
               self.handle_translation_response(result, outLang);
+            }
+            
+            var translation_fail = function(result){
+              console.dir(result);
+              alert("problem with Bing, probably over limit");
             }
             
   					$.ajax({
@@ -163,21 +170,17 @@
   						},
   						dataType: 'jsonp',
   						jsonp : 'oncomplete',
-  						success: translation_success
+  						success: translation_success,
+  						error: translation_fail
   					});
         	},
         	
         	handle_translation_response: function(result, outLang){
-            if (!result.error) {
-              this.phrase_queue.push({
-                'lang': outLang,
-                'string': result.Translations[0].TranslatedText
-              });
-              this.check_party_progress();
-            }
-            else{
-              alert('problems!');
-            }
+            this.phrase_queue.push({
+              'lang': outLang,
+              'string': result.Translations[0].TranslatedText
+            });
+            this.check_party_progress();
           },
         
         	// displaying side 
@@ -316,7 +319,7 @@
             {t: 'fuck you, you fucking fuck', 'partier': {'name': '@sallysmith'} },
             {t: "I'm here at the museum of the moving image", 'partier': {'name': 'Someone from Boise, ID'} }
           ];
-          self.add_to_queue(attract_mode_phrases);
+          this.add_to_queue(attract_mode_phrases);
         },
         
         add_to_queue: function(newparties){
