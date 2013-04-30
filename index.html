@@ -302,6 +302,8 @@
 						success: function(data){
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
                 self.add_to_queue(data.phrases);
+                self.high_water_id = data.phrases[data.phrases.length - 1].id;
+                console.log('high id:'+self.high_water_id);
               }
             }});
         },
@@ -373,6 +375,8 @@
 						success: function(data){
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
                 self.add_to_queue(data.phrases);
+                self.high_water_id = data.phrases[data.phrases.length - 1].id;
+                console.log('high id:'+self.high_water_id);
               }
               self.consider_next_party();
             }});
