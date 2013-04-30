@@ -25,8 +25,7 @@ class AjaxHandler(webapp2.RequestHandler):
 			parties = db.GqlQuery("SELECT * FROM Party ORDER BY order DESC LIMIT 10")
 			ret['phrases'] = [party_to_dict(party) for party in parties]
 		elif op == 'getNewerThanId':
-			# this doesn't actually do it 
-			parties = db.GqlQuery("SELECT * FROM Party ORDER BY order DESC LIMIT 10")
+			parties = db.GqlQuery("SELECT * FROM Party WHERE id > :1 ORDER BY id, order DESC LIMIT 10", self.request.get('id'))
 			ret['phrases'] = [party_to_dict(party) for party in parties]
 		else:
 			ret['status'] = 'error'
