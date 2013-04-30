@@ -67,7 +67,7 @@
   
       function Party() {
         this.when_party_busted = function(){
-          console.log('party busted, default ending');
+          // console.log('party busted, default ending');
         };
         this.phrase_queue = [];
         this.last_displayed_phrase = 0;
@@ -225,7 +225,7 @@
   					for (var i=0; i<this.quip_types.length; i++){
   					  if( phrase.match(this.quip_types[i].match) ){
   					    quips = this.quip_types[i].quips;
-  					    console.log('matched quip type: '+this.quip_types[i].type);
+  					    // console.log('matched quip type: '+this.quip_types[i].type);
   					    break;
   					  }
   					}
@@ -271,7 +271,7 @@
         	// stop -- translating and displaying is completely done
         	bust_this_party: function(){
         	  clearInterval(this.display_interval);
-        	  console.log(this.party_status);
+        	  // console.log(this.party_status);
         	  this.when_party_busted();
         	}
         	
@@ -284,7 +284,7 @@
   	  var PHRASE_LIMIT = 20;
 
       function Party_host(){
-        console.log("hi, i'm the party host.");
+        // console.log("hi, i'm the party host.");
         this.party_queue = [];
         this.high_water_id = 0;
       }
@@ -303,7 +303,7 @@
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
                 self.add_to_queue(data.phrases);
                 self.high_water_id = data.phrases[data.phrases.length - 1].id;
-                console.log('high id:'+self.high_water_id);
+                // console.log('high id:'+self.high_water_id);
               }
             }});
         },
@@ -341,11 +341,11 @@
         consider_next_party: function(){
           this.fetch_new_parties();
           if(this.party_queue.length == 0){
-            console.log('no queued parties, fetch attract mode phrases');
+            // console.log('no queued parties, fetch attract mode phrases');
             this.fetch_fake_parties();
           }
           this.clean_up_phrases(this.host_next_party);
-          console.log('phrases in queue: '+this.party_queue.length);
+          // console.log('phrases in queue: '+this.party_queue.length);
         },
         
         host_next_party: function(){
@@ -376,7 +376,7 @@
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
                 self.add_to_queue(data.phrases);
                 self.high_water_id = data.phrases[data.phrases.length - 1].id;
-                console.log('high id:'+self.high_water_id);
+                // console.log('high id:'+self.high_water_id);
               }
               self.consider_next_party();
             }});
