@@ -11,14 +11,10 @@
       </div>
       <div class="unit size1of4" id="info_panel">
         <div class="doc_content">
-          <h3>Have a translation party</h3>
-          <ul>
-            <li>Think of a phrase</li>
-            <li>Text it to (718) 569-8668</li>
-          </ul>
+          <p>Text a phrase to (718) 569-8668.</p>
         </div>
         
-        <div class="doc_content">
+        <div class="doc_content" id="queue_box">
           <h3>Upcoming parties</h3>
           <ul id="queue_list"></ul>
         </div>
@@ -66,7 +62,6 @@
       limit animation
       reset animation
       quip list and types
-      
       */
   
   
@@ -313,9 +308,9 @@
         
         fetch_fake_parties: function(){
           var attract_mode_phrases = [
-            {t: 'beat it, just beat it! no one wants to be defeated!', 'partier': {'name': '@richardboenigk'} },
-            {t: 'short phrases really are not good for this', 'partier': {'name': 'Someone from New York, NY'} },
-            {t: "I'm here at the museum of the moving image", 'partier': {'name': 'Someone from Boise, ID'} }
+            {t: 'Beat it, just beat it! No one wants to be defeated!', 'partier': {'name': '@richardboenigk'} },
+            {t: "There's no business like show business like no business I know.", 'partier': {'name': '@sallysmith'} },
+            {t: "I'm tweeting this here at the Museum of the Moving Image", 'partier': {'name': 'Someone from Boise, ID'} }
           ];
           this.add_to_queue(attract_mode_phrases);
         },
@@ -332,6 +327,12 @@
         },
         
         update_queue_display: function(){
+          if(this.party_queue.length > 0){
+            $('#queue_box').show();
+          }
+          else{
+            $('#queue_box').hide();            
+          }
           $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );          
         },
         
