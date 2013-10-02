@@ -1,0 +1,5 @@
+ability to run attract mode parties from static json
+reverse order
+"new phrase!" announcement, shrink to status bar
+and mode between parties
+

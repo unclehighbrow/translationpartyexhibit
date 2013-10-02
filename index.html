@@ -4,25 +4,39 @@
 </head>
 <body>
     <div class="line" id="outer">
-      <div class="unit size3of4">
-        <ul class="reset_list columns has_3 fill_auto" id="party">
-          <li class="card"></li>
-        </ul>
-      </div>
-      <div class="unit size1of4" id="info_panel">
-        <div class="doc_content">
-          <p>Text a phrase to (718) 569-8668.</p>
-        </div>
-        
-        <div class="doc_content" id="queue_box">
-          <h3>Upcoming parties</h3>
-          <ul id="queue_list"></ul>
-        </div>
-      </div>
+	
+			<!-- game columns -->
+      <div class="unit size1of5" id="col_1"></div>
+
+      <div class="unit size1of5" id="col_2"></div>
+
+      <div class="unit size1of5" id="col_3"></div>
+
+      <div class="unit size1of5" id="col_4"></div>
+
+			<!-- info column -->
+      <div class="unit size1of5" id="col_5">
+ 
     </div>
     
+		<script type="text/html" id="info_tpl">
+			<div class="doc_content align_center">
+	      <h1 class="">
+					Prepare your being<br /> 
+					ready for having a<br />
+					Translation Party
+				</h1>
+					<h2>
+						Give a birth to party<br />
+						text a prase to<br />
+						<strong>718 569 8668</strong>
+					</h2>
+	    </div>
+
+		</script>
+
     <script type="text/html" id="translation_tpl">
-      <li class="card clr up">
+      <li class="card clr">
         <div class="doc_content">
           [[#partier]]
             <p class="muted" style="margin: 0;">[[name]] wrote:</p>
@@ -34,7 +48,7 @@
     </script>
     
     <script type="text/html" id="quip_tpl">
-      <li class="card clr up [[type]]">
+      <li class="card clr [[type]]">
         <div class="doc_content">
           <p class="translation">[[quip]]</p>
         </div>
@@ -52,9 +66,38 @@
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/mustache.js"></script>
+    <script type="text/javascript" src="static/js/jquery.transit.min.js"></script>
+    <script type="text/javascript" src="static/js/typewriter.js"></script>
     <script type="text/javascript">
       Mustache.tags = ['[[', ']]'];
     
+      function parseURI() {
+      	var uri = window.location.hash.substring(1);
+      	var elements = uri.split('&');
+      	var data = new Object();
+      	for(i = 0; i < elements.length; i++) {
+      		var cur = elements[i].split('=');
+      		data[cur[0]] = cur[1];
+
+      	}
+      	return data;
+      }
+      var params = parseURI();
+    
+      /*
+      language filter
+      how do you know it's translating
+      make sure there's no scollbar
+      hit limit at end of screen, not at a number
+      do animations from right
+      quip difference
+      ask for names
+      contrast
+      last screen -- leave half open
+      moar quips
+      */
+    
+      
       /*
       CONSIDER: 
       quip placement
@@ -64,6 +107,19 @@
       quip list and types
       */
   
+
+			/*
+			
+							// add new phrase to last column
+							// check columns from last to first
+
+								// if content height is taller than frame height
+									// find enough cards from top of column to exceed height difference
+									// remove cards and add to column - 1
+							// loop
+
+			
+			*/
   
       function Party() {
         this.when_party_busted = function(){
@@ -87,14 +143,6 @@
   					  ]
   					},
   					{
-  					  'type': 'dirty',
-  					  'match': /(fuck|shit|ass|tit|bitch|screw|dick|pussy|nuts|balls)/i,
-  					  'quips': [
-  						  "Shame on you, by the way.",
-  						  "With language like that, you're a real goodwill ambassador!"
-  						]
-  					},
-  					{
   					  'type': 'twitter',
   					  'match': /(twitter|tweet)/i,
   					  'quips': [
@@ -113,7 +161,7 @@
   					  'type': 'tp', 
   					  'match': /(translation|party|who made|who built|\bwill\b|carlough|rick|richard|boenigk)/i,
   					  'quips': [
-  						  "Translation Party was made by Will Carlough and Richard Boenigk. <br />Send us an email at <a href='mailto:translationparty@gmail.com'>translationparty@gmail.com</a>"
+  						  "Translation Party was made by Will Carlough and Richard Boenigk. <br />Send us an email at translationparty@gmail.com"
   						]
   					},
   					{
@@ -177,6 +225,90 @@
             this.check_party_progress();
           },
         
+          
+          animate_card: function($t){
+            // ####################
+      	    // ANIMATION OPTIONS
+      	    // ####################
+      	    
+      	    if( params.effect == 'side' ){
+      	      $t.addClass('side side_animate'); 
+      	      var flash_time = 80;
+              $t.animate({'opacity': 1}, 1).
+                delay(flash_time).
+                animate({'opacity': 0}, 1).
+                delay(flash_time).
+                animate({'opacity': 1}, 1, function(){
+                  $t.removeClass('side');  
+                });
+            }
+            else if( params.effect == 'typing' ){
+      	      $t.addClass('typing typing_animate');
+      	      var $tt = $t.find('.translation');
+              $tt.hide(); 
+      	      setTimeout( function(){
+                $t.removeClass('typing'); 
+                setTimeout( function(){
+                
+                  $tt.show();
+                  $tt.typewrite({
+                      'delay': 30, //time in ms between each letter
+                      'extra_char': '', //"cursor" character to append after each display
+                      'trim': true, // Trim the string to type (Default: false, does not trim)
+                      'callback': null // if exists, called after all effects have finished
+                  });  
+                }, 200);         
+              }, 1);
+            }
+            else if( params.effect == 'typing2' ){
+      	      $t.addClass('typing2 typing2_animate'); 
+      	      var $tt = $t.find('.translation');
+              $tt.hide();
+      	      setTimeout( function(){
+                $t.removeClass('typing2'); 
+                setTimeout( function(){
+                  $tt.show();
+                  $tt.typewrite({
+                      'delay': 40, //time in ms between each letter
+                      'extra_char': '', //"cursor" character to append after each display
+                      'trim': true, // Trim the string to type (Default: false, does not trim)
+                      'callback': null // if exists, called after all effects have finished
+                  });  
+                }, 300);        
+              }, 1);
+            }
+            else if( params.effect == 'fold' ){
+              $t.addClass('up up_animate'); 
+      	      setTimeout( function(){
+                $t.removeClass('up');            
+              }, 1);
+
+            }
+      	    else{
+      	      
+              $t.addClass('typing3 typing3_animate'); 
+      	      var flash_time = 80;
+      	      var $tt = $t.find('.translation');
+              $tt.hide();
+              $t.animate({'opacity': 1}, 1).
+                delay(flash_time).
+                animate({'opacity': 0}, 1).
+                delay(flash_time).
+                animate({'opacity': 1}, 1, function(){
+                  $t.removeClass('typing3'); 
+                  setTimeout( function(){
+                    $tt.show();
+                    $tt.typewrite({
+                        'delay': 30, //time in ms between each letter
+                        'extra_char': '', //"cursor" character to append after each display
+                        'trim': true, // Trim the string to type (Default: false, does not trim)
+                        'callback': null // if exists, called after all effects have finished
+                    });  
+                  }, 200); 
+                });
+      	    }
+          },
+        
         	// displaying side 
         	display_available_phrase: function(){
         	  
@@ -189,12 +321,12 @@
         	    else{
           	    var $t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang}) ).appendTo('#party');        	      
         	    }
-              setTimeout( function(){
-                $t.removeClass('up');            
-              }, 1);
+        	    
+              this.animate_card($t);
         	    this.last_displayed_phrase++;
         	  }
         	  else{
+        	    
         	    if( this.party_status != 'partying' ){
         	      //there won't be any more translations coming, so this party is over 
         	      this.bust_this_party();
@@ -212,10 +344,10 @@
                 }
                 
                 var $t = $( Mustache.render(this.quip_tpl, {'quip': quip, 'type': type}) ).appendTo('#party');
-                setTimeout( function(){
-                  $t.removeClass('up');              
-                }, 1);
-                
+                $t.addClass('up up_animate'); 
+        	      setTimeout( function(){
+                  $t.removeClass('up');            
+                }, 1);                
         	    }
         	  }
         	},
@@ -279,14 +411,14 @@
       
       
       // party host = this is the controller 
-      var HEARTBEAT_TIME = 800;
+      var HEARTBEAT_TIME = params.heartbeat || 2750;
   	  var BETWEEN_PARTIES_TIME = 15000;
   	  var PHRASE_LIMIT = 20;
 
       function Party_host(){
         // console.log("hi, i'm the party host.");
         this.party_queue = [];
-        this.high_water_id = 0;
+        this.high_water_id = 1;
       }
       
       Party_host.prototype = {
@@ -360,9 +492,17 @@
         },
         
         clean_up_phrases: function(on_complete){
+          /*
+          var self = this;
+          $('#party .card').addClass('bye');
+          setTimeout(function(){
+            $('#party').empty();
+            on_complete.call(self);                      
+          }, 2000);
+          */
           var self = this;
           $('#party').empty();
-          on_complete.call(self);          
+          on_complete.call(self);
         },
         
         init: function(){

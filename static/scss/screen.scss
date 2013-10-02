@@ -18,11 +18,13 @@
 @include fsq-font-face('NexaLight', '/static/fonts/Nexa_Light', 'webfontZ6etP9ZY');
 
 
+//5120
+
 html { margin: 0; padding: 0; width: 100%; height: 100%; } 
 
 body {
 	font-size: $basefont;
-	line-height: 1.35; 
+	line-height: $baseline; 
 	font-family: $body_font_family;
 	@include background( $noise, $page );
 	height: 100%;
@@ -157,6 +159,16 @@ p{
 	margin: 0;
 }
 
+.divided_list{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	li{
+		padding: $spacing/2 0 0;
+		border-top: 1px solid $dark_1;		
+	}
+}
+
 .card{
 	background: $white;
 	color: $dark_1;
@@ -176,6 +188,15 @@ p{
 }
 .small{
 	font-size: $basefont_small;
+}
+.align_center{
+	text-align: center;
+}
+.align_right{
+	text-align: right;
+}
+.align_left{
+	text-align: left;
 }
 
 

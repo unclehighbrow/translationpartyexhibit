@@ -2,6 +2,10 @@
 	
 }
 
+$yellow: #FFD200;
+$black: #000000;
+$blue: #0095FF;
+
 #outer{
 	position: absolute;
 	top: 0;
@@ -9,12 +13,25 @@
 	height: 100%;
 	width: 100%;
 	background: black;
-	padding: 4px;
 	@include box-sizing(border-box);
+	.unit{
+		vertical-align: bottom;
+	}
 }
 
 #info_panel{
-	background: #333;
+	background: $yellow;
+	color: $black;
+	h1, h2{
+		color: $blue;
+	}
+}
+
+#queue_box{
+	color: $light_3;
+	h1, h2, h3, h4{
+	color: $light_3;
+	}
 }
 
 $card_spacing: 4px;
@@ -26,12 +43,13 @@ $language_width: 100px;
 		-webkit-column-break-inside: avoid;
 		margin-bottom: $card_spacing;
 		@include clr;
-		@include transition(transform .3s $bez);
 	    @include backface-visibility(hidden);
 	    @include transform-style(preserve-3d);
 		@include transform-origin(0 0 0);
 		@include rotateX(0deg);
-		@include opacity(1);		
+		@include opacity(1);
+		@include scale(1);
+		@include transform-origin(0, 0%);
 		.translation{
 			//margin-right: $language_width;
 		}
@@ -39,17 +57,83 @@ $language_width: 100px;
 			width: $language_width;
 			float: right;
 			text-align: right;
-			display: none;
+			//display: none;
+		}
+		
+		&.bye{
+			@include transition(transform 1s $bez);
+			@include transform3d(1000px 500px 0 );
+		}
+		
+		// ##############
+		// UP 
+		&.up_animate{
+			@include transition(transform .25s $bez);
 		}
 		&.up{
 			@include rotateX(-90deg);
 			@include opacity(0);
 		}
+		
+		// ##############
+		// SIDE
+		&.side_animate{
+			@include transition(transform .15s $bez .1s);
+			&:nth-child(2n){
+				@include transform-origin(100%, 0%);
+			}
+		}
+		&.side{
+			@include scale(.05, 1);
+		}
+		
+		// ##############
+		// TYPING
+		&.typing_animate{
+			@include transition(transform .15s $bez .1s);
+			&:nth-child(2n){
+				@include transform-origin(100%, 0%);
+			}
+			min-height: #{$baseline}em;
+		}
+		&.typing{
+			@include scale(.05, 1);
+		}
+		
+		// ##############
+		// TYPING2
+		&.typing2_animate{
+			@include transition(all .2s $bez .1s);
+			@include transform-origin(0%, 0%);
+			overflow: visible;
+			&:nth-child(2n){
+				@include transform-origin(100%, 0%);
+			}
+			min-height: #{$baseline}em;
+		}
+		&.typing2{
+			@include scale(.05);
+			opacity: 0;
+		}
+		
+		// ##############
+		// TYPING3
+		&.typing3_animate{
+			@include transition(transform .15s $bez .1s);
+			&:nth-child(2n){
+				@include transform-origin(100%, 0%);
+			}
+		}
+		&.typing3{
+			@include scale(.05, 1);
+			min-height: #{$baseline}em;
+		}
+
 	}
 }
 
 .columns{
-	@include column-gap($card_spacing * 4);
+	@include column-gap(150px);
 	@for $i from 2 through 5{
 		&.has_#{$i}{
 			@include column-count($i);
@@ -61,7 +145,7 @@ $language_width: 100px;
 	}
 }
 
-
+/*
 .success, .abject_failure{
 	$dash_h: 30px;
 	&:before{
@@ -77,6 +161,7 @@ $language_width: 100px;
 	}
 	margin-top: $dash_h;
 } 
+*/
 
 .success{
 	background: green;
