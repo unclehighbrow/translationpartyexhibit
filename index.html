@@ -18,7 +18,7 @@
       	<div class="frame"></div>
       </div>
 
-      <div class="unit size1of5 col">
+      <div class="unit size1of5 col last_col">
       	<div class="frame"></div>
       </div>
 
@@ -297,6 +297,34 @@
         	    }
         	  }
         	},
+
+					kill_phrases: function(callback){
+						
+						
+						var $cards = $('.card');
+						var this_card = 0;
+						var interval = 50;
+
+						// show cols
+						var hide_next_card = function(){
+							$($cards[this_card]).css({visibility: 'hidden'});
+							this_card++
+							if(this_card < $cards.length){
+								setTimeout(hide_next_card, interval);
+							}
+							else{
+								// no more cards to hide, we're done here
+								setTimeout(function(){
+									$('.col').empty();
+									if(callback){
+										callback.apply(this);							
+									}
+								}, HEARTBEAT_TIME * 3);
+							}
+						}
+						hide_next_card();
+						
+					},
         	
         	get_quip: function(phrase){  					
   					var quips, rand;
@@ -381,8 +409,11 @@
         	// stop -- translating and displaying is completely done
         	bust_this_party: function(){
         	  clearInterval(this.display_interval);
-        	  // console.log(this.party_status);
-        	  this.when_party_busted();
+						var self = this;
+            setTimeout(function(){
+              self.kill_phrases( self.when_party_busted );
+            }, BETWEEN_PARTIES_TIME);
+        	  
         	}
         	
       };
@@ -391,8 +422,9 @@
       // party host = this is the controller 
       var HEARTBEAT_TIME = params.heartbeat || 1000;
   	  var BETWEEN_PARTIES_TIME = 5000;
-  	  var PHRASE_LIMIT = 20;
 			var CARDS_PER_COLUMN = 4;
+			var COLUMNS = 4;
+			var PHRASE_LIMIT = (CARDS_PER_COLUMN * COLUMNS) - 1;
 			var CARD_HEIGHT = 150;
 
       function Party_host(){
@@ -496,8 +528,10 @@
 								setTimeout(hide_next_col, interval);
 							}
 							else{
-								$cols.empty().css({visibility: 'visible'});
-								callback.apply(self);
+								setTimeout(function(){
+									$cols.empty().css({visibility: 'visible'});
+									callback.apply(self);									
+								}, BETWEEN_PARTIES_TIME * .33);
 							}
 						}
 						hide_next_col();
@@ -512,11 +546,10 @@
 					}
 					else{
 	          if(this.party_queue.length == 0){
-	            // console.log('no queued parties, fetch attract mode phrases');
-							// consider only 
+							// change to fetch only one random fake party
 	            this.fetch_fake_parties();
 	          }
-	          this.clean_up_phrases(this.host_next_party);
+	          this.host_next_party();
 					}
 					this.party_count++;
         },
@@ -525,18 +558,11 @@
           var p = new Party();
           var self = this;
           p.when_party_busted = function(){
-            setTimeout(function(){
-              self.consider_next_party();
-            }, BETWEEN_PARTIES_TIME);
+						self.consider_next_party();
           };
           p.get_this_party_started( this.shift_party_from_queue() );
         },
-        
-        clean_up_phrases: function(on_complete){
-          var self = this;
-          $('.col').empty();
-          on_complete.call(self);
-        },
+
         
         init: function(){
           var self = this;
