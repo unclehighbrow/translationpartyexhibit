@@ -6,21 +6,33 @@
     <div class="line" id="outer">
 	
 			<!-- game columns -->
-      <div class="unit size1of5" id="col_1"></div>
+      <div class="unit size1of5 col">
+      	<div class="frame"></div>
+      </div>
 
-      <div class="unit size1of5" id="col_2"></div>
+      <div class="unit size1of5 col">
+      	<div class="frame"></div>
+      </div>
 
-      <div class="unit size1of5" id="col_3"></div>
+      <div class="unit size1of5 col">
+      	<div class="frame"></div>
+      </div>
 
-      <div class="unit size1of5" id="col_4"></div>
+      <div class="unit size1of5 col">
+      	<div class="frame"></div>
+      </div>
 
 			<!-- info column -->
-      <div class="unit size1of5" id="col_5">
+      <div class="unit size1of5">
+      	<div class="frame"></div>
+      </div>
+
+			
  
     </div>
     
-		<script type="text/html" id="info_tpl">
-			<div class="doc_content align_center">
+		<script type="text/html" id="promo_tpl">
+			<div class="doc_content align_center" id="promo">
 	      <h1 class="">
 					Prepare your being<br /> 
 					ready for having a<br />
@@ -34,42 +46,55 @@
 	    </div>
 
 		</script>
+		
+		<script type="text/html" id="gif_tpl">
+			<div style="background: url('static/images/pokemon.gif'); background-size: cover; width:100%; height: 100%;">
+			&nbsp;
+			</div>
+
+		</script>
+		
+		<script type="text/html" id="newphrase_tpl">
+			<div class="card" id="translator">
+				<div class="doc_content align_center">
+					<h2>New phrase from [[#partier]]
+	          <p class="muted" style="margin: 0;">[[name]] wrote:</p>
+	        [[/partier]]!</h2>
+					<p>[[t]]</p>
+		    </div>
+			</div>
+
+
+		</script>
+		
 
     <script type="text/html" id="translation_tpl">
-      <li class="card clr">
+      <div class="card clr">
         <div class="doc_content">
-          [[#partier]]
-            <p class="muted" style="margin: 0;">[[name]] wrote:</p>
-          [[/partier]]
           <p class="language small muted">[[l]]</p>
           <p class="translation">[[t]]</p>
         </div>
-      </li>
+      </div>
     </script>
     
     <script type="text/html" id="quip_tpl">
-      <li class="card clr [[type]]">
+      <div class="card clr [[type]]">
         <div class="doc_content">
           <p class="translation">[[quip]]</p>
         </div>
-      </li>
+      </div>
     </script>
-    
-    <script type="text/html" id="queue_tpl">
-      [[#phrases]]
-        <li class="">
-          [[t]]
-        </li>
-      [[/phrases]]
-    </script>
+
     
     
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/mustache.js"></script>
     <script type="text/javascript" src="static/js/jquery.transit.min.js"></script>
     <script type="text/javascript" src="static/js/typewriter.js"></script>
     <script type="text/javascript">
+
       Mustache.tags = ['[[', ']]'];
+			jQuery.fn.reverse = [].reverse;
     
       function parseURI() {
       	var uri = window.location.hash.substring(1);
@@ -89,38 +114,21 @@
       how do you know it's translating
       make sure there's no scollbar
       hit limit at end of screen, not at a number
-      do animations from right
-      quip difference
       ask for names
       contrast
       last screen -- leave half open
       moar quips
-      */
+      */	
     
-      
-      /*
-      CONSIDER: 
-      quip placement
-      equilibrium animation
-      limit animation
-      reset animation
-      quip list and types
-      */
-  
-
 			/*
-			
-							// add new phrase to last column
-							// check columns from last to first
-
-								// if content height is taller than frame height
-									// find enough cards from top of column to exceed height difference
-									// remove cards and add to column - 1
-							// loop
-
+			position new_phrase absolutely
+			add padding to .col:last
 			
 			*/
-  
+
+
+
+	
       function Party() {
         this.when_party_busted = function(){
           // console.log('party busted, default ending');
@@ -225,104 +233,39 @@
             this.check_party_progress();
           },
         
-          
-          animate_card: function($t){
-            // ####################
-      	    // ANIMATION OPTIONS
-      	    // ####################
-      	    
-      	    if( params.effect == 'side' ){
-      	      $t.addClass('side side_animate'); 
-      	      var flash_time = 80;
-              $t.animate({'opacity': 1}, 1).
-                delay(flash_time).
-                animate({'opacity': 0}, 1).
-                delay(flash_time).
-                animate({'opacity': 1}, 1, function(){
-                  $t.removeClass('side');  
-                });
-            }
-            else if( params.effect == 'typing' ){
-      	      $t.addClass('typing typing_animate');
-      	      var $tt = $t.find('.translation');
-              $tt.hide(); 
-      	      setTimeout( function(){
-                $t.removeClass('typing'); 
-                setTimeout( function(){
-                
-                  $tt.show();
-                  $tt.typewrite({
-                      'delay': 30, //time in ms between each letter
-                      'extra_char': '', //"cursor" character to append after each display
-                      'trim': true, // Trim the string to type (Default: false, does not trim)
-                      'callback': null // if exists, called after all effects have finished
-                  });  
-                }, 200);         
-              }, 1);
-            }
-            else if( params.effect == 'typing2' ){
-      	      $t.addClass('typing2 typing2_animate'); 
-      	      var $tt = $t.find('.translation');
-              $tt.hide();
-      	      setTimeout( function(){
-                $t.removeClass('typing2'); 
-                setTimeout( function(){
-                  $tt.show();
-                  $tt.typewrite({
-                      'delay': 40, //time in ms between each letter
-                      'extra_char': '', //"cursor" character to append after each display
-                      'trim': true, // Trim the string to type (Default: false, does not trim)
-                      'callback': null // if exists, called after all effects have finished
-                  });  
-                }, 300);        
-              }, 1);
-            }
-            else if( params.effect == 'fold' ){
-              $t.addClass('up up_animate'); 
-      	      setTimeout( function(){
-                $t.removeClass('up');            
-              }, 1);
 
-            }
-      	    else{
-      	      
-              $t.addClass('typing3 typing3_animate'); 
-      	      var flash_time = 80;
-      	      var $tt = $t.find('.translation');
-              $tt.hide();
-              $t.animate({'opacity': 1}, 1).
-                delay(flash_time).
-                animate({'opacity': 0}, 1).
-                delay(flash_time).
-                animate({'opacity': 1}, 1, function(){
-                  $t.removeClass('typing3'); 
-                  setTimeout( function(){
-                    $tt.show();
-                    $tt.typewrite({
-                        'delay': 30, //time in ms between each letter
-                        'extra_char': '', //"cursor" character to append after each display
-                        'trim': true, // Trim the string to type (Default: false, does not trim)
-                        'callback': null // if exists, called after all effects have finished
-                    });  
-                  }, 200); 
-                });
-      	    }
-          },
+					check_column: function($col){
+							var $cards = $col.find('.card');
+							var max_cards =  ( $col.parent().is('.col:last') ) ? (CARDS_PER_COLUMN - 1) : CARDS_PER_COLUMN;
+							if( $cards.length > max_cards ){
+								var $excess_card = $cards.first();
+								var $excess_card_clone = $excess_card.clone();
+								this.add_card( $col.parent().prev().find('.frame'), $excess_card_clone, function(){
+									$excess_card.remove();
+								});
+							}
+					},
         
+					add_card: function( $col, $card, callback ){
+						$card.appendTo($col).hide();
+						var self = this;
+						var callback = callback || function(){};
+						setTimeout(function(){
+							$card.show();
+							$col.transition({y: CARD_HEIGHT}, 0);
+							$col.transition({y: 0}, 200, callback);		
+							self.check_column($col);	
+						}, 0);
+					},
+
         	// displaying side 
         	display_available_phrase: function(){
-        	  
+
         	  if(this.phrase_queue.length > this.last_displayed_phrase){
         	    var phrase = this.phrase_queue[this.last_displayed_phrase];
-        	    if(this.last_displayed_phrase == 0){
-        	      // first phrase, show partier info
-          	    var $t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang, partier: this.partier}) ).appendTo('#party');        	              	      
-        	    }
-        	    else{
-          	    var $t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang}) ).appendTo('#party');        	      
-        	    }
+							$t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang}) );  
         	    
-              this.animate_card($t);
+ 							this.add_card( $('.col:last .frame'), $t);
         	    this.last_displayed_phrase++;
         	  }
         	  else{
@@ -343,11 +286,13 @@
                   type = 'success';
                 }
                 
+								/*
                 var $t = $( Mustache.render(this.quip_tpl, {'quip': quip, 'type': type}) ).appendTo('#party');
                 $t.addClass('up up_animate'); 
         	      setTimeout( function(){
                   $t.removeClass('up');            
-                }, 1);                
+                }, 1); 
+               	*/
         	    }
         	  }
         	},
@@ -386,18 +331,45 @@
         	},
         	
         	// init
-        	get_this_party_started: function(party){
-        	  this.phrase_queue.push({
-        	    'lang': 'en',
-        	    'string': party.t
-        	  });
-        	  this.partier = party.partier;
-        	  this.check_party_progress();
-        	  
-        	  var self = this;
-        	  this.display_interval = setInterval(function(){
-        	    self.display_available_phrase();
-        	  }, HEARTBEAT_TIME);
+        	get_this_party_started: function( partydata ){
+						// re-add frames
+						$('.col').append('<div class="frame" />');
+	
+						// set up data
+						if( typeof partydata.phrase_queue !== 'undefined' ){
+							// this is a premade attract-mode party
+							this.phrase_queue = partydata.phrase_queue;
+						}
+						else{
+							// this isn't a premade attract-mode party
+ 	       	  	this.phrase_queue.push({
+	        	    'lang': 'en',
+	        	    'string': partydata.t
+	        	  });
+						}
+        	  this.partier = partydata.partier;
+
+						// do initial display of phrase
+						var $translator = $(Mustache.render( $('#newphrase_tpl').html(), partydata));
+						var $col_last = $('.col:last');
+						$translator.appendTo($col_last).height( $col_last.height() );
+						$col_last.find('.frame').css({paddingBottom: CARD_HEIGHT});
+						
+						// ok, enough of that
+						var self = this;
+						setTimeout(function(){
+							
+							$translator.transition({height: CARD_HEIGHT}, 200, function(){
+								// kick off the translating
+		        	  self.check_party_progress();
+		        	  self.display_interval = setInterval(function(){
+		        	    self.display_available_phrase();
+		        	  }, HEARTBEAT_TIME);
+							});
+
+						}, HEARTBEAT_TIME * 3);
+
+
         	},
         	
         	// stop -- translating and displaying is completely done
@@ -411,18 +383,20 @@
       
       
       // party host = this is the controller 
-      var HEARTBEAT_TIME = params.heartbeat || 2750;
-  	  var BETWEEN_PARTIES_TIME = 15000;
+      var HEARTBEAT_TIME = params.heartbeat || 1000;
+  	  var BETWEEN_PARTIES_TIME = 3000;
   	  var PHRASE_LIMIT = 20;
+			var CARDS_PER_COLUMN = 4;
+			var CARD_HEIGHT = 150;
 
       function Party_host(){
         // console.log("hi, i'm the party host.");
         this.party_queue = [];
         this.high_water_id = 1;
+				this.party_count = 0;
       }
       
       Party_host.prototype = {
-        queue_tpl: $('#queue_tpl').html(),
         
         fetch_new_parties: function(){
           var self = this;
@@ -441,43 +415,75 @@
         },
         
         fetch_fake_parties: function(){
-          var attract_mode_phrases = [
-            {t: 'Beat it, just beat it! No one wants to be defeated!', 'partier': {'name': '@richardboenigk'} },
-            {t: "There's no business like show business like no business I know.", 'partier': {'name': '@sallysmith'} },
-            {t: "I'm tweeting this here at the Museum of the Moving Image", 'partier': {'name': 'Someone from Boise, ID'} }
+          var attract_mode_parties = [
+						{
+							'partier': {'name': 'someone from Brooklyn'}, 
+							't': "Let's get crazy",
+							'phrase_queue': [
+		         		{'lang': 'en', 'string': "Let's get crazy" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Is this still English?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "How many of these will fit?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" }
+		          ],
+						},
+						{
+							'partier': {'name': 'someone from Seattle'}, 
+							't': "This isn't the same as the other one.",
+							'phrase_queue': [
+		         		{'lang': 'en', 'string': "This isn't the same as the other one." },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Is this still English?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "How many of these will fit?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" }
+		          ],
+						}
+
+ 
           ];
-          this.add_to_queue(attract_mode_phrases);
+          this.add_to_queue(attract_mode_parties);
         },
         
         add_to_queue: function(newparties){
           this.party_queue.push.apply(this.party_queue, newparties);
-          this.update_queue_display();
         },
         
         shift_party_from_queue: function(){
           var p = this.party_queue.shift();
-          this.update_queue_display();
           return p;
         },
         
-        update_queue_display: function(){
-          if(this.party_queue.length > 0){
-            $('#queue_box').show();
-          }
-          else{
-            $('#queue_box').hide();            
-          }
-          $('#queue_list').html( Mustache.render(this.queue_tpl, {phrases: this.party_queue.slice(0, 4) } ) );          
-        },
+
         
         consider_next_party: function(){
           this.fetch_new_parties();
-          if(this.party_queue.length == 0){
-            // console.log('no queued parties, fetch attract mode phrases');
-            this.fetch_fake_parties();
-          }
-          this.clean_up_phrases(this.host_next_party);
-          // console.log('phrases in queue: '+this.party_queue.length);
+					if( this.party_count % 3 == 0){	
+						// show promo
+						$('.unit:even').html( $('#promo_tpl').html() );
+						$('.unit:odd').html( $('#gif_tpl').html() );
+						
+						var self = this;
+            setTimeout(function(){
+              self.consider_next_party();
+            }, BETWEEN_PARTIES_TIME);
+					}
+					else{
+	          if(this.party_queue.length == 0){
+	            // console.log('no queued parties, fetch attract mode phrases');
+							// consider only 
+	            this.fetch_fake_parties();
+	          }
+	          this.clean_up_phrases(this.host_next_party);
+					}
+					this.party_count++;
         },
         
         host_next_party: function(){
@@ -492,16 +498,8 @@
         },
         
         clean_up_phrases: function(on_complete){
-          /*
           var self = this;
-          $('#party .card').addClass('bye');
-          setTimeout(function(){
-            $('#party').empty();
-            on_complete.call(self);                      
-          }, 2000);
-          */
-          var self = this;
-          $('#party').empty();
+          $('.col').empty();
           on_complete.call(self);
         },
         

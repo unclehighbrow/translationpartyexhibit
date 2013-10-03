@@ -14,154 +14,60 @@ $blue: #0095FF;
 	width: 100%;
 	background: black;
 	@include box-sizing(border-box);
-	.unit{
-		vertical-align: bottom;
+	color: white;
+
+}
+
+
+
+
+
+
+$col_spacing: 50px;
+$screen_h: 600px;
+$cards_per_column: 4;
+$card_h: $screen_h / $cards_per_column;
+
+.col{
+	position: relative;
+	padding-right: $col_spacing;
+	.frame{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: calc(100% - #{$col_spacing});
 	}
 }
 
-#info_panel{
+.card{
+	height: $card_h;
+	overflow: hidden;
+	border-top: 16px solid black;
+	@include box-sizing(border-box);
+	@include clr;
+	margin: 0;
+	.doc_content{
+		@include box-sizing(border-box);		
+	}
+}
+
+#promo{
 	background: $yellow;
+	height: 100%;
 	color: $black;
 	h1, h2{
 		color: $blue;
 	}
 }
 
-#queue_box{
-	color: $light_3;
-	h1, h2, h3, h4{
-	color: $light_3;
-	}
+#translator{
+	background: $blue;
+	color: white;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: calc(100% - #{$col_spacing});
 }
-
-$card_spacing: 4px;
-$language_width: 100px;
-#party{
-	height: 100%;
-	@include perspective(800);
-	.card{
-		-webkit-column-break-inside: avoid;
-		margin-bottom: $card_spacing;
-		@include clr;
-	    @include backface-visibility(hidden);
-	    @include transform-style(preserve-3d);
-		@include transform-origin(0 0 0);
-		@include rotateX(0deg);
-		@include opacity(1);
-		@include scale(1);
-		@include transform-origin(0, 0%);
-		.translation{
-			//margin-right: $language_width;
-		}
-		.language{
-			width: $language_width;
-			float: right;
-			text-align: right;
-			//display: none;
-		}
-		
-		&.bye{
-			@include transition(transform 1s $bez);
-			@include transform3d(1000px 500px 0 );
-		}
-		
-		// ##############
-		// UP 
-		&.up_animate{
-			@include transition(transform .25s $bez);
-		}
-		&.up{
-			@include rotateX(-90deg);
-			@include opacity(0);
-		}
-		
-		// ##############
-		// SIDE
-		&.side_animate{
-			@include transition(transform .15s $bez .1s);
-			&:nth-child(2n){
-				@include transform-origin(100%, 0%);
-			}
-		}
-		&.side{
-			@include scale(.05, 1);
-		}
-		
-		// ##############
-		// TYPING
-		&.typing_animate{
-			@include transition(transform .15s $bez .1s);
-			&:nth-child(2n){
-				@include transform-origin(100%, 0%);
-			}
-			min-height: #{$baseline}em;
-		}
-		&.typing{
-			@include scale(.05, 1);
-		}
-		
-		// ##############
-		// TYPING2
-		&.typing2_animate{
-			@include transition(all .2s $bez .1s);
-			@include transform-origin(0%, 0%);
-			overflow: visible;
-			&:nth-child(2n){
-				@include transform-origin(100%, 0%);
-			}
-			min-height: #{$baseline}em;
-		}
-		&.typing2{
-			@include scale(.05);
-			opacity: 0;
-		}
-		
-		// ##############
-		// TYPING3
-		&.typing3_animate{
-			@include transition(transform .15s $bez .1s);
-			&:nth-child(2n){
-				@include transform-origin(100%, 0%);
-			}
-		}
-		&.typing3{
-			@include scale(.05, 1);
-			min-height: #{$baseline}em;
-		}
-
-	}
-}
-
-.columns{
-	@include column-gap(150px);
-	@for $i from 2 through 5{
-		&.has_#{$i}{
-			@include column-count($i);
-		}
-	}
-	
-	&.fill_auto{
-		@include experimental(column-fill, auto);
-	}
-}
-
-/*
-.success, .abject_failure{
-	$dash_h: 30px;
-	&:before{
-		content: '';
-		display: block;
-		height: $dash_h;
-		border-left: 4px dotted #ccc;
-		width: 2px;
-		position: absolute;
-		top: -($dash_h);
-		left: 50%;
-		margin-left: -2px;
-	}
-	margin-top: $dash_h;
-} 
-*/
 
 .success{
 	background: green;

@@ -1,28 +1,40 @@
-
-<!-- saved from url=(0044)http://localhost:8080/#gap=500&heartbeat=200 -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" src="http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslations?oncomplete=jQuery172012067353306338191_1367936738486&appId=F2926FC35C3732CEC3E9C92913745F9C28912821&text=I+am+seriously+considering+letting+the+dogs+out&from=en&to=ja&maxTranslations=1&_=1367936738551"></script>
-  <link rel="stylesheet" type="text/css" href="./localhost_files/screen.css">
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="static/css/screen.css" />
 </head>
 <body>
     <div class="line" id="outer">
-      <div class="unit size3of4 gutter_right">
-        <ul class="reset_list columns has_4 fill_auto" id="party" style="-webkit-column-gap: 500px;"></ul>
-      </div>
-      <div class="unit size1of4" id="info_panel">
-        <div class="doc_content">
-          <h1 class="align_center">Text a phrase to 718 569 8668</h1>
-        </div>
-        
-        <div class="doc_content" id="queue_box" style="">
-          <ul id="queue_list" class="divided_list">
-        <li class="">
-          It's the end of the world as we know it.
-        </li>
-    </ul>
-        </div>
-      </div>
+	
+			<!-- game columns -->
+      <div class="unit size1of5" id="col_1"></div>
+
+      <div class="unit size1of5" id="col_2"></div>
+
+      <div class="unit size1of5" id="col_3"></div>
+
+      <div class="unit size1of5" id="col_4"></div>
+
+			<!-- info column -->
+      <div class="unit size1of5" id="col_5">
+ 
     </div>
     
+		<script type="text/html" id="info_tpl">
+			<div class="doc_content align_center">
+	      <h1 class="">
+					Prepare your being<br /> 
+					ready for having a<br />
+					Translation Party
+				</h1>
+					<h2>
+						Give a birth to party<br />
+						text a prase to<br />
+						<strong>718 569 8668</strong>
+					</h2>
+	    </div>
+
+		</script>
+
     <script type="text/html" id="translation_tpl">
       <li class="card clr">
         <div class="doc_content">
@@ -52,10 +64,10 @@
     </script>
     
     
-    <script type="text/javascript" src="./localhost_files/jquery.min.js"></script>
-    <script type="text/javascript" src="./localhost_files/mustache.js"></script>
-    <script type="text/javascript" src="./localhost_files/jquery.transit.min.js"></script>
-    <script type="text/javascript" src="./localhost_files/typewriter.js"></script>
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/mustache.js"></script>
+    <script type="text/javascript" src="static/js/jquery.transit.min.js"></script>
+    <script type="text/javascript" src="static/js/typewriter.js"></script>
     <script type="text/javascript">
       Mustache.tags = ['[[', ']]'];
     
@@ -72,9 +84,20 @@
       }
       var params = parseURI();
     
-      var columngap = params.gap || 32;
-      $('#party').css({'-moz-column-gap': columngap+"px", '-webkit-column-gap': columngap+"px" });
+      /*
+      language filter
+      how do you know it's translating
+      make sure there's no scollbar
+      hit limit at end of screen, not at a number
+      do animations from right
+      quip difference
+      ask for names
+      contrast
+      last screen -- leave half open
+      moar quips
+      */
     
+      
       /*
       CONSIDER: 
       quip placement
@@ -84,6 +107,19 @@
       quip list and types
       */
   
+
+			/*
+			
+							// add new phrase to last column
+							// check columns from last to first
+
+								// if content height is taller than frame height
+									// find enough cards from top of column to exceed height difference
+									// remove cards and add to column - 1
+							// loop
+
+			
+			*/
   
       function Party() {
         this.when_party_busted = function(){
@@ -105,14 +141,6 @@
   					  'quips': [
   						  "But it's not nice to shout in Japanese, either."
   					  ]
-  					},
-  					{
-  					  'type': 'dirty',
-  					  'match': /(fuck|shit|ass|tit|bitch|screw|dick|pussy|nuts|balls)/i,
-  					  'quips': [
-  						  "Shame on you, by the way.",
-  						  "With language like that, you're a real goodwill ambassador!"
-  						]
   					},
   					{
   					  'type': 'twitter',
@@ -271,7 +299,7 @@
                   setTimeout( function(){
                     $tt.show();
                     $tt.typewrite({
-                        'delay': 40, //time in ms between each letter
+                        'delay': 30, //time in ms between each letter
                         'extra_char': '', //"cursor" character to append after each display
                         'trim': true, // Trim the string to type (Default: false, does not trim)
                         'callback': null // if exists, called after all effects have finished
@@ -291,7 +319,7 @@
           	    var $t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang, partier: this.partier}) ).appendTo('#party');        	              	      
         	    }
         	    else{
-          	    var $t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang}) ).appendTo('#party');        	      
+          	    var $t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang}) ).appendTo('#col_4');        	      
         	    }
         	    
               this.animate_card($t);
@@ -358,12 +386,22 @@
         	},
         	
         	// init
-        	get_this_party_started: function(party){
-        	  this.phrase_queue.push({
-        	    'lang': 'en',
-        	    'string': party.t
-        	  });
-        	  this.partier = party.partier;
+        	get_this_party_started: function( partydata ){
+						if( typeof partydata.phrase_queue !== 'undefined' ){
+							// this is a premade attract-mode party
+							this.phrase_queue = partydata.phrase_queue;
+						}
+						else{
+							// this isn't a premade attract-mode party
+ 	       	  	this.phrase_queue.push({
+	        	    'lang': 'en',
+	        	    'string': partydata.t
+	        	  });
+						}
+						
+						console.log(this.phrase_queue.length);
+						
+        	  this.partier = partydata.partier;
         	  this.check_party_progress();
         	  
         	  var self = this;
@@ -390,7 +428,7 @@
       function Party_host(){
         // console.log("hi, i'm the party host.");
         this.party_queue = [];
-        this.high_water_id = 0;
+        this.high_water_id = 1;
       }
       
       Party_host.prototype = {
@@ -413,12 +451,41 @@
         },
         
         fetch_fake_parties: function(){
-          var attract_mode_phrases = [
-            {t: 'Beat it, just beat it! No one wants to be defeated!', 'partier': {'name': '@richardboenigk'} },
-            {t: "There's no business like show business like no business I know.", 'partier': {'name': '@sallysmith'} },
-            {t: "I'm tweeting this here at the Museum of the Moving Image", 'partier': {'name': 'Someone from Boise, ID'} }
+          var attract_mode_parties = [
+						{
+							'partier': {'name': 'someone from Brooklyn'}, 
+							't': "Let's get crazy",
+							'phrase_queue': [
+		         		{'lang': 'en', 'string': "Let's get crazy" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Is this still English?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "How many of these will fit?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" }
+		          ],
+						},
+						{
+							'partier': {'name': 'someone from Seattle'}, 
+							't': "This isn't the same as the other one.",
+							'phrase_queue': [
+		         		{'lang': 'en', 'string': "This isn't the same as the other one." },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Is this still English?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "How many of these will fit?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" }
+		          ],
+						}
+
+ 
           ];
-          this.add_to_queue(attract_mode_phrases);
+          this.add_to_queue(attract_mode_parties);
         },
         
         add_to_queue: function(newparties){
@@ -464,14 +531,6 @@
         },
         
         clean_up_phrases: function(on_complete){
-          /*
-          var self = this;
-          $('#party .card').addClass('bye');
-          setTimeout(function(){
-            $('#party').empty();
-            on_complete.call(self);                      
-          }, 2000);
-          */
           var self = this;
           $('#party').empty();
           on_complete.call(self);
@@ -501,5 +560,5 @@
       
     </script>
     
-
-</body></html>
+</body>
+</html>
