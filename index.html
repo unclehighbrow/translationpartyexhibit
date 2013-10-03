@@ -56,15 +56,16 @@
 		
 		<script type="text/html" id="newphrase_tpl">
 			<div class="card" id="translator">
-				<div class="doc_content align_center">
+				<div class="doc_content align_center" id="announcing">
 					<h2>New phrase from [[#partier]]
-	          <p class="muted" style="margin: 0;">[[name]] wrote:</p>
-	        [[/partier]]!</h2>
-					<p>[[t]]</p>
+	          <p class="muted" style="margin: 0;">[[name]]!</p>
+	        [[/partier]]</h2>
+					<h1>&ldquo;[[t]]&rdquo;</h1>
 		    </div>
+				<div class="doc_content align_center" id="translating">
+					<h2>TRANSLATING...</h2>
+				</div>
 			</div>
-
-
 		</script>
 		
 
@@ -354,14 +355,19 @@
 						var $col_last = $('.col:last');
 						$translator.appendTo($col_last).height( $col_last.height() );
 						$col_last.find('.frame').css({paddingBottom: CARD_HEIGHT});
+						$('#translating').hide();
 						
 						// ok, enough of that
 						var self = this;
 						setTimeout(function(){
 							
 							$translator.transition({height: CARD_HEIGHT}, 200, function(){
+								$('#translating').show();
+								$('#announcing').hide();
+								
 								// kick off the translating
 		        	  self.check_party_progress();
+								self.display_available_phrase(); // do one quickly to start
 		        	  self.display_interval = setInterval(function(){
 		        	    self.display_available_phrase();
 		        	  }, HEARTBEAT_TIME);
@@ -384,7 +390,7 @@
       
       // party host = this is the controller 
       var HEARTBEAT_TIME = params.heartbeat || 1000;
-  	  var BETWEEN_PARTIES_TIME = 3000;
+  	  var BETWEEN_PARTIES_TIME = 5000;
   	  var PHRASE_LIMIT = 20;
 			var CARDS_PER_COLUMN = 4;
 			var CARD_HEIGHT = 150;
@@ -461,19 +467,48 @@
           return p;
         },
         
-
+				show_promo: function(callback){
+					$('.col').css({visibility: 'hidden'});
+					$('.unit:even').html( $('#promo_tpl').html() );
+					$('.unit:odd').html( $('#gif_tpl').html() );
+					
+					var $cols = $('.col');
+					var this_col = $cols.length - 1;
+					var interval = 150
+					
+					// show cols
+					var show_next_col = function(){
+						$($cols[this_col]).css({visibility: 'visible'});
+						this_col--;
+						if(this_col >= 0){
+							setTimeout(show_next_col, interval);
+						}
+					}
+					show_next_col();
+					
+					//hide cols
+					var self = this;
+          setTimeout(function(){
+						var hide_next_col = function(){
+							$($cols[this_col]).css({visibility: 'hidden'});
+							this_col++;
+							if(this_col < $cols.length){
+								setTimeout(hide_next_col, interval);
+							}
+							else{
+								$cols.empty().css({visibility: 'visible'});
+								callback.apply(self);
+							}
+						}
+						hide_next_col();
+					}, BETWEEN_PARTIES_TIME);
+					
+				},
         
         consider_next_party: function(){
           this.fetch_new_parties();
 					if( this.party_count % 3 == 0){	
-						// show promo
-						$('.unit:even').html( $('#promo_tpl').html() );
-						$('.unit:odd').html( $('#gif_tpl').html() );
-						
-						var self = this;
-            setTimeout(function(){
-              self.consider_next_party();
-            }, BETWEEN_PARTIES_TIME);
+						this.show_promo(this.consider_next_party);
 					}
 					else{
 	          if(this.party_queue.length == 0){
