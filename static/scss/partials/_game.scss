@@ -37,11 +37,7 @@ $card_h: $screen_h / $cards_per_column;
 		left: 0;
 		width: calc(100% - #{$col_spacing});
 	}
-	&.last_col{
-		.card:last-child{
-			background-color: pink;
-		};
-	}
+
 }
 
 .card{
@@ -49,9 +45,12 @@ $card_h: $screen_h / $cards_per_column;
 	overflow: hidden;
 	border-top: 16px solid black;
 	@include box-sizing(border-box);
-	@include clr;
 	margin: 0;
-	@include transition( background-color .7s);
+	background-color: #ccc;
+	@include transition( background-color .15s linear .1s);
+	&.new{
+		background-color: #fff;
+	}
 	.doc_content{
 		@include box-sizing(border-box);		
 	}
@@ -73,13 +72,12 @@ $card_h: $screen_h / $cards_per_column;
 	bottom: 0;
 	left: 0;
 	width: calc(100% - #{$col_spacing});
+	&.success{
+		background: green;
+	}
+	&.abject_failure{
+		background: red;
+	}
 }
 
-.success{
-	background: green;
-	color: #fff;
-}
-.abject_failure{
-	background: red;
-	color: #fff;
-}
+

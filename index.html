@@ -70,7 +70,7 @@
 		
 
     <script type="text/html" id="translation_tpl">
-      <div class="card clr">
+      <div class="card new">
         <div class="doc_content">
           <p class="language small muted">[[l]]</p>
           <p class="translation">[[t]]</p>
@@ -79,11 +79,9 @@
     </script>
     
     <script type="text/html" id="quip_tpl">
-      <div class="card clr [[type]]">
-        <div class="doc_content">
-          <p class="translation">[[quip]]</p>
+        <div class="doc_content align_center">
+          <h2>[[quip]]</h2>
         </div>
-      </div>
     </script>
 
     
@@ -254,7 +252,10 @@
 						setTimeout(function(){
 							$card.show();
 							$col.transition({y: CARD_HEIGHT}, 0);
-							$col.transition({y: 0}, 200, callback);		
+							$col.transition({y: 0}, 200, function(){
+								$card.removeClass('new');
+								callback();
+							});		
 							self.check_column($col);	
 						}, 0);
 					},
@@ -287,13 +288,8 @@
                   type = 'success';
                 }
                 
-								/*
-                var $t = $( Mustache.render(this.quip_tpl, {'quip': quip, 'type': type}) ).appendTo('#party');
-                $t.addClass('up up_animate'); 
-        	      setTimeout( function(){
-                  $t.removeClass('up');            
-                }, 1); 
-               	*/
+                $('#translator').addClass(type).html( Mustache.render(this.quip_tpl, {'quip': quip}) );
+                 
         	    }
         	  }
         	},
