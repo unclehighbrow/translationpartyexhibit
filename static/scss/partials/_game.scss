@@ -42,7 +42,7 @@ $card_h: $screen_h / $cards_per_column;
 	@include box-sizing(border-box);
 	margin: 0;
 	background-color: #ccc;
-	@include transition( background-color .15s linear .1s);
+	@include transition( background-color .2s linear .1s);
 	&.new{
 		background-color: #fff;
 	}
@@ -71,7 +71,7 @@ $card_h: $screen_h / $cards_per_column;
 #translator{
 	height: 100%;
 	width: calc(100% - #{$col_spacing});
-	@include perspective( preserve-3d );
+	@include perspective( 800 );
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -83,7 +83,7 @@ $card_h: $screen_h / $cards_per_column;
 	}
 	
 	.flipper{
-		@include transition( all 0.4s);
+		@include transition( all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) );
 		@include transform-style( preserve-3d );
 		position: relative;
 		width: 100%;

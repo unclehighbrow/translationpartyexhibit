@@ -326,14 +326,14 @@
 
 					kill_phrases: function(callback){
 						
-						
 						var $cards = $('.card');
 						var this_card = 0;
 						var interval = 50;
 
 						// show cols
 						var hide_next_card = function(){
-							$($cards[this_card]).css({visibility: 'hidden'});
+							// $($cards[this_card]).css({visibility: 'hidden'});
+							$($cards[this_card]).transition({opacity: 0, y: 300, rotate: 30 }, 300);
 							this_card++
 							if(this_card < $cards.length){
 								setTimeout(hide_next_card, interval);
@@ -488,6 +488,21 @@
 							't': "Let's get crazy",
 							'phrase_queue': [
 		         		{'lang': 'en', 'string': "Let's get crazy" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Is this still English?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "How many of these will fit?" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" },
+								{'lang': 'ja', 'string': " おはようございます   ようござ" },
+								{'lang': 'en', 'string': "Probably quite a few" }
+		          ],
+						},
+						{
+							'partier': {'name': 'someone from Seattle'}, 
+							't': "This isn't the same as the other one.",
+							'phrase_queue': [
+		         		{'lang': 'en', 'string': "This isn't the same as the other one." },
 								{'lang': 'ja', 'string': " おはようございます   ようござ" },
 								{'lang': 'en', 'string': "Is this still English?" },
 								{'lang': 'ja', 'string': " おはようございます   ようござ" },

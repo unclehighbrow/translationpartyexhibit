@@ -2380,11 +2380,11 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   box-sizing: border-box;
   margin: 0;
   background-color: #ccc;
-  -webkit-transition: background-color 0.15s linear;
+  -webkit-transition: background-color 0.2s linear;
   -webkit-transition-delay: 0.1s;
-  -moz-transition: background-color 0.15s linear 0.1s;
-  -o-transition: background-color 0.15s linear 0.1s;
-  transition: background-color 0.15s linear 0.1s;
+  -moz-transition: background-color 0.2s linear 0.1s;
+  -o-transition: background-color 0.2s linear 0.1s;
+  transition: background-color 0.2s linear 0.1s;
 }
 /* line 46, ../scss/partials/_game.scss */
 .card.new {
@@ -2420,11 +2420,11 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
 #translator {
   height: 100%;
   width: calc(100% - 50px);
-  -webkit-perspective: preserve-3d;
-  -moz-perspective: preserve-3d;
-  -ms-perspective: preserve-3d;
-  -o-perspective: preserve-3d;
-  perspective: preserve-3d;
+  -webkit-perspective: 800;
+  -moz-perspective: 800;
+  -ms-perspective: 800;
+  -o-perspective: 800;
+  perspective: 800;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -2439,10 +2439,10 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
 }
 /* line 85, ../scss/partials/_game.scss */
 #translator .flipper {
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  transition: all 0.4s;
+  -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -moz-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -o-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   -ms-transform-style: preserve-3d;
