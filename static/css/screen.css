@@ -2370,7 +2370,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   width: calc(100% - 50px);
 }
 
-/* line 39, ../scss/partials/_game.scss */
+/* line 38, ../scss/partials/_game.scss */
 .card {
   height: 150px;
   overflow: hidden;
@@ -2386,29 +2386,29 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transition: background-color 0.15s linear 0.1s;
   transition: background-color 0.15s linear 0.1s;
 }
-/* line 47, ../scss/partials/_game.scss */
+/* line 46, ../scss/partials/_game.scss */
 .card.new {
   background-color: #fff;
 }
-/* line 50, ../scss/partials/_game.scss */
+/* line 49, ../scss/partials/_game.scss */
 .card .doc_content {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 57, ../scss/partials/_game.scss */
+/* line 56, ../scss/partials/_game.scss */
 .promo_info {
   background: #ffd200;
   height: 100%;
   color: black;
 }
-/* line 61, ../scss/partials/_game.scss */
+/* line 60, ../scss/partials/_game.scss */
 .promo_info h1, .promo_info h2 {
   color: #0095ff;
 }
 
-/* line 65, ../scss/partials/_game.scss */
+/* line 64, ../scss/partials/_game.scss */
 .promo_animation {
   background: red url("/static/images/pokemon.gif");
   background-size: cover;
@@ -2416,24 +2416,78 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   height: 100%;
 }
 
-/* line 72, ../scss/partials/_game.scss */
+/* line 71, ../scss/partials/_game.scss */
 #translator {
-  background: #0095ff;
-  color: white;
+  height: 100%;
+  width: calc(100% - 50px);
+  -webkit-perspective: preserve-3d;
+  -moz-perspective: preserve-3d;
+  -ms-perspective: preserve-3d;
+  -o-perspective: preserve-3d;
+  perspective: preserve-3d;
   position: absolute;
   bottom: 0;
   left: 0;
-  width: calc(100% - 50px);
-  -webkit-transition: none;
-  -moz-transition: none;
-  -o-transition: none;
-  transition: none;
 }
 /* line 80, ../scss/partials/_game.scss */
-#translator.success {
+#translator.flipped .flipper {
+  -webkit-transform: rotateX(-180deg);
+  -moz-transform: rotateX(-180deg);
+  -ms-transform: rotateX(-180deg);
+  -o-transform: rotateX(-180deg);
+  transform: rotateX(-180deg);
+}
+/* line 85, ../scss/partials/_game.scss */
+#translator .flipper {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+/* line 92, ../scss/partials/_game.scss */
+#translator .flipper .front, #translator .flipper .back {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+/* line 101, ../scss/partials/_game.scss */
+#translator .flipper .front {
+  z-index: 2;
+}
+/* line 105, ../scss/partials/_game.scss */
+#translator .flipper .back {
+  -webkit-transform: rotateX(180deg);
+  -moz-transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  -o-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+}
+/* line 111, ../scss/partials/_game.scss */
+#translator .card {
+  background: #0095ff;
+  color: white;
+  border: 0;
+}
+/* line 115, ../scss/partials/_game.scss */
+#translator .card.success {
   background: green;
 }
-/* line 83, ../scss/partials/_game.scss */
-#translator.abject_failure {
+/* line 118, ../scss/partials/_game.scss */
+#translator .card.abject_failure {
   background: red;
 }
