@@ -34,7 +34,7 @@ class AjaxHandler(webapp2.RequestHandler):
 			ret['status'] = 'error'
 		
 		#/ajax?op=getRecent
-		return self.response.out.write(json.dumps(ret))
+		return self.response.out.write(json.dumps(ret, ensure_ascii=False))
 
 app = webapp2.WSGIApplication([
 	('/ajax', AjaxHandler)
@@ -60,5 +60,7 @@ def party_to_dict(party):
 	if partier is None:
 		partier = {'name': 'Somebody'}
 	ret['partier'] = partier
+	if (party.json):
+		ret['phrase_queue'] = json.loads(party.json)
 	return ret
 
