@@ -66,7 +66,7 @@
 						
 
 								<h1 class="big">&ldquo;[[t]]&rdquo;</h1>
-								<h2 class="muted">New phrase by <br />[[#partier]]
+								<h2 class="muted">&mdash;New phrase by <br />[[#partier]]
 				        [[name]]!
 				        [[/partier]]</h2>
 							
@@ -280,6 +280,8 @@
 
         	// displaying side 
         	display_available_phrase: function(){
+						// no "phrase limit" per se, if no equilibrium is reached by the end of the queue, then it's a bust
+	
 
         	  if( this.phrase_queue.length > this.last_displayed_phrase ){
         	    var phrase = this.phrase_queue[this.last_displayed_phrase];
@@ -292,22 +294,22 @@
         	  }
         	  else{
         	    
-        	    if( this.party_status != 'partying' ){
         	      //there won't be any more translations coming, so this party is over 
         	      this.bust_this_party();
         	      
         	      var quip, type, type_message;
-                if( this.party_status == 'limit' ){
-                  quip = 'It is unlikely that this phrase will ever reach equilibrium';
-                  type = 'abject_failure';
-									type_message = "Party is busted!"
-                }
-                else{
-                  // it hit equilibrium then
+                if( this.party_status == 'equilibrium' ){
+									// it hit equilibrium 
                   $('.last_col .frame .card').css({background: 'lightgreen'});
                   quip = this.get_quip( this.phrase_queue[0].string ); // quip based on original input
                   type = 'success';
 									type_message = "Equilibrium found!"
+                }
+                else{
+									// ran out before it made it
+                  quip = 'It is unlikely that this phrase will ever reach equilibrium';
+                  type = 'abject_failure';
+									type_message = "Party is busted!"
                 }
                 
 								// flip translator and end the party
@@ -316,7 +318,6 @@
 								$('#type_message').text(type_message);
                 $('#translator').addClass('flipped');
         	    }
-        	  }
         	},
 
         	// what next?
@@ -328,7 +329,7 @@
         	    // reached equilibrium
         	    this.party_status = 'equilibrium';
         	  }
-        	  else if(this.phrase_queue.length == PHRASE_LIMIT){
+        	  else if(this.phrase_queue.length >= PHRASE_LIMIT){
         	    // hit the limit
         	    this.party_status = 'limit';
         	  }

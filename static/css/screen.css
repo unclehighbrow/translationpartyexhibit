@@ -2450,7 +2450,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
 
 /* line 75, ../scss/partials/_game.scss */
 .muted {
-  color: rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.3);
 }
 /* line 77, ../scss/partials/_game.scss */
 .inverted .muted {

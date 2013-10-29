@@ -3,10 +3,10 @@ $black: #000000;
 $blue: #0095FF;
 
 $textColorPrimary: black;
-$textColorSecondary: transparentize(black, .6);
+$textColorSecondary: rgba(0,0,0,.3); // closer to tertiary, but i'm in a hurry
 
 $textColorPrimaryInverted: white;
-$textColorSecondaryInverted: transparentize(white, .4);
+$textColorSecondaryInverted: rgba(255,255,255, .6);
 
 $textWeightRegular: 400;
 $textWeightLight: 300;
