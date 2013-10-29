@@ -1,4 +1,4 @@
-[
+var lol_translations = [
 {
 	"partier": {"name": "someone from Seattle"},
 	"t": "Let us be lovers and marry our fortunes together.",

@@ -101,6 +101,8 @@
     <script type="text/javascript" src="static/js/mustache.js"></script>
     <script type="text/javascript" src="static/js/jquery.transit.min.js"></script>
     <script type="text/javascript" src="static/js/rainbow.js"></script>
+    <script type="text/javascript" src="static/js/lol_translations.js"></script>
+
     <script type="text/javascript">
 
       Mustache.tags = ['[[', ']]'];
@@ -508,57 +510,9 @@
             }});
         },
         
-        fetch_fake_parties: function(){
-          var attract_mode_parties = [
-						{
-							'partier': {'name': 'someone from Brooklyn'}, 
-							't': "Let's get crazy",
-							'phrase_queue': [
-		         		{'lang': 'en', 'string': "Let's get crazy" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Is this still English?" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "How many of these will fit?" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Probably quite a few" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Probably quite a few" }
-		          ],
-						},
-						{
-							'partier': {'name': 'someone from Seattle'}, 
-							't': "This isn't the same as the other one.",
-							'phrase_queue': [
-		         		{'lang': 'en', 'string': "This isn't the same as the other one." },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Is this still English?" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "How many of these will fit?" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Probably quite a few" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Probably quite a few" }
-		          ],
-						},
-						{
-							'partier': {'name': 'someone from Seattle'}, 
-							't': "This isn't the same as the other one.",
-							'phrase_queue': [
-		         		{'lang': 'en', 'string': "This isn't the same as the other one." },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Is this still English?" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "How many of these will fit?" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Probably quite a few" },
-								{'lang': 'ja', 'string': " おはようございます   ようござ" },
-								{'lang': 'en', 'string': "Probably quite a few" }
-		          ],
-						}
-
- 
-          ];
-          this.add_to_queue(attract_mode_parties);
+        fetch_fake_party: function(){
+					var fake_party = lol_translations[ Math.floor(Math.random() * lol_translations.length) ];
+          this.add_to_queue( [fake_party] );
         },
         
         add_to_queue: function(newparties){
@@ -621,7 +575,7 @@
 					else{
 	          if(this.party_queue.length == 0){
 							// change to fetch only one random fake party
-	            this.fetch_fake_parties();
+	            this.fetch_fake_party();
 	          }
 	          this.host_next_party();
 					}
