@@ -3,28 +3,28 @@
   <link rel="stylesheet" type="text/css" href="static/css/screen.css" />
 </head>
 <body>
-    <div class="line" id="outer">
+    <div id="outer">
 	
 			<!-- game columns -->
-      <div class="unit size1of5 col">
-      	<div class="frame"></div>
+      <div class="unit col">
+      	<div class="wrap"><div class="frame"></div></div>
       </div>
 
-      <div class="unit size1of5 col">
-      	<div class="frame"></div>
+      <div class="unit col">
+      	<div class="wrap"><div class="frame"></div></div>
       </div>
 
-      <div class="unit size1of5 col">
-      	<div class="frame"></div>
+      <div class="unit col">
+      	<div class="wrap"><div class="frame"></div></div>
       </div>
 
-      <div class="unit size1of5 col last_col">
-      	<div class="frame"></div>
+      <div class="unit col last_col" >
+      	<div class="wrap"><div class="frame"></div></div>
       </div>
 
 			<!-- info column -->
-      <div class="unit size1of5">
-      	<div class="frame"></div>
+      <div class="unit">
+      	<div class="wrap"><div class="frame"></div></div>
       </div>
 
 			
@@ -33,16 +33,17 @@
     
 		<script type="text/html" id="promo_tpl">
 			<div class="doc_content align_center promo_info">
-	      <h1 class="">
+	      <p>
 					Prepare your being<br /> 
 					ready for having a<br />
-					Translation Party
-				</h1>
-					<h2>
-						Give a birth to party<br />
-						text a prase to<br />
-						<strong>718 569 8668</strong>
-					</h2>
+					<span class="big blue">Translation Party</span>
+				</p>
+				<p>
+					
+					Text a phrase to<br />
+					<span class="medium blue">(718) 569-8668</span><br />
+					to give a birth to party
+				</p>
 	    </div>
 
 		</script>
@@ -61,8 +62,8 @@
 		
 					<div class="card front">
 						<div class="doc_content align_center" id="announcing">
-							<h2>New phrase from [[#partier]]
-			          <p class="muted" style="margin: 0;">[[name]]!</p>
+							<h2 style="opacity: .6;">New phrase from <br />[[#partier]]
+			          <p style="margin: 0;">[[name]]!</p>
 			        [[/partier]]</h2>
 							<h1>&ldquo;[[t]]&rdquo;</h1>
 				    </div>
@@ -73,7 +74,8 @@
 				
 					<div class="card back">
 						<div class="doc_content align_center" id="announcing">
-							<h2 id="quip">...</h2>
+							<h2 id="type_message">...</h2>
+							<p id="quip">...</p>
 						</div>
 					</div>
 					
@@ -92,18 +94,13 @@
       </div>
     </script>
     
-    <script type="text/html" id="quip_tpl">
-        <div class="doc_content align_center">
-          <h2>[[quip]]</h2>
-        </div>
-    </script>
 
     
     
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/mustache.js"></script>
     <script type="text/javascript" src="static/js/jquery.transit.min.js"></script>
-    <script type="text/javascript" src="static/js/typewriter.js"></script>
+    <script type="text/javascript" src="static/js/rainbow.js"></script>
     <script type="text/javascript">
 
       Mustache.tags = ['[[', ']]'];
@@ -168,7 +165,6 @@
       
       Party.prototype = {
           translation_tpl: $('#translation_tpl').html(),
-          quip_tpl: $('#quip_tpl').html(),
           quip_types : [
   					{ 
   					  'type': 'uppercase',
@@ -263,11 +259,11 @@
 
 					check_column: function($col){
 							var $cards = $col.find('.card');
-							var max_cards =  ( $col.parent().is('.col:last') ) ? (CARDS_PER_COLUMN - 1) : CARDS_PER_COLUMN;
+							var max_cards =  ( $col.parent().parent().is('.col:last') ) ? (CARDS_PER_COLUMN - 1) : CARDS_PER_COLUMN;
 							if( $cards.length > max_cards ){
 								var $excess_card = $cards.first();
 								var $excess_card_clone = $excess_card.clone();
-								this.add_card( $col.parent().prev().find('.frame'), $excess_card_clone, function(){
+								this.add_card( $col.parent().parent().prev().find('.frame'), $excess_card_clone, function(){
 									$excess_card.remove();
 								});
 							}
@@ -293,7 +289,7 @@
 
         	  if(this.phrase_queue.length > this.last_displayed_phrase){
         	    var phrase = this.phrase_queue[this.last_displayed_phrase];
-							$t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: phrase.lang}) );  
+							$t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: this.get_language(phrase.lang, this.last_displayed_phrase)}) );  
         	    
  							this.add_card( $('.col:last .frame'), $t);
         	    this.last_displayed_phrase++;
@@ -304,21 +300,24 @@
         	      //there won't be any more translations coming, so this party is over 
         	      this.bust_this_party();
         	      
-        	      var quip, type;
+        	      var quip, type, type_message;
                 if( this.party_status == 'limit' ){
-                  quip = 'it is unlikely that this phrase will ever reach equilibrium';
+                  quip = 'It is unlikely that this phrase will ever reach equilibrium';
                   type = 'abject_failure';
+									type_message = "Party is busted!"
                 }
                 else{
                   // it hit equilibrium then
                   $('.last_col .frame .card').css({background: 'lightgreen'});
                   quip = this.get_quip( this.phrase_queue[0].string ); // quip based on original input
                   type = 'success';
+									type_message = "Equilibrium found!"
                 }
                 
 								// flip translator and end the party
 								$('#translator .back').addClass(type);
 								$('#quip').text(quip);
+								$('#type_message').text(type_message);
                 $('#translator').addClass('flipped');
         	    }
         	  }
@@ -366,6 +365,20 @@
   					return quips[rand];
   				},
         	
+					get_language: function(l, index){
+						if(l == 'en'){
+							if(index == 0){
+								return "";
+							}
+							else{
+								return "back into English";
+							}
+						}
+						else{
+							return "into Japanese";
+						}
+					},
+
         	// what next?
         	check_party_progress: function(){
         	  if( this.phrase_queue.length > 3 && 
@@ -388,7 +401,7 @@
         	// init
         	get_this_party_started: function( partydata ){
 						// re-add frames
-						$('.col').append('<div class="frame" />');
+						$('.col').append('<div class="wrap"><div class="frame" /></div></div>');
 	
 						// set up data
 						if( typeof partydata.phrase_queue !== 'undefined' ){
@@ -407,7 +420,7 @@
 						// do initial display of phrase
 						var $translator = $(Mustache.render( $('#newphrase_tpl').html(), partydata));
 						var $col_last = $('.col:last');
-						$translator.appendTo($col_last).height( $col_last.height() );
+						$translator.appendTo($col_last.find('.wrap')).height( $col_last.height() );
 						PANEL_ANIM.set($translator);
 						PANEL_ANIM.show($translator);
 
@@ -421,6 +434,20 @@
 							$translator.transition({height: (CARD_HEIGHT - 16)}, 200, function(){
 								$('#translating').show();
 								$('#announcing').hide();
+								/*
+								$('#translating h2').rainbow({colors: [
+						        '#FF0000',
+						        '#f26522',
+						        '#fff200',
+						        '#00a651',
+						        '#28abe2',
+						        '#2e3192',
+						        '#6868ff'
+						    ],
+						    animate: true,
+						    animateInterval: 100,
+						    pad: false});
+								*/
 								
 								// kick off the translating
 		        	  self.check_party_progress();
@@ -454,7 +481,7 @@
 			var CARDS_PER_COLUMN = 4;
 			var COLUMNS = 4;
 			var PHRASE_LIMIT = (CARDS_PER_COLUMN * COLUMNS) - 1;
-			var CARD_HEIGHT = 150;
+			var CARD_HEIGHT = 215;
 
       function Party_host(){
         // console.log("hi, i'm the party host.");

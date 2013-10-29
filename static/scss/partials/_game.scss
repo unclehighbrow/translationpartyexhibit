@@ -1,10 +1,15 @@
-@include keyframes(swing){
-	
-}
-
 $yellow: #FFD200;
 $black: #000000;
 $blue: #0095FF;
+
+$textColorPrimary: black;
+$textColorSecondary: transparentize(black, .6);
+
+$textColorPrimaryInverted: white;
+$textColorSecondaryInverted: transparentize(white, .4);
+
+$textWeightRegular: 400;
+$textWeightLight: 300;
 
 #outer{
 	position: absolute;
@@ -12,28 +17,47 @@ $blue: #0095FF;
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background: black;
-	@include box-sizing(border-box);
+	background: black;	
 	color: white;
+	
+	display: table;
+    table-layout: fixed;
+    border-spacing: 150px 10px;
 
+	.unit{
+		display: table-cell;
+	}
 }
 
-
-$col_spacing: 50px;
-$screen_h: 600px;
-$cards_per_column: 4;
-$card_h: $screen_h / $cards_per_column;
-
-.col{
+.wrap{
 	position: relative;
-	padding-right: $col_spacing;
+	width: 100%;
+	height: 100%;
 	.frame{
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		width: calc(100% - #{$col_spacing});
+		width: 100%;
 	}
 }
+
+
+$col_spacing: 50px;
+$screen_h: 860px;
+$cards_per_column: 4;
+$card_h: $screen_h / $cards_per_column;
+/*
+.col{
+	position: relative;
+	.frame{
+		background: limegreen;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
+}
+*/
 
 .card{
 	height: $card_h;
@@ -43,21 +67,39 @@ $card_h: $screen_h / $cards_per_column;
 	margin: 0;
 	background-color: #ccc;
 	@include transition( background-color .2s linear .1s);
+	color: $textColorPrimary;
 	&.new{
 		background-color: #fff;
+	}
+	.muted{
+		color: $textColorSecondary;		
 	}
 	.doc_content{
 		@include box-sizing(border-box);		
 	}
+	small{
+		font-size: $basefont * .7;
+	}
 }
 
-
+.promo_info, #translator{
+	line-height: 1.3;
+	p{
+		margin-bottom: 24px;
+	}
+}
 
 .promo_info{
 	background: $yellow;
 	height: 100%;
 	color: $black;
-	h1, h2{
+	.big{
+		font-size: 80px;
+	}
+	.medium{
+		font-size: 40px;
+	}
+	.blue{
 		color: $blue;
 	}
 }
@@ -70,7 +112,7 @@ $card_h: $screen_h / $cards_per_column;
 
 #translator{
 	height: 100%;
-	width: calc(100% - #{$col_spacing});
+	width: 100%;
 	@include perspective( 800 );
 	position: absolute;
 	bottom: 0;
@@ -96,6 +138,7 @@ $card_h: $screen_h / $cards_per_column;
 			left: 0;
 			width: 100%;
 			height: 100%;
+			@include transition( none );
 		}
 
 		.front{
