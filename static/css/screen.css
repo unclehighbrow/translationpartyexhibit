@@ -574,12 +574,12 @@ table {
   display: table;
   width: 100%;
 }
-/* line 258, ../scss/partials/lib/_mixins.scss */
+/* line 259, ../scss/partials/lib/_mixins.scss */
 .figureset > div {
   display: table-cell;
   vertical-align: top;
 }
-/* line 262, ../scss/partials/lib/_mixins.scss */
+/* line 263, ../scss/partials/lib/_mixins.scss */
 .figureset > div:first-child {
   width: 1%;
   white-space: nowrap;
@@ -591,12 +591,12 @@ table {
   display: table;
   width: 100%;
 }
-/* line 258, ../scss/partials/lib/_mixins.scss */
+/* line 259, ../scss/partials/lib/_mixins.scss */
 .figureset_right > div {
   display: table-cell;
   vertical-align: top;
 }
-/* line 269, ../scss/partials/lib/_mixins.scss */
+/* line 270, ../scss/partials/lib/_mixins.scss */
 .figureset_right > div:last-child {
   width: 1%;
   white-space: nowrap;
@@ -962,7 +962,7 @@ input, textarea, select, .text_area_copy, .picked_value {
   width: 100%;
   padding: 6px;
   height: auto;
-  font-family: "Bebas", "Bebas", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "futura-pt", "futura-pt", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-size: 32px;
   line-height: 1.35;
   color: white;
@@ -2005,14 +2005,7 @@ button[disabled]:active {
   text-shadow: none;
 }
 
-@font-face {
-  font-weight: "webfontZ6etP9ZY";
-  font-family: "NexaBold";
-  src: url("static/fonts/BEBAS___-webfont.eot");
-  src: url("static/fonts/BEBAS___-webfont.eot?iefix") format("eot"), url("static/fonts/BEBAS___-webfont.woff") format("woff"), url("static/fonts/BEBAS___-webfont.ttf") format("truetype");
-}
-
-/* line 23, ../scss/screen.scss */
+/* line 20, ../scss/screen.scss */
 html {
   margin: 0;
   padding: 0;
@@ -2020,23 +2013,23 @@ html {
   height: 100%;
 }
 
-/* line 25, ../scss/screen.scss */
+/* line 22, ../scss/screen.scss */
 body {
   font-size: 32px;
   line-height: 1.35;
-  font-family: "Bebas", "Bebas", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "futura-pt", "futura-pt", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   background: whitesmoke;
   height: 100%;
   color: white;
 }
 
-/* line 35, ../scss/screen.scss */
+/* line 32, ../scss/screen.scss */
 h1, h2, h3, h4, h5, h6, p, blockquote, pre, address, dt, dd, img, .block_like {
   display: block;
   margin: 0 0 14px;
   padding: 0;
 }
-/* line 39, ../scss/screen.scss */
+/* line 36, ../scss/screen.scss */
 h1 img, h2 img, h3 img, h4 img, h5 img, h6 img, p img, blockquote img, pre img, address img, dt img, dd img, img img, .block_like img {
   margin-bottom: 0;
   display: -moz-inline-stack;
@@ -2047,94 +2040,93 @@ h1 img, h2 img, h3 img, h4 img, h5 img, h6 img, p img, blockquote img, pre img, 
   *display: inline;
 }
 
-/* line 45, ../scss/screen.scss */
+/* line 42, ../scss/screen.scss */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Bebas", "Bebas", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "futura-pt", "futura-pt", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   color: white;
+  font-weight: bold;
   line-height: 1.1em;
 }
-/* line 48, ../scss/screen.scss */
+/* line 45, ../scss/screen.scss */
 h1.has_subhead, h2.has_subhead, h3.has_subhead, h4.has_subhead, h5.has_subhead, h6.has_subhead {
   margin-bottom: 4px !important;
 }
 
-/* line 53, ../scss/screen.scss */
+/* line 50, ../scss/screen.scss */
 h1 {
   font-size: 52px;
-  letter-spacing: -0.02em;
   color: white;
   margin-bottom: 4.66667px;
 }
 
-/* line 59, ../scss/screen.scss */
+/* line 55, ../scss/screen.scss */
 h2 {
   font-size: 36px;
-  letter-spacing: -0.02em;
 }
 
-/* line 64, ../scss/screen.scss */
+/* line 59, ../scss/screen.scss */
 h3 {
   font-size: 25px;
 }
 
-/* line 68, ../scss/screen.scss */
+/* line 63, ../scss/screen.scss */
 h4 {
   font-size: 22px;
 }
 
-/* line 71, ../scss/screen.scss */
+/* line 66, ../scss/screen.scss */
 h5 {
   font-size: 32px;
 }
 
-/* line 74, ../scss/screen.scss */
+/* line 69, ../scss/screen.scss */
 h6 {
   font-size: 32px;
 }
 
-/* line 80, ../scss/screen.scss */
+/* line 75, ../scss/screen.scss */
 ol, ul {
   margin: 0 0 0 24px;
   padding: 0;
 }
-/* line 83, ../scss/screen.scss */
+/* line 78, ../scss/screen.scss */
 ol.simple, ul.simple {
   margin-left: 0;
   list-style: none;
 }
-/* line 87, ../scss/screen.scss */
+/* line 82, ../scss/screen.scss */
 ol.p_like, ul.p_like {
   margin-left: 0;
   list-style: none;
   margin-bottom: 14px;
 }
-/* line 92, ../scss/screen.scss */
+/* line 87, ../scss/screen.scss */
 ol.p_like li, ul.p_like li {
   margin-bottom: 4px;
 }
 
-/* line 99, ../scss/screen.scss */
+/* line 94, ../scss/screen.scss */
 li, dl, nav ul {
   margin: 0;
   padding: 0;
 }
 
-/* line 104, ../scss/screen.scss */
+/* line 99, ../scss/screen.scss */
 dt {
-  font-family: "Bebas", "Bebas", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: bold;
+  font-family: "futura-pt", "futura-pt", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: normal;
   color: #222222;
   font-size: 22px;
 }
 
-/* line 111, ../scss/screen.scss */
+/* line 106, ../scss/screen.scss */
 a:visited, a:link {
   text-decoration: none;
   color: #4eb2ef;
   line-height: inherit;
   font-weight: inherit;
 }
-/* line 117, ../scss/screen.scss */
+/* line 112, ../scss/screen.scss */
 a:hover {
   text-decoration: underline;
   color: #4eb2ef;
@@ -2143,7 +2135,7 @@ a:hover {
 /*
  * buttons
  */
-/* line 128, ../scss/screen.scss */
+/* line 123, ../scss/screen.scss */
 input[type="submit"], input.button, .button, .replacementButton,
 a.button:link, a.button:hover, a.button:visited, a.button:active {
   -webkit-box-sizing: border-box;
@@ -2207,7 +2199,7 @@ a.button:link.stayActive, a.button:hover:active, a.button:hover.stayActive, a.bu
   -moz-box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 1px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 1px 0 inset;
 }
-/* line 130, ../scss/screen.scss */
+/* line 125, ../scss/screen.scss */
 input[type="submit"].secondary, input.button.secondary, .button.secondary, .replacementButton.secondary,
 a.button:link.secondary, a.button:hover.secondary, a.button:visited.secondary, a.button:active.secondary {
   background: whitesmoke;
@@ -2246,7 +2238,7 @@ a.button:link.secondary.stayActive, a.button:hover.secondary:active, a.button:ho
   -moz-box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 1px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 1px 0 inset;
 }
-/* line 134, ../scss/screen.scss */
+/* line 129, ../scss/screen.scss */
 input[type="submit"].fb, input.button.fb, .button.fb, .replacementButton.fb,
 a.button:link.fb, a.button:hover.fb, a.button:visited.fb, a.button:active.fb {
   background: #3b5998;
@@ -2284,18 +2276,18 @@ a.button:link.fb.stayActive, a.button:hover.fb:active, a.button:hover.fb.stayAct
   -moz-box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 1px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.25) 1px 1px 1px 0 inset;
 }
-/* line 137, ../scss/screen.scss */
+/* line 132, ../scss/screen.scss */
 input[type="submit"].wide, input.button.wide, .button.wide, .replacementButton.wide,
 a.button:link.wide, a.button:hover.wide, a.button:visited.wide, a.button:active.wide {
   display: block;
 }
-/* line 140, ../scss/screen.scss */
+/* line 135, ../scss/screen.scss */
 input[type="submit"].big, input.button.big, .button.big, .replacementButton.big,
 a.button:link.big, a.button:hover.big, a.button:visited.big, a.button:active.big {
   font-size: 22px;
 }
 
-/* line 147, ../scss/screen.scss */
+/* line 142, ../scss/screen.scss */
 p input[type="submit"], p input.button, p .button, p .replacementButton,
 p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   margin: 0 4px;
@@ -2304,26 +2296,26 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
 /*
  * lists
  */
-/* line 156, ../scss/screen.scss */
+/* line 151, ../scss/screen.scss */
 .reset_list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* line 162, ../scss/screen.scss */
+/* line 157, ../scss/screen.scss */
 .divided_list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-/* line 166, ../scss/screen.scss */
+/* line 161, ../scss/screen.scss */
 .divided_list li {
   padding: 12px 0 0;
   border-top: 1px solid #222222;
 }
 
-/* line 172, ../scss/screen.scss */
+/* line 167, ../scss/screen.scss */
 .card {
   background: white;
   color: #222222;
@@ -2338,59 +2330,61 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
 /*
  * modifiers
  */
-/* line 183, ../scss/screen.scss */
+/* line 178, ../scss/screen.scss */
 .muted {
   color: #cccccc;
 }
 
-/* line 186, ../scss/screen.scss */
+/* line 181, ../scss/screen.scss */
 .half {
   opacity: .4;
 }
 
-/* line 189, ../scss/screen.scss */
+/* line 184, ../scss/screen.scss */
 .small {
   font-size: 14px;
 }
 
-/* line 192, ../scss/screen.scss */
+/* line 187, ../scss/screen.scss */
 .align_center {
   text-align: center;
 }
 
-/* line 195, ../scss/screen.scss */
+/* line 190, ../scss/screen.scss */
 .align_right {
   text-align: right;
 }
 
-/* line 198, ../scss/screen.scss */
+/* line 193, ../scss/screen.scss */
 .align_left {
   text-align: left;
 }
 
-/* line 203, ../scss/screen.scss */
+/* line 198, ../scss/screen.scss */
 .inline {
   display: inline;
 }
 
-/* line 207, ../scss/screen.scss */
+/* line 202, ../scss/screen.scss */
 .readable {
   max-width: 480px;
 }
 
-/* line 211, ../scss/screen.scss */
+/* line 206, ../scss/screen.scss */
 .prose {
   max-width: 480px;
   min-height: 8em;
 }
 
-/* line 217, ../scss/screen.scss */
+/* line 212, ../scss/screen.scss */
 .doc_content {
   padding: 24px 24px 10px;
 }
 
 /* line 14, ../scss/partials/_game.scss */
 #outer {
+  font-weight: bold;
+  text-transform: uppercase;
   position: absolute;
   top: 0;
   left: 0;
@@ -2402,18 +2396,18 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   table-layout: fixed;
   border-spacing: 150px 10px;
 }
-/* line 27, ../scss/partials/_game.scss */
+/* line 29, ../scss/partials/_game.scss */
 #outer .unit {
   display: table-cell;
 }
 
-/* line 32, ../scss/partials/_game.scss */
+/* line 34, ../scss/partials/_game.scss */
 .wrap {
   position: relative;
   width: 100%;
   height: 100%;
 }
-/* line 36, ../scss/partials/_game.scss */
+/* line 38, ../scss/partials/_game.scss */
 .wrap .frame {
   position: absolute;
   bottom: 0;
@@ -2421,19 +2415,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   width: 100%;
 }
 
-/*
-.col{
-	position: relative;
-	.frame{
-		background: limegreen;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-	}
-}
-*/
-/* line 62, ../scss/partials/_game.scss */
+/* line 53, ../scss/partials/_game.scss */
 .card {
   height: 215px;
   overflow: hidden;
@@ -2449,55 +2431,76 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transition: background-color 0.2s linear 0.1s;
   transition: background-color 0.2s linear 0.1s;
   color: black;
+  font-size: 32px;
 }
-/* line 71, ../scss/partials/_game.scss */
+/* line 63, ../scss/partials/_game.scss */
 .card.new {
   background-color: #fff;
 }
-/* line 74, ../scss/partials/_game.scss */
-.card .muted {
-  color: rgba(0, 0, 0, 0.4);
-}
-/* line 77, ../scss/partials/_game.scss */
+/* line 67, ../scss/partials/_game.scss */
 .card .doc_content {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 80, ../scss/partials/_game.scss */
-.card small {
-  font-size: 22.4px;
+/* line 70, ../scss/partials/_game.scss */
+.card .small {
+  font-size: 16px;
 }
 
-/* line 85, ../scss/partials/_game.scss */
+/* line 75, ../scss/partials/_game.scss */
+.muted {
+  color: rgba(0, 0, 0, 0.4);
+}
+/* line 77, ../scss/partials/_game.scss */
+.inverted .muted {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* line 82, ../scss/partials/_game.scss */
 .promo_info, #translator {
   line-height: 1.3;
 }
-/* line 87, ../scss/partials/_game.scss */
+/* line 84, ../scss/partials/_game.scss */
 .promo_info p, #translator p {
   margin-bottom: 24px;
 }
 
-/* line 92, ../scss/partials/_game.scss */
+/* line 89, ../scss/partials/_game.scss */
+.vertical_center {
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+}
+
+/* line 95, ../scss/partials/_game.scss */
+.big {
+  font-size: 110px;
+  line-height: 1em;
+}
+
+/* line 99, ../scss/partials/_game.scss */
+.medium {
+  font-size: 60px;
+}
+
+/* line 102, ../scss/partials/_game.scss */
+.mediumer {
+  font-size: 45px;
+}
+
+/* line 107, ../scss/partials/_game.scss */
 .promo_info {
   background: #ffd200;
   height: 100%;
   color: black;
 }
-/* line 96, ../scss/partials/_game.scss */
-.promo_info .big {
-  font-size: 80px;
-}
-/* line 99, ../scss/partials/_game.scss */
-.promo_info .medium {
-  font-size: 40px;
-}
-/* line 102, ../scss/partials/_game.scss */
+/* line 113, ../scss/partials/_game.scss */
 .promo_info .blue {
   color: #0095ff;
 }
 
-/* line 106, ../scss/partials/_game.scss */
+/* line 117, ../scss/partials/_game.scss */
 .promo_animation {
   background: red url("/static/images/pokemon.gif");
   background-size: cover;
@@ -2505,7 +2508,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   height: 100%;
 }
 
-/* line 113, ../scss/partials/_game.scss */
+/* line 124, ../scss/partials/_game.scss */
 #translator {
   height: 100%;
   width: 100%;
@@ -2518,7 +2521,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   bottom: 0;
   left: 0;
 }
-/* line 122, ../scss/partials/_game.scss */
+/* line 133, ../scss/partials/_game.scss */
 #translator.flipped .flipper {
   -webkit-transform: rotateX(-180deg);
   -moz-transform: rotateX(-180deg);
@@ -2526,7 +2529,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transform: rotateX(-180deg);
   transform: rotateX(-180deg);
 }
-/* line 127, ../scss/partials/_game.scss */
+/* line 138, ../scss/partials/_game.scss */
 #translator .flipper {
   -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -moz-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2541,7 +2544,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   width: 100%;
   height: 100%;
 }
-/* line 134, ../scss/partials/_game.scss */
+/* line 145, ../scss/partials/_game.scss */
 #translator .flipper .front, #translator .flipper .back {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -2558,11 +2561,11 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transition: none;
   transition: none;
 }
-/* line 144, ../scss/partials/_game.scss */
+/* line 155, ../scss/partials/_game.scss */
 #translator .flipper .front {
   z-index: 2;
 }
-/* line 148, ../scss/partials/_game.scss */
+/* line 159, ../scss/partials/_game.scss */
 #translator .flipper .back {
   -webkit-transform: rotateX(180deg);
   -moz-transform: rotateX(180deg);
@@ -2570,17 +2573,17 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
 }
-/* line 154, ../scss/partials/_game.scss */
+/* line 165, ../scss/partials/_game.scss */
 #translator .card {
   background: #0095ff;
   color: white;
   border: 0;
 }
-/* line 158, ../scss/partials/_game.scss */
+/* line 169, ../scss/partials/_game.scss */
 #translator .card.success {
   background: green;
 }
-/* line 161, ../scss/partials/_game.scss */
+/* line 172, ../scss/partials/_game.scss */
 #translator .card.abject_failure {
   background: red;
 }

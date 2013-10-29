@@ -32,18 +32,19 @@
     </div>
     
 		<script type="text/html" id="promo_tpl">
-			<div class="doc_content align_center promo_info">
-	      <p>
-					Prepare your being<br /> 
-					ready for having a<br />
-					<span class="big blue">Translation Party</span>
-				</p>
-				<p>
-					
-					Text a phrase to<br />
-					<span class="medium blue">(718) 569-8668</span><br />
-					to give a birth to party
-				</p>
+			<div class="doc_content align_center vertical_center promo_info">
+				<div class="inner">
+		      <p>
+						Prepare your being<br /> 
+						ready for having a<br />
+						<span class="big blue">Translation Party</span>
+					</p>
+					<p>
+						Text a phrase to<br />
+						<span class="medium blue">(718) 569-8668</span><br />
+						to give a birth to party
+					</p>
+				</div>
 	    </div>
 
 		</script>
@@ -60,22 +61,25 @@
 			
 				<div class="flipper">
 		
-					<div class="card front">
-						<div class="doc_content align_center" id="announcing">
-							<h2 style="opacity: .6;">New phrase from <br />[[#partier]]
-			          <p style="margin: 0;">[[name]]!</p>
-			        [[/partier]]</h2>
-							<h1>&ldquo;[[t]]&rdquo;</h1>
+					<div class="card front vertical_center">
+						<div class="doc_content align_center inverted" id="announcing">
+						
+
+								<h1 class="big">&ldquo;[[t]]&rdquo;</h1>
+								<h2 class="muted">New phrase by <br />[[#partier]]
+				        [[name]]!
+				        [[/partier]]</h2>
+							
 				    </div>
-						<div class="doc_content align_center" id="translating">
-							<h2>TRANSLATING...</h2>
+						<div class="doc_content align_center inverted" id="translating">
+							<h2 class="medium muted">(TRANSLATING)</h2>
 						</div>
 					</div>
 				
-					<div class="card back">
-						<div class="doc_content align_center" id="announcing">
-							<h2 id="type_message">...</h2>
-							<p id="quip">...</p>
+					<div class="card back vertical_center">
+						<div class="doc_content align_center inverted" id="announcing">
+							<h2 class="medium" id="type_message">...</h2>
+							<p class="muted" id="quip">...</p>
 						</div>
 					</div>
 					
@@ -94,9 +98,11 @@
       </div>
     </script>
     
-
+		<!-- typekit -->
+		<script type="text/javascript" src="//use.typekit.net/hup2urc.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
-    
+    <!-- app -->
     <script type="text/javascript" src="static/js/jquery.min.js"></script>
     <script type="text/javascript" src="static/js/mustache.js"></script>
     <script type="text/javascript" src="static/js/jquery.transit.min.js"></script>
@@ -121,23 +127,6 @@
       }
       var params = parseURI();
     
-      /*
-      language filter
-      how do you know it's translating
-      make sure there's no scollbar
-      hit limit at end of screen, not at a number
-      ask for names
-      contrast
-      last screen -- leave half open
-      moar quips
-      */	
-    
-			/*
-
-			flip translator to show quip
-			on flip end, highlight cards if equilibrium
-
-			*/
 
 			var PANEL_ANIM = {
 				hide: function($panel){
@@ -192,9 +181,9 @@
   					},
   					{
   					  'type': 'tp', 
-  					  'match': /(translation|party|who made|who built|\bwill\b|carlough|rick|richard|boenigk)/i,
+  					  'match': /(translation party|who made|who built)/i,
   					  'quips': [
-  						  "Translation Party was made by Will Carlough and Richard Boenigk. <br />Send us an email at translationparty@gmail.com"
+  						  "Translation Party was made by Will Carlough and Richard Boenigk."
   						]
   					},
   					{
@@ -219,6 +208,8 @@
           
           
           // translating side
+					// all translating is happening on the backend now
+					/*
         	translate_last_phrase: function(){
             var phrase = this.phrase_queue[this.phrase_queue.length - 1];
             var outLang = (phrase.lang == 'en') ? 'ja' : 'en';
@@ -257,6 +248,7 @@
             });
             this.check_party_progress();
           },
+					*/
         
 
 					check_column: function($col){
@@ -289,12 +281,14 @@
         	// displaying side 
         	display_available_phrase: function(){
 
-        	  if(this.phrase_queue.length > this.last_displayed_phrase){
+        	  if( this.phrase_queue.length > this.last_displayed_phrase ){
         	    var phrase = this.phrase_queue[this.last_displayed_phrase];
 							$t = $( Mustache.render(this.translation_tpl, {t: phrase.string, l: this.get_language(phrase.lang, this.last_displayed_phrase)}) );  
         	    
  							this.add_card( $('.col:last .frame'), $t);
         	    this.last_displayed_phrase++;
+	        	  this.check_party_progress();
+
         	  }
         	  else{
         	    
@@ -318,10 +312,31 @@
                 
 								// flip translator and end the party
 								$('#translator .back').addClass(type);
-								$('#quip').text(quip);
+								$('#quip').html(quip);
 								$('#type_message').text(type_message);
                 $('#translator').addClass('flipped');
         	    }
+        	  }
+        	},
+
+        	// what next?
+        	check_party_progress: function(){
+        	  if( this.phrase_queue.length > 3 && 
+        	      this.phrase_queue[this.phrase_queue.length - 1].lang == 'en' && 
+        	      this.phrase_queue[this.phrase_queue.length - 1].string ==  this.phrase_queue[this.phrase_queue.length - 3].string 
+        	  ){
+        	    // reached equilibrium
+        	    this.party_status = 'equilibrium';
+        	  }
+        	  else if(this.phrase_queue.length == PHRASE_LIMIT){
+        	    // hit the limit
+        	    this.party_status = 'limit';
+        	  }
+        	  else{
+        	    // carry on then
+        	    
+							// and by carry on, I mean do nothing. all translating is happening on the backend now.
+							/* this.translate_last_phrase(); */
         	  }
         	},
 
@@ -381,24 +396,7 @@
 						}
 					},
 
-        	// what next?
-        	check_party_progress: function(){
-        	  if( this.phrase_queue.length > 3 && 
-        	      this.phrase_queue[this.phrase_queue.length - 1].lang == 'en' && 
-        	      this.phrase_queue[this.phrase_queue.length - 1].string ==  this.phrase_queue[this.phrase_queue.length - 3].string 
-        	  ){
-        	    // reached equilibrium
-        	    this.party_status = 'equilibrium';
-        	  }
-        	  else if(this.phrase_queue.length == PHRASE_LIMIT){
-        	    // hit the limit
-        	    this.party_status = 'limit';
-        	  }
-        	  else{
-        	    // carry on then
-        	    this.translate_last_phrase();
-        	  }
-        	},
+
         	
         	// init
         	get_this_party_started: function( partydata ){
@@ -430,29 +428,29 @@
 						$('#translating').hide();
 						
 						// ok, enough of that
+						
 						var self = this;
 						setTimeout(function(){
 							
 							$translator.transition({height: (CARD_HEIGHT - 16)}, 200, function(){
 								$('#translating').show();
 								$('#announcing').hide();
+								
 								/*
-								$('#translating h2').rainbow({colors: [
-						        '#FF0000',
-						        '#f26522',
-						        '#fff200',
-						        '#00a651',
-						        '#28abe2',
-						        '#2e3192',
-						        '#6868ff'
-						    ],
-						    animate: true,
-						    animateInterval: 100,
-						    pad: false});
+								$('#translating h2').rainbow({ 
+								    colors: [
+								        'rgba(255,255,255,.5)',
+												'rgba(255,255,255,.7)',
+								        'rgba(255,255,255,1)'
+								    ],
+								    animate: true,
+								    animateInterval: 200,
+								    pad: false,
+								    pauseLength: 100,
+								});
 								*/
 								
 								// kick off the translating
-		        	  self.check_party_progress();
 								self.display_available_phrase(); // do one quickly to start
 		        	  self.display_interval = setInterval(function(){
 		        	    self.display_available_phrase();
@@ -460,7 +458,7 @@
 							});
 
 						}, HEARTBEAT_TIME * 3);
-
+					
 
         	},
         	
@@ -469,9 +467,8 @@
         	  clearInterval(this.display_interval);
 						var self = this;
             setTimeout(function(){
-              self.kill_phrases( self.when_party_busted );
+              self.kill_phrases( self.when_party_busted  );
             }, BETWEEN_PARTIES_TIME);
-        	  
         	}
         	
       };
@@ -505,7 +502,6 @@
               if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
                 self.add_to_queue(data.phrases);
                 self.high_water_id = data.phrases[data.phrases.length - 1].id;
-                // console.log('high id:'+self.high_water_id);
               }
             }});
         },

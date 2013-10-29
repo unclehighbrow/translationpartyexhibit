@@ -13,9 +13,6 @@
 @import "partials/lib/forms";
 @import "partials/lib/buttons";
 
-// base screen
-@include fsq-font-face('NexaBold', 'static/fonts/BEBAS___-webfont', 'webfontZ6etP9ZY');
-
 
 
 //5120
@@ -52,13 +49,11 @@ h1, h2, h3, h4, h5, h6{
 
 h1{
 	font-size: $headline_size_h1;
-	letter-spacing: -0.02em;
 	color: $h_color;
 	margin-bottom: $margin/3;
 }
 h2{
 	font-size: $headline_size_h2;
-	letter-spacing: -0.02em;
 }
 
 h3{
@@ -112,7 +107,7 @@ a{
 		text-decoration: none;
 		color: $link_color;
 		line-height: inherit;
-	  	font-weight: inherit;
+	  	font-weight:  inherit;
 	}
 	&:hover{
 		text-decoration: underline;

@@ -11,7 +11,7 @@
 // mixins
 @mixin fsq-font-face($name, $file-base, $weight: 'normal'){
 	@font-face {
-		font-weight: $weight;
+		font-weight:  $weight;
 	    font-family: '#{$name}';
 	    src: url('#{$file-base}.eot');
 	    src: url('#{$file-base}.eot?iefix') format('eot'),
@@ -54,7 +54,7 @@ $punch_height: 5px;
     text-align: center;
  	font-family: $headline_font_family;
 	margin-bottom: $margin + $punch_height;
-	font-weight: bold;
+	font-weight: normal;
 	line-height: 1em;
 	border: none;
 	@include transition(none);
@@ -125,12 +125,13 @@ $punch_height: 5px;
 @mixin headline{
 	font-family: $headline_font_family;
 	color: $h_color;
+	font-weight:  bold;
 	//text-transform: uppercase;
 }
 
 @mixin demi_headline{
 	font-family: $demiheadline_font_family;
-	font-weight: bold;
+	font-weight: normal;
 	color: $dark_1;
 }
 

@@ -12,6 +12,8 @@ $textWeightRegular: 400;
 $textWeightLight: 300;
 
 #outer{
+	font-weight: bold;
+	text-transform: uppercase;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -46,18 +48,7 @@ $col_spacing: 50px;
 $screen_h: 860px;
 $cards_per_column: 4;
 $card_h: $screen_h / $cards_per_column;
-/*
-.col{
-	position: relative;
-	.frame{
-		background: limegreen;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-	}
-}
-*/
+
 
 .card{
 	height: $card_h;
@@ -68,17 +59,23 @@ $card_h: $screen_h / $cards_per_column;
 	background-color: #ccc;
 	@include transition( background-color .2s linear .1s);
 	color: $textColorPrimary;
+	font-size: $basefont;
 	&.new{
 		background-color: #fff;
 	}
-	.muted{
-		color: $textColorSecondary;		
-	}
+
 	.doc_content{
 		@include box-sizing(border-box);		
 	}
-	small{
-		font-size: $basefont * .7;
+	.small{
+		font-size: $basefont * .5;
+	}
+}
+
+.muted{
+	color: $textColorSecondary;	
+	.inverted &	{
+		color: $textColorSecondaryInverted;			
 	}
 }
 
@@ -89,16 +86,30 @@ $card_h: $screen_h / $cards_per_column;
 	}
 }
 
+.vertical_center{
+	display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+
+.big{
+	font-size: 110px;
+	line-height: 1em;
+}
+.medium{
+	font-size: 60px;
+}
+.mediumer{
+	font-size: 45px;
+}
+
+
 .promo_info{
 	background: $yellow;
 	height: 100%;
 	color: $black;
-	.big{
-		font-size: 80px;
-	}
-	.medium{
-		font-size: 40px;
-	}
+	
+
 	.blue{
 		color: $blue;
 	}
