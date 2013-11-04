@@ -74,6 +74,14 @@ $card_h: $screen_h / $cards_per_column;
 	.small{
 		font-size: $basefont * .5;
 	}
+	&.fixed{
+		background-color: white;
+		position: fixed;
+		bottom: $card_h * 3;
+		height: $card_h;
+		left: 0;
+		width: 100%;
+	}
 }
 
 .muted{
@@ -132,7 +140,7 @@ $card_h: $screen_h / $cards_per_column;
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	
+	border-top: 16px solid black;
 	&.flipped{
 		.flipper{
 			@include rotateX(-180deg);
@@ -176,6 +184,7 @@ $card_h: $screen_h / $cards_per_column;
 		&.abject_failure{
 			background: red;
 		}
+
 	}
 
 

@@ -109,13 +109,20 @@ Party.prototype = {
 
 	check_column: function($col){
 		var $cards = $col.find('.card');
-		var max_cards =	 ( $col.parent().parent().is('.col:last') ) ? (CARDS_PER_COLUMN - 1) : CARDS_PER_COLUMN;
+		var $realcol = $col.parent().parent();
+		var max_cards =	 ( $realcol.is('.col:last') ) ? (CARDS_PER_COLUMN - 1) : CARDS_PER_COLUMN;
 		if( $cards.length > max_cards ){
 			var $excess_card = $cards.first();
 			var $excess_card_clone = $excess_card.clone();
-			this.add_card( $col.parent().parent().prev().find('.frame'), $excess_card_clone, function(){
+			if( $realcol.is('.col:first') && $realcol.find('.card.fixed').length == 0 ){
+				$excess_card_clone.appendTo($realcol).addClass('fixed');
 				$excess_card.remove();
-			});
+			}
+			else{
+				this.add_card( $realcol.prev().find('.frame'), $excess_card_clone, function(){
+					$excess_card.remove();
+				});
+			}
 		}
 	},
 	
@@ -196,7 +203,7 @@ Party.prototype = {
 
 	kill_phrases: function(callback){
 		
-		var $cards = $('.card');
+		var $cards = $('.drop');
 		var this_card = 0;
 		var interval = 50;
 
@@ -239,7 +246,7 @@ Party.prototype = {
 	get_language: function(l, index){
 		if(l == 'en'){
 			if(index == 0){
-				return "";
+				return "Started with";
 			}
 			else{
 				return "back into English";
@@ -278,14 +285,14 @@ Party.prototype = {
 			PANEL_ANIM.set($translator);
 			PANEL_ANIM.show($translator);
 
-			$col_last.find('.frame').css({paddingBottom: CARD_HEIGHT });
+			$col_last.find('.frame').css({paddingBottom: CARD_HEIGHT + 16 });
 			$('#translating').hide();
 		
 			// ok, enough of that
 		
 			var self = this;
 			setTimeout(function(){
-				$translator.transition({height: (CARD_HEIGHT - 16)}, 200, function(){
+				$translator.transition({height: (CARD_HEIGHT )}, 200, function(){
 				$('#translating').show();
 				$('#announcing').hide();
 			
@@ -328,7 +335,7 @@ Party.prototype = {
 
 
 // party host = this is the controller 
-var HEARTBEAT_TIME = 2000;
+var HEARTBEAT_TIME = 500;
 var BETWEEN_PARTIES_TIME = 8000;
 var CARDS_PER_COLUMN = 4;
 var COLUMNS = 4;
