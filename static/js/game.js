@@ -338,7 +338,7 @@ var CARD_HEIGHT = 220;
 function Party_host(){
 	// console.log("hi, i'm the party host.");
 	this.party_queue = [];
-	this.high_water_id = 1;
+	this.high_water_time = 1;
 	this.party_count = 0;
 }
 
@@ -348,13 +348,13 @@ Party_host.prototype = {
 		var self = this;
 		$.ajax({
 			url: 'ajax', 
-			data: {'op': 'getNewerThanId', 'id': this.high_water_id},
+			data: {'op': 'getNewerThanTime', 'ctime': this.high_water_time},
 			dataType: 'json',
 			jsonp : 'oncomplete',
 			success: function(data){
 				if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
 					self.add_to_queue(data.phrases);
-					self.high_water_id = data.phrases[data.phrases.length - 1].id;
+					self.high_water_time = data.phrases[data.phrases.length - 1].ctime;
 					console.log(data.phrases.length);
 				}
 			}
@@ -449,7 +449,7 @@ Party_host.prototype = {
 			success: function(data){
 				if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
 					self.add_to_queue(data.phrases);
-					self.high_water_id = data.phrases[0].id; // in this case, first phrase is the newest phrase
+					self.high_water_time = data.phrases[0].ctime; // in this case, first phrase is the newest phrase
 				}
 				self.consider_next_party();
 			}
