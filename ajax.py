@@ -38,12 +38,16 @@ class AjaxHandler(webapp2.RequestHandler):
 			if self.request.get('exclude_ids'):
 				exclude_ids = self.request.get('exclude_ids').split(',')
 			if exclude_ids:
-				final_res = []
+				excluded_res = []
 				for party in res:
 					if not party['id'] in exclude_ids:
-						final_res.append(party)
-				res = final_res			
+						excluded_res.append(party)
+				res = excluded_res
 			ret['phrases'] = res
+			ids_to_exclude = []
+			for party in res:
+				ids_to_exclude.append(party['id'])
+			ret['ids_to_exclude'] = ','.join(ids_to_exclude)
 		elif op == 'getNewerThanCursor':
 			parties = Party.all()
 			cursor = self.request.get('cursor')
@@ -53,12 +57,10 @@ class AjaxHandler(webapp2.RequestHandler):
 			ret['cursor'] = str(parties.cursor())
 		elif op == 'getRandom':
 			rando = random.randint(1, 1000)
-			parties = db.GqlQuery("SELECT * FROM Party WHERE rando > :1 ORDER BY rando LIMIT 1", rando)
-			res = [party_to_dict(party) for party in parties]
-			if not res:
-				parties = db.GqlQuery("SELECT * FROM Party WHERE rando < :1 ORDER BY rando DESC LIMIT 1", rando)
-				res = [party_to_dict(party) for party in parties]
-			ret['phrases'] = res
+			parties = db.GqlQuery("SELECT * FROM Party WHERE rando > :1 ORDER BY rando", rando).fetch(1)
+			if not parties:
+				parties = db.GqlQuery("SELECT * FROM Party WHERE rando < :1 ORDER BY rando DESC", rando).fetch(1)
+			ret['phrases'] = [party_to_dict(party) for party in parties]
 		else:
 			ret['status'] = 'error'
 		
