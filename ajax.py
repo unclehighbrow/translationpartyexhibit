@@ -33,21 +33,7 @@ class AjaxHandler(webapp2.RequestHandler):
 			ret['phrases'] = [party_to_dict(party) for party in parties]
 		elif op == 'getNewerThanTime':
 			parties = db.GqlQuery("SELECT * FROM Party WHERE ctime > DATETIME(:1)", self.request.get('ctime'))
-			res = [party_to_dict(party) for party in parties]
-			exclude_ids = []
-			if self.request.get('exclude_ids'):
-				exclude_ids = self.request.get('exclude_ids').split(',')
-			if exclude_ids:
-				excluded_res = []
-				for party in res:
-					if not party['id'] in exclude_ids:
-						excluded_res.append(party)
-				res = excluded_res
-			ret['phrases'] = res
-			ids_to_exclude = []
-			for party in res:
-				ids_to_exclude.append(party['id'])
-			ret['ids_to_exclude'] = ','.join(ids_to_exclude)
+			ret['phrases'] = [party_to_dict(party) for party in parties]
 		elif op == 'getNewerThanCursor':
 			parties = Party.all()
 			cursor = self.request.get('cursor')
