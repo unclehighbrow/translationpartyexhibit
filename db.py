@@ -20,4 +20,5 @@ class Party(db.Model):
 	source = db.StringProperty(required=False, indexed=True)
 	from_person = db.StringProperty(required=False, indexed=True)
 	json = db.TextProperty(required=False, indexed=False)
+	rando = db.IntegerProperty(required=False, indexed=True)
 	ctime = db.DateTimeProperty(auto_now_add=True, indexed=True)

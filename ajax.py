@@ -3,6 +3,7 @@
 import logging
 import webapp2
 import json
+import random
 from google.appengine.ext import db
 from google.appengine.ext.db import *
 from db import *
@@ -33,6 +34,21 @@ class AjaxHandler(webapp2.RequestHandler):
 		elif op == 'getNewerThanTime':
 			parties = db.GqlQuery("SELECT * FROM Party WHERE ctime > DATETIME(:1)", self.request.get('ctime'))
 			ret['phrases'] = [party_to_dict(party) for party in parties]
+		elif op == 'getNewerThanCursor':
+			parties = Party.all()
+			cursor = self.request.get('cursor')
+			if cursor:
+				parties.with_cursor(start_cursor=cursor)
+			ret['phrases'] = [party_to_dict(party) for party in parties]
+			ret['cursor'] = str(parties.cursor())
+		elif op == 'getRandom':
+			rando = random.randint(1, 1000)
+			parties = db.GqlQuery("SELECT * FROM Party WHERE rando > :1 ORDER BY rando LIMIT 1", rando)
+			res = [party_to_dict(party) for party in parties]
+			if not res:
+				parties = db.GqlQuery("SELECT * FROM Party WHERE rando < :1 ORDER BY rando DESC LIMIT 1", rando)
+				res = [party_to_dict(party) for party in parties]
+			ret['phrases'] = res
 		else:
 			ret['status'] = 'error'
 		

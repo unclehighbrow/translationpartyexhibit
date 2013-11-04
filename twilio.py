@@ -3,6 +3,7 @@
 import json
 import logging
 import re
+import random
 from urllib2 import quote
 import webapp2
 from google.appengine.ext.webapp import template
@@ -69,6 +70,7 @@ class TwilioHandler(webapp2.RequestHandler):
 
 		if (BE_TRANSLATE):
 			party.json = json.dumps(phrase_queue, ensure_ascii=False)
+		party.rando = random.randint(1, 1000)
 		party.put()
 
 		return self.response.out.write(template.render('twilio.xml', template_values))
