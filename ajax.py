@@ -48,7 +48,7 @@ def party_to_dict(party):
 	ret['t'] = party.phrase
 	ret['id'] = party.key().id()
 	ret['count'] = party.count
-	ret['ctime'] = str(party.ctime)[0:19]
+	ret['ctime'] = str(party.ctime + datetime.timedelta(seconds=1))[0:19]
 	partier = None
 	if party.source == 'twitter':
 		person = db.GqlQuery("SELECT * FROM Person WHERE name = :1", party.from_person).get()
