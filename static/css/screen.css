@@ -2503,26 +2503,48 @@ body {
   font-size: 50px;
 }
 
-/* line 119, ../scss/partials/_game.scss */
+/* line 118, ../scss/partials/_game.scss */
 .promo_info {
   background: #ffd200;
   height: 100%;
   color: black;
 }
-/* line 125, ../scss/partials/_game.scss */
+/* line 124, ../scss/partials/_game.scss */
 .promo_info .blue {
   color: #0095ff;
 }
 
-/* line 129, ../scss/partials/_game.scss */
-.promo_animation {
-  background: red url("/static/images/pokemon.gif");
-  background-size: cover;
-  width: 100%;
-  height: 100%;
+@-webkit-keyframes wobble {
+  /* line 130, ../scss/partials/_game.scss */
+  0% {
+    -webkit-transform: rotate(5deg);
+  }
+
+  /* line 131, ../scss/partials/_game.scss */
+  50% {
+    -webkit-transform: rotate(-5deg);
+  }
+
+  /* line 132, ../scss/partials/_game.scss */
+  100% {
+    -webkit-transform: rotate(5deg);
+  }
 }
 
-/* line 136, ../scss/partials/_game.scss */
+/* line 135, ../scss/partials/_game.scss */
+.promo_animation {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background: red;
+}
+/* line 140, ../scss/partials/_game.scss */
+.promo_animation img {
+  display: inline-block;
+  -webkit-animation: wobble 3s infinite;
+}
+
+/* line 146, ../scss/partials/_game.scss */
 #translator {
   height: 100%;
   width: 100%;
@@ -2536,7 +2558,7 @@ body {
   left: 0;
   border-top: 16px solid black;
 }
-/* line 145, ../scss/partials/_game.scss */
+/* line 155, ../scss/partials/_game.scss */
 #translator.flipped .flipper {
   -webkit-transform: rotateX(-180deg);
   -moz-transform: rotateX(-180deg);
@@ -2544,7 +2566,7 @@ body {
   -o-transform: rotateX(-180deg);
   transform: rotateX(-180deg);
 }
-/* line 150, ../scss/partials/_game.scss */
+/* line 160, ../scss/partials/_game.scss */
 #translator .flipper {
   -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -moz-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2559,7 +2581,7 @@ body {
   width: 100%;
   height: 100%;
 }
-/* line 157, ../scss/partials/_game.scss */
+/* line 167, ../scss/partials/_game.scss */
 #translator .flipper .front, #translator .flipper .back {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -2576,11 +2598,11 @@ body {
   -o-transition: none;
   transition: none;
 }
-/* line 167, ../scss/partials/_game.scss */
+/* line 177, ../scss/partials/_game.scss */
 #translator .flipper .front {
   z-index: 2;
 }
-/* line 171, ../scss/partials/_game.scss */
+/* line 181, ../scss/partials/_game.scss */
 #translator .flipper .back {
   -webkit-transform: rotateX(180deg);
   -moz-transform: rotateX(180deg);
@@ -2588,17 +2610,17 @@ body {
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
 }
-/* line 177, ../scss/partials/_game.scss */
+/* line 187, ../scss/partials/_game.scss */
 #translator .card {
   background: #0095ff;
   color: white;
   border: 0;
 }
-/* line 181, ../scss/partials/_game.scss */
+/* line 191, ../scss/partials/_game.scss */
 #translator .card.success {
   background: green;
 }
-/* line 184, ../scss/partials/_game.scss */
+/* line 194, ../scss/partials/_game.scss */
 #translator .card.abject_failure {
   background: red;
 }

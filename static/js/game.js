@@ -299,12 +299,12 @@ Party.prototype = {
 				/*
 				$('#translating h2').rainbow({ 
 					colors: [
-						'rgba(255,255,255,.5)',
-								'rgba(255,255,255,.7)',
+
+						'rgba(255,255,255,.7)',
 						'rgba(255,255,255,1)'
 					],
 					animate: true,
-					animateInterval: 200,
+					animateInterval: 100,
 					pad: false,
 					pauseLength: 100,
 				});
@@ -335,7 +335,7 @@ Party.prototype = {
 
 
 // party host = this is the controller 
-var HEARTBEAT_TIME = 500;
+var HEARTBEAT_TIME = 2000;
 var BETWEEN_PARTIES_TIME = 8000;
 var CARDS_PER_COLUMN = 4;
 var COLUMNS = 4;
@@ -385,7 +385,9 @@ Party_host.prototype = {
 	show_promo: function(callback){
 		PANEL_ANIM.set( $('.col') ); 
 		$('.unit:even').html( $('#promo_tpl').html() );
-		$('.unit:odd').html( $('#gif_tpl').html() );
+		$('.unit:nth-child(2)').html( Mustache.render($('#gif_tpl').html(), {file: 'ice_cream_cone'}) );
+		$('.unit:nth-child(4)').html( Mustache.render( $('#gif_tpl').html(), {file: 'traffic_cone'}) );
+
 	
 		var $cols = $('.col');
 		var this_col = $cols.length - 1;

@@ -115,22 +115,32 @@ $card_h: $screen_h / $cards_per_column;
 	font-size: 50px;
 }
 
-
 .promo_info{
 	background: $yellow;
+	//@include background-image( linear-gradient(#67EFFB, #EC7BEC, #EADF4D) );
+	//@include background-image( linear-gradient(#EC7BEC, #EADF4D) );
 	height: 100%;
 	color: $black;
-	
-
 	.blue{
 		color: $blue;
 	}
 }
+
+@-webkit-keyframes wobble  {
+  0%  { -webkit-transform:  rotate(5deg); }
+  50%  { -webkit-transform:   rotate(-5deg); }
+  100%  { -webkit-transform:   rotate(5deg); }
+}
+
 .promo_animation{
-	background: red url('/static/images/pokemon.gif'); 
-	background-size: cover; 
 	width: 100%; 
 	height: 100%;
+	text-align: center;
+	background: red;
+	img{
+		display: inline-block;
+		-webkit-animation: wobble 3s infinite; 
+	}
 }
 
 #translator{
