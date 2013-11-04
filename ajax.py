@@ -30,6 +30,9 @@ class AjaxHandler(webapp2.RequestHandler):
 		elif op == 'getNewerThanId':			
 			parties = db.GqlQuery("SELECT * FROM Party WHERE __key__ > :1", Key.from_path('Party', int(self.request.get('id'))))
 			ret['phrases'] = [party_to_dict(party) for party in parties]
+		elif op == 'getNewerThanTime':
+			parties = db.GqlQuery("SELECT * FROM Party WHERE ctime > DATETIME(:1)", self.request.get('ctime'))
+			ret['phrases'] = [party_to_dict(party) for party in parties]
 		else:
 			ret['status'] = 'error'
 		
@@ -45,6 +48,7 @@ def party_to_dict(party):
 	ret['t'] = party.phrase
 	ret['id'] = party.key().id()
 	ret['count'] = party.count
+	ret['ctime'] = str(party.ctime)[0:19]
 	partier = None
 	if party.source == 'twitter':
 		person = db.GqlQuery("SELECT * FROM Person WHERE name = :1", party.from_person).get()
