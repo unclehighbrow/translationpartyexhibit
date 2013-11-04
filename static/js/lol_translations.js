@@ -36,87 +36,132 @@ var lol_translations = [
 },
 
 {
-	"partier": {"name": "someone from Seattle"},
-	"t": "Too many cooks spoil the broth, or so they say.",
+	"partier": {"name": "someone from Jersey City"},
+	"t": "Don't have a cow, man",
 	"phrase_queue": [
-		{"lang": "en", "string": "Too many cooks spoil the broth, or so they say." },
-		{"lang": "ja", "string": "コックが多すぎるとスープは不味くまたはそう彼らは言います。" },
-		{"lang": "en", "string": "Cock is much too spoil the soup, or so they say." },
-		{"lang": "ja", "string": "コックは多く、スープを台無しにあまりにもまたはそう彼らは言います。" },
-		{"lang": "en", "string": "Many cocks, to spoil the soup too or so they say." },
-		{"lang": "ja", "string": "あまりにもスープを台無しに多くのコックまたはそのかれらは言います。" },
-		{"lang": "en", "string": "Soup spoil too many cocks or so they say." },
-		{"lang": "ja", "string": "スープを台無しにあまりにも多くのコックまたはそう彼らは言います。" },
-		{"lang": "en", "string": "To spoil the broth for too many cocks or so they say." },
-		{"lang": "ja", "string": "あまりにも多くのコックのためのスープを台無しにまたはそう彼らは言います。" },
-		{"lang": "en", "string": "Soup for the too many cooks spoil or so they say." },
-		{"lang": "ja", "string": "あまりにも多くの料理のためのスープを台無しにまたはそう彼らは言います。" },
-		{"lang": "en", "string": "Too much cooking for soup to mess up or so they say." },
-		{"lang": "ja", "string": "あまりにも多くの料理の混乱をまたはそうにスープといいます。" },
-		{"lang": "en", "string": "Confusion of too much food, or so called soup." },
-		{"lang": "ja", "string": "あまりにも多くの食品、またはいわゆるスープの混乱。" },
-		{"lang": "en", "string": "The confusion of too much food, or so called soup." },
-		{"lang": "ja", "string": "あまりにも多くの食品、またはいわゆるスープの混乱。" },
-		{"lang": "en", "string": "The confusion of too much food, or so called soup." }
+			{"lang": "en", "string": "Don't have a cow, man" },
+			{"lang": "ja", "string": "持っていない牛、男" },
+			{"lang": "en", "string": "Cows don't have a man" },
+			{"lang": "ja", "string": "牛は男を持っていません。" },
+			{"lang": "en", "string": "Man has no cows." },
+			{"lang": "ja", "string": "男は牛がありません。" },
+			{"lang": "en", "string": "Man is not beef." },
+			{"lang": "ja", "string": "男は牛ではありません。" },
+			{"lang": "en", "string": "Man is not a cow." },
+			{"lang": "ja", "string": "男は牛ではありません。" },
+			{"lang": "en", "string": "Man is not a cow." }
+	]
+},
+{
+	"partier": {"name": "someone from Seattle"},
+	"t": "I'll get you, my pretty, and your little dog too!",
+	"phrase_queue": [
+		{"lang": "en", "string": "I'll get you, my pretty, and your little dog too!" },
+		{"lang": "ja", "string": "私も、私はかなり、あなたの小さな犬を得るよ ！" },
+		{"lang": "en", "string": "I also get my pretty, your small dog!" },
+		{"lang": "ja", "string": "私はまた私はかなりあなたの小型犬を取得 ！" },
+		{"lang": "en", "string": "I also I pretty much your small dog to get!" },
+		{"lang": "ja", "string": "私はまた、私はかなり多く、小型犬を取得する ！" },
+		{"lang": "en", "string": "I also, to get a small dog I pretty much!" },
+		{"lang": "ja", "string": "私はまた、小型犬を取得する私はかなり多くの ！" },
+		{"lang": "en", "string": "I also, I get a small dog quite a lot!" },
+		{"lang": "ja", "string": "私はまた、非常に多く、小型犬を取得 ！" },
+		{"lang": "en", "string": "I also very much, get a dog!" },
+		{"lang": "ja", "string": "私はまた非常に多く、犬を取得 ！" },
+		{"lang": "en", "string": "I also very much, get a dog!" }
 	]
 },
 
 {
-	"partier": {"name": "someone from Seattle"},
-	"t": "I will travel across the land, searching far and wide. ",
+	"partier": {"name": "someone from Stamford"},
+	"t": "I'll get you, my pretty, and your little dog too!",
+	"phrase_queue": [{
+	"lang": "en",
+	"string": "Ain't no party like a translation party cause a translation party don't stop"
+}, {
+	"lang": "ja",
+	"string": "翻訳者が翻訳パーティのようなないパーティいけないストップではないです。"
+}, {
+	"lang": "en",
+	"string": "It is not translation party without party translators don't stop."
+}, {
+	"lang": "ja",
+	"string": "翻訳者を停止しないパーティーなし翻訳パーティではありません。"
+}, {
+	"lang": "en",
+	"string": "No party does not stop the translator doesn't translate party."
+}, {
+	"lang": "ja",
+	"string": "ない党、翻訳者を停止しないパーティーを翻訳しません。"
+}, {
+	"lang": "en",
+	"string": "Party does not stop not party, translator does not translate."
+}, {
+	"lang": "ja",
+	"string": "パーティーは止まらないないパーティー翻訳翻訳しません。"
+}, {
+	"lang": "en",
+	"string": "Party no translations not party won't stop."
+}, {
+	"lang": "ja",
+	"string": "翻訳がない党党は停止しません。"
+}, {
+	"lang": "en",
+	"string": "Translation is not party does not stop."
+}, {
+	"lang": "ja",
+	"string": "翻訳はない当事者は停止しません。"
+}, {
+	"lang": "en",
+	"string": "Translation does not stop not parties."
+}, {
+	"lang": "ja",
+	"string": "翻訳ではない当事者は停止しません。"
+}, {
+	"lang": "en",
+	"string": "Parties are not translated does not stop."
+}, {
+	"lang": "ja",
+	"string": "当事者が翻訳されていない停止しません。"
+}, {
+	"lang": "en",
+	"string": "Do not translate the party doesn't stop."
+}, {
+	"lang": "ja",
+	"string": "翻訳しないでください、党は停止しません。"
+}, {
+	"lang": "en",
+	"string": "Do not translate the party doesn't stop."
+}]
+
+},
+
+{
+	"partier": {"name": "someone from Brooklyn"},
+	"t": "Leave me alone!",
 	"phrase_queue": [
-		{"lang": "en", "string": "Searching far and wide, and I will travel across the land. " },
-		{"lang": "ja", "string": "これまでと幅広い検索と私は、土地の間で旅行します。" },
-		{"lang": "en", "string": "Search far and wide and I will travel across the land." },
-		{"lang": "ja", "string": "広範囲の検索と私は国中で旅行します。" },
-		{"lang": "en", "string": "Extensive search and I travel all over the country." },
-		{"lang": "ja", "string": "広範な検索および私はすべての国で旅行します。" },
-		{"lang": "en", "string": "Extensive search and I travel in all the countries." },
-		{"lang": "ja", "string": "広範な検索および私はすべての国で旅行します。" },
-		{"lang": "en", "string": "Extensive search and I travel in all the countries." }
+		{"lang": "en", "string": "Leave me alone!" },
+		{"lang": "ja", "string": "1 人にしてください！" },
+		{"lang": "en", "string": "Keep per person!" },
+		{"lang": "ja", "string": "1 人につきを維持 ！" },
+		{"lang": "en", "string": "One person keep the Moon!" },
+		{"lang": "ja", "string": "1 つの人の維持月 ！" },
+		{"lang": "en", "string": "Keep-one person's!" },
+		{"lang": "ja", "string": "保つ 1 人!" },
+		{"lang": "en", "string": "Keep per person!" },
+		{"lang": "ja", "string": "1 人につきを維持 ！" },
+		{"lang": "en", "string": "One person keep the Moon!" },
+		{"lang": "ja", "string": "1 つの人の維持月 ！" },
+		{"lang": "en", "string": "Keep-one person's!" },
+		{"lang": "ja", "string": "保つ 1 人!" },
+		{"lang": "en", "string": "Keep per person!" },
+		{"lang": "ja", "string": "1 人につきを維持 ！" },
+		{"lang": "en", "string": "One person keep the Moon!" }
 	]
 },
 
 {
-	"partier": {"name": "someone from Seattle"},
-	"t": "Never in the field of human conflict was so much owed by so many to so few.",
-	"phrase_queue": [
-		{"lang": "en", "string": "Never in the field of human conflict was so much owed by so many to so few." },
-		{"lang": "ja", "string": "決して人間の対立の分野でそんなにそう少数にそう多数によって負っていた。" },
-		{"lang": "en", "string": "Never in the field of human conflict that so few to so many by was owed." },
-		{"lang": "ja", "string": "決して人間の分野で競合を多くに少数を負っていたので。" },
-		{"lang": "en", "string": "Never in the field of human conflict in many minorities have been." },
-		{"lang": "ja", "string": "決して多くの少数の人間の対立の分野でされています。" },
-		{"lang": "en", "string": "Never has been in a few humans in many conflict areas." },
-		{"lang": "ja", "string": "多くの紛争地域でいくつかの人間ではなかった。" },
-		{"lang": "en", "string": "In many conflict areas was not some human beings." },
-		{"lang": "ja", "string": "多くの紛争地域で、何人かの人間ではなかった。" },
-		{"lang": "en", "string": "In many conflict areas, was not some humans." },
-		{"lang": "ja", "string": "多くの紛争地域で、何人かの人間ではなかった。" },
-		{"lang": "en", "string": "In many conflict areas, was not some humans." }
-	]
-},
-
-{
-	"partier": {"name": "someone from Seattle"},
-	"t": "People have got to know whether or not their President is a crook. Well, I'm not a crook.",
-	"phrase_queue": [
-		{"lang": "en", "string": "People have got to know whether or not their President is a crook. Well, I'm not a crook." },
-		{"lang": "ja", "string": "人々 は彼らの大統領は詐欺師かどうかを知っているを持っています。まあ、私は詐欺師ではないです。" },
-		{"lang": "en", "string": "People know whether or not the cheater their President has. Well, my scammer is not." },
-		{"lang": "ja", "string": "人々 はかどうか、詐欺師社長は知っています。まあ、私の詐欺師はないです。" },
-		{"lang": "en", "string": "People you know please, impostor President. Well, not me cheater." },
-		{"lang": "ja", "string": "あなたが知っている人は、詐欺師社長をしてください。まあ、私ではない詐欺師。" },
-		{"lang": "en", "string": "People you know please, impostor President. Well, I is not scammer." },
-		{"lang": "ja", "string": "あなたが知っている人は、詐欺師社長をしてください。まあ、私は詐欺師ではありません。" },
-		{"lang": "en", "string": "People you know please, impostor President. Well, I is not a cheater." },
-		{"lang": "ja", "string": "あなたが知っている人は、詐欺師社長をしてください。まあ、私は詐欺師ではありません。" },
-		{"lang": "en", "string": "People you know please, impostor President. Well, I is not a cheater." }
-	]
-},
-
-{
-	"partier": {"name": "someone from Seattle"},
+	"partier": {"name": "someone from Manhattan"},
 	"t": "Hit me baby, one more time.",
 	"phrase_queue": [
 		{"lang": "en", "string": "Hit me baby, one more time." },
@@ -134,65 +179,23 @@ var lol_translations = [
 },
 
 {
-	"partier": {"name": "someone from Seattle"},
-	"t": "There is only one thing in life worse than being talked about, and that is not being talked about.",
+	"partier": {"name": "someone from The Bronx"},
+	"t": "Baby you're a firework come on show them what you're worth",
 	"phrase_queue": [
-		{"lang": "en", "string": "There is only one thing in life worse than being talked about, and that is not being talked about." },
-		{"lang": "ja", "string": "一つだけ生活の中で語られているよりも悪いありをない語られています。" },
-		{"lang": "en", "string": "Only one thing worse than being talked about in life is not being talked about." },
-		{"lang": "ja", "string": "一つだけ悪いことよりも生活の中で語られていない語られています。" },
-		{"lang": "en", "string": "Not talked about in life, only one thing worse than being talked about." },
-		{"lang": "ja", "string": "語られていない一つだけ生活の中で語られているよりも悪い。" },
-		{"lang": "en", "string": "Not talked about only one thing worse than being talked about in their lives." },
-		{"lang": "ja", "string": "生活の中で語られているよりも悪いのみ 1 つの事について話していません。" },
-		{"lang": "en", "string": "Only worse than being talked about in life is talking about one thing." },
-		{"lang": "ja", "string": "悪いだけ約 1 つの事を話している生活の中で語られています。" },
-		{"lang": "en", "string": "Are talked about in life is talking about one thing only bad." },
-		{"lang": "ja", "string": "についての話は、寿命は約 1 つの事だけ悪い話。" },
-		{"lang": "en", "string": "About the story's just about one thing bad about life." },
-		{"lang": "ja", "string": "物語のちょうど約事約 1 つの人生についての悪い。" },
-		{"lang": "en", "string": "The story just about one thing about life about bad." },
-		{"lang": "ja", "string": "悪いについての生活についての物語についてちょうど 1 つの事。" },
-		{"lang": "en", "string": "Bad about the story about the life of just one thing." },
-		{"lang": "ja", "string": "ただ一つの人生について話悪い。" },
-		{"lang": "en", "string": "Bad stories about the life of just one thing." },
-		{"lang": "ja", "string": "ただ一つの人生についての悪い話。" },
-		{"lang": "en", "string": "In the life of just one thing bad about the story." },
-		{"lang": "ja", "string": "ただ一つの悪い物語についての生活の中で" },
-		{"lang": "en", "string": "Only bad stories about life in" },
-		{"lang": "ja", "string": "生活についての悪い話のみ" },
-		{"lang": "en", "string": "To only talk about the bad" },
-		{"lang": "ja", "string": "悪いについてだけお話し" },
-		{"lang": "en", "string": "Talk bad about only" },
-		{"lang": "ja", "string": "だけについての悪い話します。" },
-		{"lang": "en", "string": "Only for the bad talk." },
-		{"lang": "ja", "string": "のみ、悪い話のため。" },
-		{"lang": "en", "string": "The only bad story for." },
-		{"lang": "ja", "string": "ための唯一の悪い物語。" },
-		{"lang": "en", "string": "Because of the bad stories only." },
-		{"lang": "ja", "string": "唯一の悪い話のため" },
-		{"lang": "en", "string": "The only bad story for" },
-		{"lang": "ja", "string": "ための唯一の悪い物語" },
-		{"lang": "en", "string": "Because of the bad stories only" },
-		{"lang": "ja", "string": "唯一の悪い話のため" },
-		{"lang": "en", "string": "The only bad story for" },
-		{"lang": "ja", "string": "ための唯一の悪い物語" },
-		{"lang": "en", "string": "Because of the bad stories only" },
-		{"lang": "ja", "string": "唯一の悪い話のため" },
-		{"lang": "en", "string": "The only bad story for" },
-		{"lang": "ja", "string": "ための唯一の悪い物語" },
-		{"lang": "en", "string": "Because of the bad stories only" },
-		{"lang": "ja", "string": "唯一の悪い話のため" },
-		{"lang": "en", "string": "The only bad story for" },
-		{"lang": "ja", "string": "ための唯一の悪い物語" },
-		{"lang": "en", "string": "Because of the bad stories only" },
-		{"lang": "ja", "string": "唯一の悪い話のため" },
-		{"lang": "en", "string": "The only bad story for" }
+		{"lang": "en", "string": "Baby you're a firework come on show them what you're worth" },
+		{"lang": "ja", "string": "ベイビー、君は花火であなたが価値があるそれらを見せに来ています。" },
+		{"lang": "en", "string": "Baby, you're coming with fireworks show you value them in." },
+		{"lang": "ja", "string": "赤ちゃんは、花火大会にそれらを評価すると来ています。" },
+		{"lang": "en", "string": "Baby come and evaluate them in Fireworks." },
+		{"lang": "ja", "string": "赤ちゃんと花火で評価します。" },
+		{"lang": "en", "string": "Evaluated in babies and Fireworks." },
+		{"lang": "ja", "string": "赤ちゃんと花火で評価されます。" },
+		{"lang": "en", "string": "Evaluated in babies and Fireworks." }
     ]
 },
 
 {
-	"partier": {"name": "someone from Seattle"},
+	"partier": {"name": "someone from Manhattan"},
 	"t": "Experience is simply the name we give our mistakes. ",
 	"phrase_queue": [
 		{"lang": "en", "string": "Experience is simply the name we give our mistakes. " },
@@ -216,7 +219,7 @@ var lol_translations = [
 },
 
 {
-	"partier": {"name": "someone from Seattle"},
+	"partier": {"name": "someone from San Francisco"},
 	"t": "To be or not to be, that is the question.",
 	"phrase_queue": [
 		{"lang": "en", "string": "To be or not to be, that is the question..." },
@@ -246,71 +249,22 @@ var lol_translations = [
 },
 
 {
-	"partier": {"name": "someone from Seattle"},
-	"t": "Would you like to go to the cheesecake factory?",
+	"partier": {"name": "someone from Miami"},
+	"t": "I will now present the present to everyone present.",
 	"phrase_queue": [
-		{"lang": "en", "string": "Would you like to go to the cheesecake factory?" },
-		{"lang": "ja", "string": "チーズケーキの工場に行くか?" },
-		{"lang": "en", "string": "Do you go to the Cheesecake Factory it?" },
-		{"lang": "ja", "string": "行って、チーズケーキファクトリーそれですか？" },
-		{"lang": "en", "string": "Go, Cheesecake Factory or is it?" },
-		{"lang": "ja", "string": "行く、チーズケーキファクトリーですか？" },
-		{"lang": "en", "string": "Cheesecake Factory, go?" },
-		{"lang": "ja", "string": "チーズケーキファクトリー、行くか？" },
-		{"lang": "en", "string": "Do you cheesecake it factory, go?" },
-		{"lang": "ja", "string": "チーズケーキを行うそれ工場、行くか？" },
-		{"lang": "en", "string": "Cheese cake to do it go factory, or?" },
-		{"lang": "ja", "string": "チーズ ケーキそれを行うに行く工場またはですか？" },
-		{"lang": "en", "string": "Cheese cake factory going to do it or do you?" },
-		{"lang": "ja", "string": "チーズ ケーキ工場つもりかあなたは？" },
-		{"lang": "en", "string": "Cheese cake factory is going to do you?" },
-		{"lang": "ja", "string": "チーズ ケーキ工場は、あなたを行うつもりですか？" },
-		{"lang": "en", "string": "Cheese cake factory is going to do you?" }
+		{"lang": "en", "string": "I will now present the present to everyone present." },
+		{"lang": "ja", "string": "私は今プレゼントを誰もが存在します。" },
+		{"lang": "en", "string": "I now present everyone present." },
+		{"lang": "ja", "string": "今誰もが存在します。" },
+		{"lang": "en", "string": "Now there is nobody." },
+		{"lang": "ja", "string": "今誰もがあります。" },
+		{"lang": "en", "string": "Now there is nobody." }
 	]
 },
 
-{
-	"partier": {"name": "someone from Seattle"},
-	"t": "I think I've discovered the secret of life - you just hang around until you get used to it.",
-	"phrase_queue": [
-		{"lang": "en", "string": "I think I've discovered the secret of life-you just hang around until you get used to it." },
-		{"lang": "ja", "string": "生命の秘密を発見したと思う-それに慣れるまで、ただぶらぶらします。" },
-		{"lang": "en", "string": "I have found the secret of life-the hanging around just to get used to it." },
-		{"lang": "ja", "string": "私はちょうどそれに慣れるに人生のうろの秘密を発見しました。" },
-		{"lang": "en", "string": "Discovered the secret of life hanging around I just get used to it." },
-		{"lang": "ja", "string": "私はちょうどそれに慣れる周りぶら下がっている生命の秘密を発見しました。" },
-		{"lang": "en", "string": "I discovered the secret of life hanging around just to get used to it." },
-		{"lang": "ja", "string": "ちょうどそれに慣れるために、ぶらついて生命の秘密を発見しました。" },
-		{"lang": "en", "string": "Discovered the secret of life, hanging around to just get used to it." },
-		{"lang": "ja", "string": "ちょうどそれに慣れるために、ぶらついて、生命の秘密を発見しました。" },
-		{"lang": "en", "string": "Hanging around to just get used to it, and discovered the secret of life." },
-		{"lang": "ja", "string": "ちょうど周りにぶら下げ、それに慣れるし、生命の秘密を発見しました。" },
-		{"lang": "en", "string": "Just hanging around and get used to it and discovered the secret of life." },
-		{"lang": "ja", "string": "ちょうどぶらぶらとそれに慣れるし、生命の秘密を発見しました。" },
-		{"lang": "en", "string": "Discovered the secret of life, and just hang out and get used to it." },
-		{"lang": "ja", "string": "たむろし、それに慣れるとだけ、生命の秘密を発見しました。" },
-		{"lang": "en", "string": "Hang out, get used to it and just discovered the secret of life." },
-		{"lang": "ja", "string": "たむろは、得るそれに使用される、ちょうど人生の秘密を発見しました。" },
-		{"lang": "en", "string": "Hang out, which is used to get it, just discovered the secret of life." },
-		{"lang": "ja", "string": "たむろは、ちょうど人生の秘密を発見した、それを得るために用いられる。" },
-		{"lang": "en", "string": "Used hang out to get it just found the secret of life." },
-		{"lang": "ja", "string": "ハングアウトを使用してちょうど生命の秘密を発見したそれを得る。" },
-		{"lang": "en", "string": "To get it use to hang out and just discovered the secret of life." },
-		{"lang": "ja", "string": "それだけにたむろして使用するには、生命の秘密を発見しました。" },
-		{"lang": "en", "string": "Hang out but, to use the discovered the secret of life." },
-		{"lang": "ja", "string": "使用して、発見したたむろ生活の秘密。" },
-		{"lang": "en", "string": "Hang out with life discovered the secret." },
-		{"lang": "ja", "string": "人生がたむろ秘密を発見しました。" },
-		{"lang": "en", "string": "Life discovered secret hang out." },
-		{"lang": "ja", "string": "人生はたむろ秘密を発見しました。" },
-		{"lang": "en", "string": "Life discovered a secret hang out." },
-		{"lang": "ja", "string": "人生は秘密たむろを発見しました。" },
-		{"lang": "en", "string": "Life discovered a secret hang out." }
-	]
-},
 
 {
-	"partier": {"name": "someone from Seattle"},
+	"partier": {"name": "someone from Flushing"},
 	"t": "I think I've discovered the secret of life. You just hang around until you get used to it.",
 	"phrase_queue": [
 		{"lang": "en", "string": "I think I've discovered the secret of life. You just hang around until you get used to it." },

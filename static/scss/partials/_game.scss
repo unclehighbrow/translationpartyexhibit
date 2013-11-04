@@ -11,6 +11,10 @@ $textColorSecondaryInverted: rgba(255,255,255, .6);
 $textWeightRegular: 400;
 $textWeightLight: 300;
 
+body{
+	overflow: hidden;
+}
+
 #outer{
 	font-weight: bold;
 	text-transform: uppercase;
@@ -45,7 +49,7 @@ $textWeightLight: 300;
 
 
 $col_spacing: 50px;
-$screen_h: 860px;
+$screen_h: 960px;
 $cards_per_column: 4;
 $card_h: $screen_h / $cards_per_column;
 
@@ -97,10 +101,10 @@ $card_h: $screen_h / $cards_per_column;
 	line-height: 1em;
 }
 .medium{
-	font-size: 60px;
+	font-size: 70px;
 }
 .mediumer{
-	font-size: 45px;
+	font-size: 50px;
 }
 
 

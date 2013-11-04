@@ -2382,6 +2382,11 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
 }
 
 /* line 14, ../scss/partials/_game.scss */
+body {
+  overflow: hidden;
+}
+
+/* line 18, ../scss/partials/_game.scss */
 #outer {
   font-weight: bold;
   text-transform: uppercase;
@@ -2396,18 +2401,18 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   table-layout: fixed;
   border-spacing: 150px 10px;
 }
-/* line 29, ../scss/partials/_game.scss */
+/* line 33, ../scss/partials/_game.scss */
 #outer .unit {
   display: table-cell;
 }
 
-/* line 34, ../scss/partials/_game.scss */
+/* line 38, ../scss/partials/_game.scss */
 .wrap {
   position: relative;
   width: 100%;
   height: 100%;
 }
-/* line 38, ../scss/partials/_game.scss */
+/* line 42, ../scss/partials/_game.scss */
 .wrap .frame {
   position: absolute;
   bottom: 0;
@@ -2415,9 +2420,9 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   width: 100%;
 }
 
-/* line 53, ../scss/partials/_game.scss */
+/* line 57, ../scss/partials/_game.scss */
 .card {
-  height: 215px;
+  height: 240px;
   overflow: hidden;
   border-top: 16px solid black;
   -webkit-box-sizing: border-box;
@@ -2433,74 +2438,74 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   color: black;
   font-size: 32px;
 }
-/* line 63, ../scss/partials/_game.scss */
+/* line 67, ../scss/partials/_game.scss */
 .card.new {
   background-color: #fff;
 }
-/* line 67, ../scss/partials/_game.scss */
+/* line 71, ../scss/partials/_game.scss */
 .card .doc_content {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 70, ../scss/partials/_game.scss */
+/* line 74, ../scss/partials/_game.scss */
 .card .small {
   font-size: 16px;
 }
 
-/* line 75, ../scss/partials/_game.scss */
+/* line 79, ../scss/partials/_game.scss */
 .muted {
   color: rgba(0, 0, 0, 0.3);
 }
-/* line 77, ../scss/partials/_game.scss */
+/* line 81, ../scss/partials/_game.scss */
 .inverted .muted {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* line 82, ../scss/partials/_game.scss */
+/* line 86, ../scss/partials/_game.scss */
 .promo_info, #translator {
   line-height: 1.3;
 }
-/* line 84, ../scss/partials/_game.scss */
+/* line 88, ../scss/partials/_game.scss */
 .promo_info p, #translator p {
   margin-bottom: 24px;
 }
 
-/* line 89, ../scss/partials/_game.scss */
+/* line 93, ../scss/partials/_game.scss */
 .vertical_center {
   display: -webkit-box;
   -webkit-box-pack: center;
   -webkit-box-align: center;
 }
 
-/* line 95, ../scss/partials/_game.scss */
+/* line 99, ../scss/partials/_game.scss */
 .big {
   font-size: 110px;
   line-height: 1em;
 }
 
-/* line 99, ../scss/partials/_game.scss */
+/* line 103, ../scss/partials/_game.scss */
 .medium {
-  font-size: 60px;
+  font-size: 70px;
 }
 
-/* line 102, ../scss/partials/_game.scss */
+/* line 106, ../scss/partials/_game.scss */
 .mediumer {
-  font-size: 45px;
+  font-size: 50px;
 }
 
-/* line 107, ../scss/partials/_game.scss */
+/* line 111, ../scss/partials/_game.scss */
 .promo_info {
   background: #ffd200;
   height: 100%;
   color: black;
 }
-/* line 113, ../scss/partials/_game.scss */
+/* line 117, ../scss/partials/_game.scss */
 .promo_info .blue {
   color: #0095ff;
 }
 
-/* line 117, ../scss/partials/_game.scss */
+/* line 121, ../scss/partials/_game.scss */
 .promo_animation {
   background: red url("/static/images/pokemon.gif");
   background-size: cover;
@@ -2508,7 +2513,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   height: 100%;
 }
 
-/* line 124, ../scss/partials/_game.scss */
+/* line 128, ../scss/partials/_game.scss */
 #translator {
   height: 100%;
   width: 100%;
@@ -2521,7 +2526,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   bottom: 0;
   left: 0;
 }
-/* line 133, ../scss/partials/_game.scss */
+/* line 137, ../scss/partials/_game.scss */
 #translator.flipped .flipper {
   -webkit-transform: rotateX(-180deg);
   -moz-transform: rotateX(-180deg);
@@ -2529,7 +2534,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transform: rotateX(-180deg);
   transform: rotateX(-180deg);
 }
-/* line 138, ../scss/partials/_game.scss */
+/* line 142, ../scss/partials/_game.scss */
 #translator .flipper {
   -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -moz-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2544,7 +2549,7 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   width: 100%;
   height: 100%;
 }
-/* line 145, ../scss/partials/_game.scss */
+/* line 149, ../scss/partials/_game.scss */
 #translator .flipper .front, #translator .flipper .back {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -2561,11 +2566,11 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transition: none;
   transition: none;
 }
-/* line 155, ../scss/partials/_game.scss */
+/* line 159, ../scss/partials/_game.scss */
 #translator .flipper .front {
   z-index: 2;
 }
-/* line 159, ../scss/partials/_game.scss */
+/* line 163, ../scss/partials/_game.scss */
 #translator .flipper .back {
   -webkit-transform: rotateX(180deg);
   -moz-transform: rotateX(180deg);
@@ -2573,17 +2578,17 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
 }
-/* line 165, ../scss/partials/_game.scss */
+/* line 169, ../scss/partials/_game.scss */
 #translator .card {
   background: #0095ff;
   color: white;
   border: 0;
 }
-/* line 169, ../scss/partials/_game.scss */
+/* line 173, ../scss/partials/_game.scss */
 #translator .card.success {
   background: green;
 }
-/* line 172, ../scss/partials/_game.scss */
+/* line 176, ../scss/partials/_game.scss */
 #translator .card.abject_failure {
   background: red;
 }
