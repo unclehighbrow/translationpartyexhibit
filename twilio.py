@@ -5,6 +5,7 @@ import json
 import logging
 import re
 import random
+import time
 from urllib2 import quote
 import webapp2
 from google.appengine.ext.webapp import template
@@ -95,6 +96,7 @@ def translate(phrase, in_lang):
 	content = re.sub(u'\xEF\xBB\xBF', '', response.content)
 	data = json.loads(content)
 	translated_text = data['Translations'][0]['TranslatedText']
+	time.sleep(.1)
 	return translated_text
 
 
