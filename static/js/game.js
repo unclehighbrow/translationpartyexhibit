@@ -337,13 +337,16 @@ Party.prototype = {
 // party host = this is the controller 
 var HEARTBEAT_TIME = 2000;
 var BETWEEN_PARTIES_TIME = 8000;
+
+//var HEARTBEAT_TIME = 200;
+//var BETWEEN_PARTIES_TIME = 500;
+
 var CARDS_PER_COLUMN = 4;
 var COLUMNS = 4;
 var PHRASE_LIMIT = (CARDS_PER_COLUMN * COLUMNS) - 1;
 var CARD_HEIGHT = 220;
 
 function Party_host(){
-	// console.log("hi, i'm the party host.");
 	this.party_queue = [];
 	this.high_water_time = 1;
 	this.party_count = 0;
@@ -371,6 +374,22 @@ Party_host.prototype = {
 	fetch_fake_party: function(){
 		var fake_party = lol_translations[ Math.floor(Math.random() * lol_translations.length) ];
 		this.add_to_queue( [fake_party] );
+		
+		/* if(this.party_count % 2 == 0){ */
+			var self = this;
+			$.ajax({
+				url: 'ajax', 
+				data: {'op': 'getRandom'},
+				dataType: 'json',
+				jsonp : 'oncomplete',
+				success: function(data){
+					if(typeof data.phrases != 'undefined' && data.phrases.length > 0){
+						self.add_to_queue(data.phrases);
+						console.log('added random');
+					}
+				}
+			});
+		/* } */
 	},
 	
 	add_to_queue: function(newparties){
@@ -385,6 +404,17 @@ Party_host.prototype = {
 	show_promo: function(callback){
 		PANEL_ANIM.set( $('.col') ); 
 		$('.unit:even').html( $('#promo_tpl').html() );
+		
+		/*if(this.party_count % 2 == 0){
+			// there's a better way to do this
+			$('.unit:nth-child(2)').html( Mustache.render($('#gif_tpl').html(), {file: 'ice_cream_cone'}) );
+			$('.unit:nth-child(4)').html( Mustache.render( $('#gif_tpl').html(), {file: 'traffic_cone'}) );
+		}
+		else{
+			$('.unit:nth-child(2)').html( Mustache.render($('#gif_tpl').html(), {file: 'hat'}) );
+			$('.unit:nth-child(4)').html( Mustache.render( $('#gif_tpl').html(), {file: 'traffic_cone'}) );
+		}*/
+		
 		$('.unit:nth-child(2)').html( Mustache.render($('#gif_tpl').html(), {file: 'ice_cream_cone'}) );
 		$('.unit:nth-child(4)').html( Mustache.render( $('#gif_tpl').html(), {file: 'traffic_cone'}) );
 
