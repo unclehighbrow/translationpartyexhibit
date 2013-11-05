@@ -1,9 +1,29 @@
 var PANEL_ANIM = {
 	hide: function($panel){
+		$(this).removeClass('wobble');
 		$panel.transition({scale: .6, opacity: 0}, 200, 'easeOutBack');
 	},
 	show: function($panel){
-		$panel.transition({scale: 1, opacity: 1}, 200, 'easeOutBack');					
+		$panel.transition({scale: 1, opacity: 1}, 200, 'easeOutBack', function(){
+			$(this).addClass('wobble');
+			
+			/*
+			$(this).find('.titletext').rainbow({ 
+				colors: [
+			        '#FF0000',
+			        '#f26522',
+			        '#00a651',
+			        '#28abe2',
+			        '#2e3192',
+			        '#6868ff'
+				],
+				animate: true,
+				animateInterval: 200,
+				pad: false,
+				pauseLength: 100,
+			});*/
+			
+		});					
 	},
 	set: function($panel){
 		$panel.transition({scale: .6, opacity: 0}, 0);
@@ -11,6 +31,7 @@ var PANEL_ANIM = {
 	reset: function($panel){
 		$panel.transition({scale: 1, opacity: 1}, 0);
 	}
+	
 };
 
 
@@ -209,8 +230,12 @@ Party.prototype = {
 
 		// show cols
 		var hide_next_card = function(){
-			// $($cards[this_card]).css({visibility: 'hidden'});
-			$($cards[this_card]).transition({opacity: 0, y: 300, rotate: 30 }, 300);
+			if( $($cards[this_card]).attr('id') == 'translator' ){
+				$($cards[this_card]).transition({opacity: 0, y: 300, rotate: 30, delay: 400 }, 200, 'easeInBack');				
+			}
+			else{
+				$($cards[this_card]).transition({opacity: 0, y: 300, rotate: 30 }, 300);
+			}
 			this_card++
 			if(this_card < $cards.length){
 				setTimeout(hide_next_card, interval);
@@ -327,7 +352,7 @@ Party.prototype = {
 		clearInterval(this.display_interval);
 		var self = this;
 		setTimeout(function(){
-		self.kill_phrases( self.when_party_busted	 );
+		self.kill_phrases( self.when_party_busted	);
 		}, BETWEEN_PARTIES_TIME);
 	}
 	
@@ -403,9 +428,11 @@ Party_host.prototype = {
 
 	show_promo: function(callback){
 		PANEL_ANIM.set( $('.col') ); 
-		$('.unit:even').html( $('#promo_tpl').html() );
 		
-		/*if(this.party_count % 2 == 0){
+		
+		$('.unit:even').html( $('#promo_tpl').html() );
+		/*
+		if(this.party_count % 2 == 0){
 			// there's a better way to do this
 			$('.unit:nth-child(2)').html( Mustache.render($('#gif_tpl').html(), {file: 'ice_cream_cone'}) );
 			$('.unit:nth-child(4)').html( Mustache.render( $('#gif_tpl').html(), {file: 'traffic_cone'}) );
@@ -413,11 +440,12 @@ Party_host.prototype = {
 		else{
 			$('.unit:nth-child(2)').html( Mustache.render($('#gif_tpl').html(), {file: 'hat'}) );
 			$('.unit:nth-child(4)').html( Mustache.render( $('#gif_tpl').html(), {file: 'traffic_cone'}) );
-		}*/
+		}
+		*/
 		
 		$('.unit:nth-child(2)').html( Mustache.render($('#gif_tpl').html(), {file: 'ice_cream_cone'}) );
 		$('.unit:nth-child(4)').html( Mustache.render( $('#gif_tpl').html(), {file: 'traffic_cone'}) );
-
+		
 	
 		var $cols = $('.col');
 		var this_col = $cols.length - 1;
@@ -456,7 +484,7 @@ Party_host.prototype = {
 	
 	consider_next_party: function(){
 		this.fetch_new_parties();
-		if( this.party_count % 3 == 0){ 
+		if( this.party_count % 4 == 0){ 
 			this.show_promo(this.consider_next_party);
 		}
 		else{

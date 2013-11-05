@@ -2381,12 +2381,86 @@ p a.button:link, p a.button:hover, p a.button:visited, p a.button:active {
   padding: 24px 24px 10px;
 }
 
-/* line 14, ../scss/partials/_game.scss */
+@-webkit-keyframes wobble {
+  /* line 15, ../scss/partials/_game.scss */
+  0% {
+    -webkit-transform: rotate(5deg);
+  }
+
+  /* line 16, ../scss/partials/_game.scss */
+  50% {
+    -webkit-transform: rotate(-5deg);
+  }
+
+  /* line 17, ../scss/partials/_game.scss */
+  100% {
+    -webkit-transform: rotate(5deg);
+  }
+}
+
+@-webkit-keyframes shaky {
+  /* line 21, ../scss/partials/_game.scss */
+  0% {
+    -webkit-transform: translate(2px, 1px) rotate(0deg);
+  }
+
+  /* line 22, ../scss/partials/_game.scss */
+  10% {
+    -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+  }
+
+  /* line 23, ../scss/partials/_game.scss */
+  20% {
+    -webkit-transform: translate(-3px, 0px) rotate(1deg);
+  }
+
+  /* line 24, ../scss/partials/_game.scss */
+  30% {
+    -webkit-transform: translate(0px, 2px) rotate(0deg);
+  }
+
+  /* line 25, ../scss/partials/_game.scss */
+  40% {
+    -webkit-transform: translate(1px, -1px) rotate(1deg);
+  }
+
+  /* line 26, ../scss/partials/_game.scss */
+  50% {
+    -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  /* line 27, ../scss/partials/_game.scss */
+  60% {
+    -webkit-transform: translate(-3px, 1px) rotate(0deg);
+  }
+
+  /* line 28, ../scss/partials/_game.scss */
+  70% {
+    -webkit-transform: translate(2px, 1px) rotate(-1deg);
+  }
+
+  /* line 29, ../scss/partials/_game.scss */
+  80% {
+    -webkit-transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  /* line 30, ../scss/partials/_game.scss */
+  90% {
+    -webkit-transform: translate(2px, 2px) rotate(0deg);
+  }
+
+  /* line 31, ../scss/partials/_game.scss */
+  100% {
+    -webkit-transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+/* line 34, ../scss/partials/_game.scss */
 body {
   overflow: hidden;
 }
 
-/* line 18, ../scss/partials/_game.scss */
+/* line 38, ../scss/partials/_game.scss */
 #outer {
   font-weight: bold;
   text-transform: uppercase;
@@ -2401,18 +2475,18 @@ body {
   table-layout: fixed;
   border-spacing: 150px 10px;
 }
-/* line 33, ../scss/partials/_game.scss */
+/* line 53, ../scss/partials/_game.scss */
 #outer .unit {
   display: table-cell;
 }
 
-/* line 38, ../scss/partials/_game.scss */
+/* line 58, ../scss/partials/_game.scss */
 .wrap {
   position: relative;
   width: 100%;
   height: 100%;
 }
-/* line 42, ../scss/partials/_game.scss */
+/* line 62, ../scss/partials/_game.scss */
 .wrap .frame {
   position: absolute;
   bottom: 0;
@@ -2420,7 +2494,7 @@ body {
   width: 100%;
 }
 
-/* line 57, ../scss/partials/_game.scss */
+/* line 77, ../scss/partials/_game.scss */
 .card {
   height: 240px;
   overflow: hidden;
@@ -2438,21 +2512,21 @@ body {
   color: black;
   font-size: 32px;
 }
-/* line 67, ../scss/partials/_game.scss */
+/* line 87, ../scss/partials/_game.scss */
 .card.new {
   background-color: #fff;
 }
-/* line 71, ../scss/partials/_game.scss */
+/* line 91, ../scss/partials/_game.scss */
 .card .doc_content {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 74, ../scss/partials/_game.scss */
+/* line 94, ../scss/partials/_game.scss */
 .card .small {
   font-size: 16px;
 }
-/* line 77, ../scss/partials/_game.scss */
+/* line 97, ../scss/partials/_game.scss */
 .card.fixed {
   background-color: white;
   position: fixed;
@@ -2462,89 +2536,96 @@ body {
   width: 100%;
 }
 
-/* line 87, ../scss/partials/_game.scss */
+/* line 107, ../scss/partials/_game.scss */
 .muted {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(0, 0, 0, 0.4);
 }
-/* line 89, ../scss/partials/_game.scss */
+/* line 109, ../scss/partials/_game.scss */
 .inverted .muted {
   color: rgba(255, 255, 255, 0.6);
 }
 
-/* line 94, ../scss/partials/_game.scss */
+/* line 114, ../scss/partials/_game.scss */
 .promo_info, #translator {
   line-height: 1.3;
 }
-/* line 96, ../scss/partials/_game.scss */
+/* line 116, ../scss/partials/_game.scss */
 .promo_info p, #translator p {
   margin-bottom: 24px;
 }
 
-/* line 101, ../scss/partials/_game.scss */
+/* line 121, ../scss/partials/_game.scss */
 .vertical_center {
   display: -webkit-box;
   -webkit-box-pack: center;
   -webkit-box-align: center;
 }
 
-/* line 107, ../scss/partials/_game.scss */
+/* line 127, ../scss/partials/_game.scss */
 .big {
   font-size: 110px;
   line-height: 1em;
 }
 
-/* line 111, ../scss/partials/_game.scss */
+/* line 131, ../scss/partials/_game.scss */
 .medium {
   font-size: 70px;
 }
 
-/* line 114, ../scss/partials/_game.scss */
+/* line 134, ../scss/partials/_game.scss */
 .mediumer {
   font-size: 50px;
 }
 
-/* line 118, ../scss/partials/_game.scss */
+/* line 138, ../scss/partials/_game.scss */
 .promo_info {
   background: #ffd200;
   height: 100%;
   color: black;
+  /*
+  .titletext{
+  	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,0,0,1)),color-stop(15%,rgba(255,255,0,1)),color-stop(30%,rgba(0,255,0,1)),color-stop(50%,rgba(0,255,255,1)),color-stop(65%,rgba(0,0,255,1)),color-stop(80%,rgba(255,0,255,1)),color-stop(100%,rgba(255,0,0,1)));
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color:transparent;
+  }
+  */
 }
-/* line 124, ../scss/partials/_game.scss */
+/* line 145, ../scss/partials/_game.scss */
 .promo_info .blue {
   color: #0095ff;
 }
-
-@-webkit-keyframes wobble {
-  /* line 130, ../scss/partials/_game.scss */
-  0% {
-    -webkit-transform: rotate(5deg);
-  }
-
-  /* line 131, ../scss/partials/_game.scss */
-  50% {
-    -webkit-transform: rotate(-5deg);
-  }
-
-  /* line 132, ../scss/partials/_game.scss */
-  100% {
-    -webkit-transform: rotate(5deg);
-  }
+/* line 148, ../scss/partials/_game.scss */
+.promo_info .wobbler {
+  display: inline-block;
 }
 
-/* line 135, ../scss/partials/_game.scss */
+/* line 163, ../scss/partials/_game.scss */
 .promo_animation {
   width: 100%;
   height: 100%;
   text-align: center;
   background: red;
 }
-/* line 140, ../scss/partials/_game.scss */
+/* line 168, ../scss/partials/_game.scss */
 .promo_animation img {
   display: inline-block;
-  -webkit-animation: wobble 3s infinite;
 }
 
-/* line 146, ../scss/partials/_game.scss */
+/* line 175, ../scss/partials/_game.scss */
+.wobble .wobbler {
+  -webkit-animation: shaky 4s infinite;
+}
+
+/* line 181, ../scss/partials/_game.scss */
+#tword {
+  -webkit-animation-name: shaky;
+  -webkit-animation-duration: 0.8s;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+
+/* line 189, ../scss/partials/_game.scss */
 #translator {
   height: 100%;
   width: 100%;
@@ -2558,7 +2639,7 @@ body {
   left: 0;
   border-top: 16px solid black;
 }
-/* line 155, ../scss/partials/_game.scss */
+/* line 198, ../scss/partials/_game.scss */
 #translator.flipped .flipper {
   -webkit-transform: rotateX(-180deg);
   -moz-transform: rotateX(-180deg);
@@ -2566,7 +2647,7 @@ body {
   -o-transform: rotateX(-180deg);
   transform: rotateX(-180deg);
 }
-/* line 160, ../scss/partials/_game.scss */
+/* line 204, ../scss/partials/_game.scss */
 #translator .flipper {
   -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -moz-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2581,7 +2662,7 @@ body {
   width: 100%;
   height: 100%;
 }
-/* line 167, ../scss/partials/_game.scss */
+/* line 211, ../scss/partials/_game.scss */
 #translator .flipper .front, #translator .flipper .back {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -2598,11 +2679,11 @@ body {
   -o-transition: none;
   transition: none;
 }
-/* line 177, ../scss/partials/_game.scss */
+/* line 221, ../scss/partials/_game.scss */
 #translator .flipper .front {
   z-index: 2;
 }
-/* line 181, ../scss/partials/_game.scss */
+/* line 225, ../scss/partials/_game.scss */
 #translator .flipper .back {
   -webkit-transform: rotateX(180deg);
   -moz-transform: rotateX(180deg);
@@ -2610,17 +2691,17 @@ body {
   -o-transform: rotateX(180deg);
   transform: rotateX(180deg);
 }
-/* line 187, ../scss/partials/_game.scss */
+/* line 231, ../scss/partials/_game.scss */
 #translator .card {
   background: #0095ff;
   color: white;
   border: 0;
 }
-/* line 191, ../scss/partials/_game.scss */
+/* line 235, ../scss/partials/_game.scss */
 #translator .card.success {
   background: green;
 }
-/* line 194, ../scss/partials/_game.scss */
+/* line 238, ../scss/partials/_game.scss */
 #translator .card.abject_failure {
   background: red;
 }
