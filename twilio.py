@@ -88,15 +88,34 @@ def translate(phrase, in_lang):
 		out_lang = 'ja'
 	else:
 		out_lang = 'en'
-	url = 'http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslations?appId=F2926FC35C3732CEC3E9C92913745F9C28912821&from=' + in_lang + '&to=' + out_lang + '&maxTranslations=1'
-	url += '&text=' +quote(phrase.encode('utf-8'))
-
-	response = urlfetch.fetch(url=url)
 	
-	content = re.sub(u'\xEF\xBB\xBF', '', response.content)
-	data = json.loads(content)
-	translated_text = data['Translations'][0]['TranslatedText']
-	time.sleep(.1)
+	if True:
+		url = 'http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslations?appId=F2926FC35C3732CEC3E9C92913745F9C28912821&from=' + in_lang + '&to=' + out_lang + '&maxTranslations=1'
+		url += '&text=' + quote(phrase.encode('utf-8'))
+
+		response = urlfetch.fetch(url=url)
+	
+		content = re.sub(u'\xEF\xBB\xBF', '', response.content)
+		data = json.loads(content)
+		translated_text = data['Translations'][0]['TranslatedText']
+		time.sleep(.1)
+	else:
+		url = 'https://www.googleapis.com/language/translate/v2?'
+		url += '&source=' + in_lang
+		url += '&target=' + out_lang
+		url += '&q=' + quote(phrase.encode('utf-8'))
+		url += '&key=' + 'AIzaSyAI3PoUAJ_uP0o33EDgUfSEUMALepQAaNA'
+		
+		logging.error(url)
+		
+		content = urlfetch.fetch(url=url).content
+		logging.error(content)
+		data = json.loads(content)
+		
+		translated_text = data['data']['translations'][0]['translatedText']
+		
+		
+		
 	return translated_text
 
 
