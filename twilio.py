@@ -106,10 +106,7 @@ def translate(phrase, in_lang):
 		url += '&q=' + quote(phrase.encode('utf-8'))
 		url += '&key=' + 'AIzaSyAI3PoUAJ_uP0o33EDgUfSEUMALepQAaNA'
 		
-		logging.error(url)
-		
 		content = urlfetch.fetch(url=url).content
-		logging.error(content)
 		data = json.loads(content)
 		
 		translated_text = data['data']['translations'][0]['translatedText']
