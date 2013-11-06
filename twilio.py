@@ -54,7 +54,11 @@ class TwilioHandler(webapp2.RequestHandler):
 						#logging.error(translated_text)
 						last_result = translated_text
 				if len(phrase_queue) <= 5:
-					template_values['holler_back'] = "I don't think that one's going to be that good. I think you can do better. Try a famous quote or a song lyric!"
+					if len(body.split(' ')) < 5:
+						template_values['holler_back'] = "That one's a little short. I think you can do better. Try a famous quote or a song lyric!"
+					else:
+						template_values['holler_back'] = "I don't think that one's going to be that good. I think you can do better. Try a famous quote or a song lyric!"
+
 					return self.response.out.write(template.render('twilio.xml', template_values))
 
 			# this happens if be translate is on or not
