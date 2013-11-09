@@ -1,28 +1,13 @@
 var PANEL_ANIM = {
 	hide: function($panel){
 		$(this).removeClass('wobble');
-		$panel.transition({scale: .6, opacity: 0}, 200, 'easeOutBack');
+		setTimeout(function(){
+			$panel.transition({scale: .6, opacity: 0}, 300);			
+		}, 1);
 	},
 	show: function($panel){
-		$panel.transition({scale: 1, opacity: 1}, 200, 'easeOutBack', function(){
+		$panel.transition({scale: 1, opacity: 1}, 300, 'easeOutBack', function(){
 			$(this).addClass('wobble');
-			
-			/*
-			$(this).find('.titletext').rainbow({ 
-				colors: [
-			        '#FF0000',
-			        '#f26522',
-			        '#00a651',
-			        '#28abe2',
-			        '#2e3192',
-			        '#6868ff'
-				],
-				animate: true,
-				animateInterval: 200,
-				pad: false,
-				pauseLength: 100,
-			});*/
-			
 		});					
 	},
 	set: function($panel){
@@ -135,8 +120,10 @@ Party.prototype = {
 		if( $cards.length > max_cards ){
 			var $excess_card = $cards.first();
 			var $excess_card_clone = $excess_card.clone();
-			if( $realcol.is('.col:first') && $realcol.find('.card.fixed').length == 0 ){
-				$excess_card_clone.appendTo($realcol).addClass('fixed');
+			if( $realcol.is('.col:first') ){
+				if( $realcol.find('.card.fixed').length == 0 ){
+					$excess_card_clone.appendTo($realcol).addClass('fixed');
+				}
 				$excess_card.remove();
 			}
 			else{
@@ -230,12 +217,19 @@ Party.prototype = {
 
 		// show cols
 		var hide_next_card = function(){
+			
+			/*
 			if( $($cards[this_card]).attr('id') == 'translator' ){
-				$($cards[this_card]).transition({opacity: 0, y: 300, rotate: 30, delay: 400 }, 200, 'easeInBack');				
+				$($cards[this_card]).transition({ y: -1000, x: 2000, rotate: 30, }, 300 );				
 			}
 			else{
-				$($cards[this_card]).transition({opacity: 0, y: 300, rotate: 30 }, 300);
+				$($cards[this_card]).transition({ y: 1600, rotate: 30 }, 500, 'easeInBack');
 			}
+			*/
+			
+			$($cards[this_card]).transition({ y: 1600, rotate: 30 }, 500, 'easeInBack');
+			
+			
 			this_card++
 			if(this_card < $cards.length){
 				setTimeout(hide_next_card, interval);

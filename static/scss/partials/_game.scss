@@ -74,6 +74,12 @@ $cards_per_column: 4;
 $card_h: $screen_h / $cards_per_column;
 
 
+.drop, .frame, .col, .wobbler, #tword{
+	// performance stuff?
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+}
+
 .card{
 	height: $card_h;
 	overflow: hidden;
@@ -177,7 +183,7 @@ $card_h: $screen_h / $cards_per_column;
 	}
 }
 
-
+/*
 #tword{
 	-webkit-animation-name: shaky;
 	-webkit-animation-duration: 0.8s;
@@ -185,6 +191,7 @@ $card_h: $screen_h / $cards_per_column;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-timing-function: linear;
 }
+*/
 
 #translator{
 	height: 100%;
@@ -197,6 +204,9 @@ $card_h: $screen_h / $cards_per_column;
 	&.flipped{
 		.flipper{
 			@include rotateX(-180deg);
+		}
+		#tword{
+			-webkit-animation-name: none;
 		}
 	}
 	
