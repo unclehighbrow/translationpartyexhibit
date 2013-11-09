@@ -45,7 +45,7 @@ class AjaxHandler(webapp2.RequestHandler):
 			rando = random.randint(1, 1000)
 			parties = db.GqlQuery("SELECT * FROM Party WHERE rando > :1 ORDER BY rando", rando).fetch(1)
 			if not parties:
-				parties = db.GqlQuery("SELECT * FROM Party WHERE rando < :1 ORDER BY rando DESC", rando).fetch(1)
+				parties = db.GqlQuery("SELECT * FROM Party WHERE rando <= :1 ORDER BY rando DESC", rando).fetch(1)
 			ret['phrases'] = [party_to_dict(party) for party in parties]
 		else:
 			ret['status'] = 'error'

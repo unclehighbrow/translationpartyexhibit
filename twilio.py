@@ -5,6 +5,7 @@ import json
 import logging
 import re
 import random
+import time
 from urllib2 import quote
 import webapp2
 from google.appengine.ext.webapp import template
@@ -26,7 +27,7 @@ class TwilioHandler(webapp2.RequestHandler):
 		body = self.request.get('Body')
 
 		try:
-			if re.match(r'.*?(fuck|\b(anal|anus|arse|ass|ballsack|balls|bastard|bitch|biatch|bloody|blowjob|blow job|bollock|bollok|boner|boob|bugger|butt|buttplug|clitoris|cock|coon|crap|cunt|damn|dick|dildo|dyke|fag|feck|fellate|fellatio|felching|fuck|f u c k|fudgepacker|fudge packer|Goddamn|God damn|hell|homo|jizz|knobend|knob end|labia|muff|nigger|nigga|penis|piss|poop|prick|pube|pussy|queer|scrotum|shit|s hit|sh1t|slut|smegma|spunk|tit|tosser|turd|twat|vagina|wank|whore)(e?s)?\b).*', body, re.IGNORECASE):
+			if re.match(r'.*?(fuck|shit|\b(anal|anus|arse|ass|ball\s*sack?|balls|bastard|bitch|biatch|bloody|blowjob|blow job|bollock|bollok|boner|boob|bugger|butt|buttplug|clitoris|cock|coon|crap|cunt|damn|dick|dildo|dyke|fag|feck|fellate|fellatio|felching|fuck|f u c k|fudgepacker|fudge packer|Goddamn|God damn|hell|homo|jizz|knobend|knob end|labia|muff|nigger|nigga|penis|piss|poop|prick|pube|pussy|queer|scrotum|shit|s hit|sh1t|slut|smegma|spunk|tit|tosser|turd|twat|vagina|wank|whore)(e?s)?\b).*', body, re.IGNORECASE):
 				template_values['holler_back'] = "Hey, now. This is a family museum. Let's keep it clean."
 				return self.response.out.write(template.render('twilio.xml', template_values))
 
@@ -53,7 +54,15 @@ class TwilioHandler(webapp2.RequestHandler):
 						#logging.error(translated_text)
 						last_result = translated_text
 				if len(phrase_queue) <= 5:
+<<<<<<< HEAD
 					template_values['holler_back'] = "That one's not going to work :( I think you can do better. Try a famous quote or a song lyric!"
+=======
+					if len(body.split(' ')) < 5:
+						template_values['holler_back'] = "That one's a little short. I think you can do better. Try a famous quote or a song lyric!"
+					else:
+						template_values['holler_back'] = "I don't think that one's going to be that good. I think you can do better. Try a famous quote or a song lyric!"
+
+>>>>>>> 365c102cb64835e2c15e195f50605e3de49147d1
 					return self.response.out.write(template.render('twilio.xml', template_values))
 
 			# this happens if be translate is on or not
@@ -87,14 +96,31 @@ def translate(phrase, in_lang):
 		out_lang = 'ja'
 	else:
 		out_lang = 'en'
-	url = 'http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslations?appId=F2926FC35C3732CEC3E9C92913745F9C28912821&from=' + in_lang + '&to=' + out_lang + '&maxTranslations=1'
-	url += '&text=' +quote(phrase.encode('utf-8'))
-
-	response = urlfetch.fetch(url=url)
 	
-	content = re.sub(u'\xEF\xBB\xBF', '', response.content)
-	data = json.loads(content)
-	translated_text = data['Translations'][0]['TranslatedText']
+	if True:
+		url = 'http://api.microsofttranslator.com/V2/Ajax.svc/GetTranslations?appId=F2926FC35C3732CEC3E9C92913745F9C28912821&from=' + in_lang + '&to=' + out_lang + '&maxTranslations=1'
+		url += '&text=' + quote(phrase.encode('utf-8'))
+
+		response = urlfetch.fetch(url=url)
+	
+		content = re.sub(u'\xEF\xBB\xBF', '', response.content)
+		data = json.loads(content)
+		translated_text = data['Translations'][0]['TranslatedText']
+		time.sleep(.1)
+	else:
+		url = 'https://www.googleapis.com/language/translate/v2?'
+		url += '&source=' + in_lang
+		url += '&target=' + out_lang
+		url += '&q=' + quote(phrase.encode('utf-8'))
+		url += '&key=' + 'AIzaSyAI3PoUAJ_uP0o33EDgUfSEUMALepQAaNA'
+		
+		content = urlfetch.fetch(url=url).content
+		data = json.loads(content)
+		
+		translated_text = data['data']['translations'][0]['translatedText']
+		
+		
+		
 	return translated_text
 
 
