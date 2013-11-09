@@ -15,7 +15,7 @@ class Person(db.Model):
 	country = db.StringProperty(required=False, indexed=True)
 
 class Party(db.Model):
-	phrase = db.StringProperty(required=True, indexed=True)
+	phrase = db.StringProperty(required=True, indexed=True, multiline=True)
 	count = db.IntegerProperty(required=False, indexed=True)
 	source = db.StringProperty(required=False, indexed=True)
 	from_person = db.StringProperty(required=False, indexed=True)
