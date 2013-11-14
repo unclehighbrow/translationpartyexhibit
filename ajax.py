@@ -62,7 +62,7 @@ def party_to_dict(party):
 	ret['t'] = party.phrase
 	ret['id'] = str(party.key().id())
 	ret['count'] = party.count
-	ret['ctime'] = str(party.ctime + datetime.timedelta(seconds=1))[0:19]
+	ret['ctime'] = party.ctime[0:19]
 	partier = None
 	if party.source == 'twitter':
 		person = db.GqlQuery("SELECT * FROM Person WHERE name = :1", party.from_person).get()
@@ -73,6 +73,8 @@ def party_to_dict(party):
 		if person is not None:
 			if person.name is not None and person.name != '':
 				partier = {'name': person.name}
+			elif person.city is None or person.city == '': 
+				partier = {'name': 'Somebody'} 
 			else:
 				partier = {'name': 'Somebody from ' + person.city}
 	if partier is None:
