@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>(*admin*)</h1>
+      {% if parties %}
+      <h2>recent parties</h2>
+      <ul>
+        {% for party in parties %}
+          <li>{{party.t}} <a href="/admin?delete_party={{party.id}}" onclick="return confirm('sure?')">x</a></li>
+        {% endfor %}
+      </ul>
+    
+      <h2>curses</h2>
+      <ul>
+        <li>fuck <a href="/admin?delete_curse={{curse.id}}" onclick="return confirm('sure?')">x</a></li>
+        <form action="/admin">
+          <li><input type="text" name="new_curse"> <button>new</button>
+        </form>
+      </ul>
+      {% else %}
+        Yay! <a href="/admin">back</a>
+      {% endif %}
+  </div>
+  </body>
+</html>

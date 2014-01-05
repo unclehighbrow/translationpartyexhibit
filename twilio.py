@@ -25,9 +25,10 @@ class TwilioHandler(webapp2.RequestHandler):
 		from_zip = self.request.get('FromZip')
 		from_country = self.request.get('FromCountry')
 		body = self.request.get('Body')
-
+		swears = r'.*?(dix|fuck|gay|pinus|shit|\b(a hole|anal|anus|arse|ass|ball\s*sack?|balls|bastard|bitch|biatch|bloody|blowjob|blow job|bollock|bollok|boner|boob|bugger|butt|buttplug|clitoris|cock|coon|crap|cum|cunt|d|damn|dick|dildo|dyke|fag|feck|fellate|fellatio|felching|fuck|f u c k|fudgepacker|fudge packer|gay|Goddamn|God damn|hell|homo|jizz|knobend|knob end|labia|muff|nigger|nigga|nut|penis|piss|poop|prick|pube|pussy|queer|scrotum|shit|s hit|sh1t|slut|smegma|spunk|tit|tosser|turd|twat|vagina|wank|whore)(e?s)?\b).*'
+		
 		try:
-			if re.match(r'.*?(dix|fuck|gay|pinus|shit|\b(a hole|anal|anus|arse|ass|ball\s*sack?|balls|bastard|bitch|biatch|bloody|blowjob|blow job|bollock|bollok|boner|boob|bugger|butt|buttplug|clitoris|cock|coon|crap|cum|cunt|d|damn|dick|dildo|dyke|fag|feck|fellate|fellatio|felching|fuck|f u c k|fudgepacker|fudge packer|gay|Goddamn|God damn|hell|homo|jizz|knobend|knob end|labia|muff|nigger|nigga|nut|penis|piss|poop|prick|pube|pussy|queer|scrotum|shit|s hit|sh1t|slut|smegma|spunk|tit|tosser|turd|twat|vagina|wank|whore)(e?s)?\b).*', body, re.IGNORECASE):
+			if re.match(swears, body, re.IGNORECASE):
 				template_values['holler_back'] = "Hey, now. This is a family museum. Let's keep it clean."
 				return self.response.out.write(template.render('twilio.xml', template_values))
 
@@ -39,6 +40,10 @@ class TwilioHandler(webapp2.RequestHandler):
 				phrase_queue.append({'lang': lang, 'string': last_result})
 				while not finished:
 					translated_text = translate(last_result, lang)
+					if re.match(swears, translated_text, re.IGNORECASE):
+						template_values['holler_back'] = "Hey, now. This is a family museum. Let's keep it clean."
+						return self.response.out.write(template.render('twilio.xml', template_values))
+						
 					if lang == 'en':
 						lang = 'ja'
 					else:
