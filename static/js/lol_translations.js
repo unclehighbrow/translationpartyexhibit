@@ -74,7 +74,7 @@ var lol_translations = [
 
 {
 	"partier": {"name": "someone from Stamford"},
-	"t": "I'll get you, my pretty, and your little dog too!",
+	"t": "Ain't no party like a translation party cause a translation party don't stop",
 	"phrase_queue": [{
 	"lang": "en",
 	"string": "Ain't no party like a translation party cause a translation party don't stop"
