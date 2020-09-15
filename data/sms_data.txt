@@ -1,0 +1,6 @@
+Rejected for swears: 138
+Rejected for boringness: 1832 (780 of those being too short)
+First timers: 1326
+Second timers: 2424 (includes people who failed the first time)
+Errors for some reason: 215
+Total: 5935

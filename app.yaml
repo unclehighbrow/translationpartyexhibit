@@ -1,8 +1,11 @@
-application: translationpartyexhibit
+application: s~translationpartyexhibit
 version: 1
 runtime: python27
 api_version: 1
 threadsafe: yes
+
+builtins:
+- remote_api: on
 
 handlers:
 - url: /favicon\.ico
@@ -11,6 +14,9 @@ handlers:
 
 - url: /ajax
   script: ajax.app
+
+- url: /csv
+  script: csv.app
   
 - url: /twilio
   script: twilio.app
